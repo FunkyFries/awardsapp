@@ -1,0 +1,35 @@
+{
+  "name": "nextjs-boilerplate",
+  "version": "1.0.0",
+  "description": "NextJS boilerplate with Typescript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/FunkyFries/NextJS-Typescript-Boilerplate.git"
+  },
+  "author": "Ryan Leach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FunkyFries/NextJS-Typescript-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/FunkyFries/NextJS-Typescript-Boilerplate#readme",
+  "dependencies": {
+    "@types/react": "^16.8.22",
+    "@types/styled-components": "^4.1.16",
+    "@zeit/next-typescript": "^1.1.1",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "next": "^8.1.0",
+    "prettier": "^1.18.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.3.2"
+  }
+}
