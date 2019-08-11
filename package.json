@@ -1,35 +1,32 @@
 {
-  "name": "nextjs-boilerplate",
+  "name": "awardsapp",
   "version": "1.0.0",
-  "description": "NextJS boilerplate with Typescript",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "type-check": "tsc"
+    "start": "next start"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/FunkyFries/NextJS-Typescript-Boilerplate.git"
+    "url": "git+https://github.com/FunkyFries/awardsapp.git"
   },
-  "author": "Ryan Leach",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FunkyFries/NextJS-Typescript-Boilerplate/issues"
+    "url": "https://github.com/FunkyFries/awardsapp/issues"
   },
-  "homepage": "https://github.com/FunkyFries/NextJS-Typescript-Boilerplate#readme",
+  "homepage": "https://github.com/FunkyFries/awardsapp#readme",
   "dependencies": {
-    "@types/react": "^16.8.22",
-    "@types/styled-components": "^4.1.16",
-    "@zeit/next-typescript": "^1.1.1",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "next": "^8.1.0",
-    "prettier": "^1.18.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "styled-components": "^4.3.2"
+    "next": "^9.0.3",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.1",
+    "@types/react": "^16.9.1",
+    "typescript": "^3.5.3"
   }
 }
