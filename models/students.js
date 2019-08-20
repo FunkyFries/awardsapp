@@ -13,13 +13,21 @@ const Student = mongoose.model(
       type: String,
       required: true
     },
-    grade: {
-      type: String,
-      enum: ["K", "1", "2", "3", "4", "5", "6"],
+    aHonorRoll: {
+      type: Boolean,
       required: true
     },
-    awards: {
-      type: Array
+    abHonorRoll: {
+      type: Boolean,
+      required: true
+    },
+    terrificKid: {
+      type: Boolean,
+      required: true
+    },
+    threeR: {
+      type: String,
+      required: true
     }
   })
 );

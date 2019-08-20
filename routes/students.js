@@ -7,7 +7,6 @@ const {
 const router = express.Router();
 
 function ensureAuthenticated(req, res, next) {
-  // console.log(req.user);
   if (req.isAuthenticated()) {
     return next();
   }
@@ -51,15 +50,15 @@ router.post("/", ensureAuthenticated, async (req, res) => {
 
 // Update student
 router.put("/:id", ensureAuthenticated, async (req, res) => {
-  const { error } = validateUpdate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = validateUpdate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   const student = await Student.findOneAndUpdate(
-    req.params.id,
+    { _id: req.params.id },
+    req.body,
     {
-      awards: req.body.awards
-    },
-    { new: true }
+      new: true
+    }
   );
 
   if (!student) return res.status(404).send("Student not found.");

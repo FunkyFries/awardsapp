@@ -52,6 +52,7 @@ app.prepare().then(() => {
           if (currentUser) {
             done(null, currentUser);
           } else {
+            console.log("else...");
             new User({
               profileId: profile.id,
               email: profile.EmailAddress
