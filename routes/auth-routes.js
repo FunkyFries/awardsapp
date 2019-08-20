@@ -3,20 +3,15 @@ const passport = require("passport");
 const router = express.Router();
 
 // Auth with outlook
-router.get(
-  "/outlook",
-  passport.authenticate("windowslive", {
-    scope: ["openid", "profile", "offline_access"]
-  })
-);
+router.get("/outlook", passport.authenticate("azure_ad_oauth2"));
 
 // Callback route for outlook strategy
 router.get(
   "/outlook/callback",
-  passport.authenticate("windowslive", { failureRedirect: "/outlook" }),
+  passport.authenticate("azure_ad_oauth2", { failureRedirect: "/outlook" }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:8080/students");
+    res.redirect("http://localhost:8080/awards");
   }
 );
 

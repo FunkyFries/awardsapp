@@ -4,7 +4,8 @@ const next = require("next");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const { User } = require("./models/users");
-const OutlookStrategy = require("passport-outlook");
+const AzureAdOAuth2Strategy = require("passport-azure-ad-oauth2");
+const jwt = require("jsonwebtoken");
 const cookieSession = require("cookie-session");
 const authRoutes = require("./routes/auth-routes");
 const studentRoutes = require("./routes/students");
@@ -37,32 +38,39 @@ app.prepare().then(() => {
     })
   );
 
-  // Configure OutlookStrategy
+  //Configure Azure Strategy
   passport.use(
-    new OutlookStrategy(
+    new AzureAdOAuth2Strategy(
       {
         clientID: process.env.OUTLOOK_CLIENT_ID,
         clientSecret: process.env.OUTLOOK_CLIENT_SECRET,
+        callbackURL: "/auth/outlook/callback",
+        // tenant: process.env.TENANT_ID,
+        scope: ["User.read"],
         authorizationURL: process.env.OUTLOOK_AUTHORITY,
-        tokenURL: process.env.OUTLOOK_TOKEN_URL,
-        callbackURL: "/auth/outlook/callback"
+        tokenURL: process.env.OUTLOOK_TOKEN_URL
       },
-      async (accessToken, refreshToken, profile, done) => {
-        await User.findOne({ profileId: profile.id }).then(currentUser => {
-          if (currentUser) {
-            done(null, currentUser);
-          } else {
-            console.log("else...");
-            new User({
-              profileId: profile.id,
-              email: profile.EmailAddress
-            })
-              .save()
-              .then(newUser => {
-                done(null, newUser);
-              });
+      async function(accessToken, refresh_token, params, profile, done) {
+        // currently we can't find a way to exchange access token by user info (see userProfile implementation), so
+        // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
+        var waadProfile = jwt.decode(params.access_token);
+
+        await User.findOne({ email: waadProfile.upn.toLowerCase() }).then(
+          currentUser => {
+            if (currentUser) {
+              done(null, currentUser);
+            } else {
+              new User({
+                profileId: profile.id,
+                email: profile.EmailAddress
+              })
+                .save()
+                .then(newUser => {
+                  done(null, newUser);
+                });
+            }
           }
-        });
+        );
       }
     )
   );
