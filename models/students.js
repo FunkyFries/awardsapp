@@ -25,9 +25,15 @@ const Student = mongoose.model(
       type: Boolean,
       required: true
     },
+    terrificKidChosenBy: {
+      type: String
+    },
     threeR: {
       type: String,
       required: true
+    },
+    image: {
+      type: String
     }
   })
 );

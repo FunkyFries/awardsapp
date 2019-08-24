@@ -8,11 +8,24 @@ const IntermediateAwardForm: NextPage<{
   aHonorRoll: boolean;
   abHonorRoll: boolean;
   terrificKid: boolean;
+  terrificKidChosenBy: string;
   threeR: string;
-}> = ({ id, aHonorRoll, abHonorRoll, terrificKid, threeR }) => {
+  userName: string;
+  role: string;
+}> = ({
+  id,
+  aHonorRoll,
+  abHonorRoll,
+  terrificKid,
+  threeR,
+  userName,
+  terrificKidChosenBy,
+  role
+}) => {
   const [aRoll, toggleAHonorRoll] = useState(aHonorRoll);
   const [abRoll, toggleABHonorRoll] = useState(abHonorRoll);
-  const [terrific, toggleTerrific] = useState(terrificKid);
+  const [terrific, setTerrific] = useState(terrificKid);
+  const [terrificChooser, setTerrificChooser] = useState(terrificKidChosenBy);
   const [threeRAward, setThreeR] = useState(threeR);
 
   useEffect(() => {
@@ -20,9 +33,20 @@ const IntermediateAwardForm: NextPage<{
       aHonorRoll: aRoll,
       abHonorRoll: abRoll,
       terrificKid: terrific,
+      terrificKidChosenBy: terrificChooser,
       threeR: threeRAward
     });
-  }, [aRoll, abRoll, terrific, threeRAward]);
+  }, [aRoll, abRoll, terrific, terrificChooser, threeRAward]);
+
+  function handleChange() {
+    if (terrificChooser === "null") {
+      setTerrific(true);
+      setTerrificChooser(userName);
+    } else if (terrificChooser === userName) {
+      setTerrific(false);
+      setTerrificChooser("null");
+    }
+  }
 
   return (
     <Form>
@@ -44,18 +68,20 @@ const IntermediateAwardForm: NextPage<{
         type="checkbox"
         label="Terrific Kid"
         id="terrificKid"
-        onChange={() => toggleTerrific(!terrific)}
+        onChange={handleChange}
         checked={!!terrific}
+        disabled={role === "teacher"}
       />
       <Form.Label>3R Award</Form.Label>
       <Form.Control
+        inline
         as="select"
         id="threeR"
         value={threeRAward}
         onChange={(e: any) => setThreeR(e.target.value)}
       >
         <option value="none" defaultChecked>
-          None
+          none
         </option>
         <option value="respect">Respect</option>
         <option value="responsibility">Responsibility</option>

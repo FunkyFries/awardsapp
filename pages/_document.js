@@ -29,8 +29,10 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html language="en">
         <Head>
+          <meta charset="UTF-8" />
+          <meta http-equiv="Content-Language" content="en" />
           <link
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
