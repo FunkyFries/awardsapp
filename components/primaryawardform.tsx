@@ -43,8 +43,8 @@ const PrimaryAwardForm: NextPage<{
         checked={!!terrific}
         disabled={role === "teacher"}
       />
-      <Form.Label>3R Award</Form.Label>
       <Form.Control
+        style={{ marginTop: "1rem" }}
         as="select"
         id="threeR"
         value={threeRAward}
@@ -54,9 +54,9 @@ const PrimaryAwardForm: NextPage<{
         <option value="none" defaultChecked>
           none
         </option>
-        <option value="respect">Respect</option>
-        <option value="responsibility">Responsibility</option>
-        <option value="relationship">Relationship</option>
+        <option value="Respect">Respect</option>
+        <option value="Responsibility">Responsibility</option>
+        <option value="Relationship">Relationship</option>
       </Form.Control>
     </Form>
   );

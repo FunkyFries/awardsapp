@@ -10,7 +10,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/auth/outlook");
+  res.redirect("/");
 }
 
 // Get all students

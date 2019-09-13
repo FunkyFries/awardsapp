@@ -28,9 +28,15 @@ const Student = mongoose.model(
     terrificKidChosenBy: {
       type: String
     },
+    terrificKidWriteUp: {
+      type: String
+    },
     threeR: {
       type: String,
       required: true
+    },
+    threeRwriteUp: {
+      type: String
     },
     image: {
       type: String

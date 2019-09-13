@@ -7,6 +7,7 @@ import IntermediateAwardForm from "../components/intermediateawardform";
 import PrimaryAwardForm from "../components/primaryawardform";
 import { useEffect } from "react";
 import Router from "next/router";
+import Link from "next/link";
 
 const CardImg = styled.img`
   width: 150px;
@@ -16,15 +17,19 @@ const CardImg = styled.img`
   margin-top: 1rem;
 `;
 
-type Data = {
-  students: any;
-  userName: any;
-  role: any;
-};
+const StyledCard = styled(Card)`
+  width: 15rem;
+  display: inline-flex;
+  margin: 1rem;
+`;
 
-const Awards: NextPage<Data> = data => {
+const Awards: NextPage<{ students: any; role: any; user: any }> = ({
+  students,
+  role,
+  user
+}) => {
   useEffect(() => {
-    if (!data.students) {
+    if (!user || !students) {
       Router.push("/auth/outlook");
     }
   });
@@ -33,13 +38,13 @@ const Awards: NextPage<Data> = data => {
   let filteredStudents = {};
 
   // Filter students assigned to teacher
-  if (data.role === "teacher") {
-    filteredStudents[data.userName] = data.students.filter(
-      student => student.teacher === data.userName
+  if (role === "teacher" && students) {
+    filteredStudents[user] = students.filter(
+      student => student.teacher === user
     );
-  } else {
+  } else if (role && students) {
     // Sort students into groups by teacher
-    const sortedStudents = data.students.reduce((groups, student) => {
+    const sortedStudents = students.reduce((groups, student) => {
       const teacher = student.teacher;
       if (!groups[teacher]) groups[teacher] = [];
 
@@ -53,21 +58,20 @@ const Awards: NextPage<Data> = data => {
   for (const teacher in filteredStudents) {
     StudentCards[teacher] = filteredStudents[teacher].map(student => {
       return (
-        <Card
-          key={student._id}
-          style={{ width: "18rem", display: "inline-flex", margin: "1rem" }}
-        >
+        <StyledCard key={student._id}>
           <CardImg src={student.image} />
-          <Card.Body>
-            <Card.Title>{student.name}</Card.Title>
+          <Card.Body style={{ padding: "1rem" }}>
+            <Card.Title style={{ textAlign: "center" }}>
+              {student.name}
+            </Card.Title>
             {primaryTeachers.indexOf(teacher) > -1 ? (
               <PrimaryAwardForm
                 id={student._id}
                 terrificKid={student.terrificKid}
                 terrificKidChosenBy={student.terrificKidChosenBy}
                 threeR={student.threeR}
-                userName={data.userName}
-                role={data.role}
+                userName={user}
+                role={role}
               />
             ) : (
               <IntermediateAwardForm
@@ -77,12 +81,12 @@ const Awards: NextPage<Data> = data => {
                 terrificKid={student.terrificKid}
                 terrificKidChosenBy={student.terrificKidChosenBy}
                 threeR={student.threeR}
-                userName={data.userName}
-                role={data.role}
+                userName={user}
+                role={role}
               />
             )}
           </Card.Body>
-        </Card>
+        </StyledCard>
       );
     });
   }
@@ -98,30 +102,42 @@ const Awards: NextPage<Data> = data => {
 
   const SingleClass = (
     <div>
-      <h1>{data.userName}</h1>
-      {StudentCards[data.userName]}
+      <h1>{user}</h1>
+      {StudentCards[user]}
     </div>
   );
 
-  const Students = data.role === "teacher" ? SingleClass : AllClasses;
+  const Classes = role === "teacher" ? SingleClass : AllClasses;
 
-  return <>{Students}</>;
+  return (
+    <>
+      {Classes}
+      <Link href="/writeups">
+        <a>To Writeups</a>
+      </Link>
+    </>
+  );
 };
 
 Awards.getInitialProps = async ({ req }) => {
-  const res: any = await axios.get("http://localhost:8080/students", {
-    headers: req.headers,
-    withCredentials: true
-  });
-  const students = res.data.students;
-  let data;
-  if (req.user) {
-    const userName = req.user.name;
-    const role = req.user.role;
-    data = { students, userName, role };
-    return data;
+  let res;
+  let students = { students: [] };
+  if (req && req.headers.cookie !== undefined) {
+    res = await axios.get("http://localhost:8080/students", {
+      headers: {
+        cookie: req.headers.cookie
+      },
+      withCredentials: true
+    });
+    students.students = res.data.students;
+    return students;
+  } else {
+    res = await axios.get("http://localhost:8080/students", {
+      withCredentials: true
+    });
+    students.students = res.data.students;
+    return students;
   }
-  return (data = {});
 };
 
 export default Awards;
