@@ -1,6 +1,5 @@
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import axios from "axios";
 
 type Student = {
   name: string;
@@ -15,10 +14,12 @@ const WriteUpForm: React.FC<Student> = student => {
     setTextValue(e.target.value);
   };
 
+  let awardName = student.threeR.substr(0, student.threeR.indexOf(" "));
+
   return (
     <Form.Group>
       <Form.Label>
-        {student.name}: {student.threeR}
+        {student.name}: {awardName}
       </Form.Label>
       <Form.Control
         id={student._id}

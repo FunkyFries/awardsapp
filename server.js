@@ -4,6 +4,7 @@ const next = require("next");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const { User } = require("./models/users");
+const { Student } = require("./models/students");
 const AzureAdOAuth2Strategy = require("passport-azure-ad-oauth2");
 const jwt = require("jsonwebtoken");
 const cookieSession = require("cookie-session");
@@ -12,6 +13,7 @@ const studentRoutes = require("./routes/students");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const schedule = require("node-schedule");
 
 app.prepare().then(() => {
   const server = express();
@@ -98,6 +100,80 @@ app.prepare().then(() => {
     }
     res.redirect("/auth/outlook");
   };
+
+  // Schedule database updates for each quarter
+  function newQuarterJob() {
+    Student.find({}, function(err, students) {
+      if (err) {
+        console.log("Error!");
+      }
+
+      console.log(students);
+
+      const updatePromises = students.map(student => {
+        if (student.threeR !== "none") {
+          return Student.findOneAndUpdate(
+            { _id: student._id },
+            {
+              $push: { pastAwards: student.threeR },
+              $set: {
+                threeR: "none",
+                aHonorRoll: false,
+                abHonorRoll: false,
+                terrificKid: false,
+                terrificKidChosenBy: "null",
+                terrificKidWriteUp: "",
+                threeRwriteUp: ""
+              }
+            }
+          );
+        }
+        if (student.terrificKid) {
+          return Student.findOneAndUpdate(
+            { _id: student._id },
+            {
+              $push: {
+                pastAwards: `${student.terrificKid} chosen by ${
+                  student.terrificKidChosenBy
+                }`
+              },
+              $set: {
+                threeR: "none",
+                aHonorRoll: false,
+                abHonorRoll: false,
+                terrificKid: false,
+                terrificKidChosenBy: "null",
+                terrificKidWriteUp: "",
+                threeRwriteUp: ""
+              }
+            }
+          );
+        }
+        return Student.findOneAndUpdate(
+          { _id: student._id },
+          {
+            $set: {
+              threeR: "none",
+              aHonorRoll: false,
+              abHonorRoll: false,
+              terrificKid: false,
+              terrificKidChosenBy: "null",
+              terrificKidWriteUp: "",
+              threeRwriteUp: ""
+            }
+          }
+        );
+      });
+
+      Promise.all(updatePromises)
+        .then(console.log("New quarter complete!"))
+        .catch(console.error);
+    });
+  }
+
+  schedule.scheduleJob("* * 20 11 *", newQuarterJob);
+  schedule.scheduleJob("* * 12 2 *", newQuarterJob);
+  schedule.scheduleJob("* * 22 4 *", newQuarterJob);
 
   // handling everything else with Next.js
   server.get("*", (req, res) => {

@@ -40,6 +40,9 @@ const Student = mongoose.model(
     },
     image: {
       type: String
+    },
+    pastAwards: {
+      type: Array
     }
   })
 );
