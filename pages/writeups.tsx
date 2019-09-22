@@ -40,7 +40,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     );
   }
 
-  if (user && students) {
+  if ((role === "teacher" || role === "specialist") && students) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp =
         role === "teacher" ? student.threeRwriteUp : student.terrificKidWriteUp;

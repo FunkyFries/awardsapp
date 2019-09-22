@@ -6,11 +6,12 @@ import moment from "moment";
 
 const PrimaryAwardForm: NextPage<{
   id: string;
-  terrificKid: any;
+  terrificKid: boolean;
   threeR: string;
   userName: string;
   terrificKidChosenBy: string;
   role: string;
+  acceleratedReader: boolean;
   pastAwards: string[];
 }> = ({
   id,
@@ -19,11 +20,13 @@ const PrimaryAwardForm: NextPage<{
   userName,
   terrificKidChosenBy,
   role,
+  acceleratedReader,
   pastAwards
 }) => {
   const [terrific, setTerrific] = useState(terrificKid);
   const [terrificChooser, setTerrificChooser] = useState(terrificKidChosenBy);
   const [threeRAward, setThreeR] = useState(threeR);
+  const [ARaward, setARaward] = useState(acceleratedReader);
 
   let currentQuarter;
   if (moment().isBefore("2019-11-20")) {
@@ -40,9 +43,10 @@ const PrimaryAwardForm: NextPage<{
     axios.put(`/students/${id}`, {
       terrificKid: terrific,
       terrificKidChosenBy: terrificChooser,
-      threeR: threeRAward
+      threeR: threeRAward,
+      acceleratedReader: ARaward
     });
-  }, [terrific, terrificChooser, threeRAward]);
+  }, [terrific, terrificChooser, threeRAward, ARaward]);
 
   function handleChange() {
     if (terrificChooser === "null") {
@@ -58,6 +62,14 @@ const PrimaryAwardForm: NextPage<{
 
   return (
     <Form>
+      <Form.Check
+        type="checkbox"
+        label="Reader of the Quarter"
+        id="ARaward"
+        onChange={() => setARaward(!ARaward)}
+        checked={!!ARaward}
+        disabled={role === "teacher" || role === "specialist"}
+      ></Form.Check>
       <Form.Check
         type="checkbox"
         label="Terrific Kid"

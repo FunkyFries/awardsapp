@@ -30,3 +30,10 @@ export const intermediateTeachers = [
   "Mrs. Helle",
   "Mrs. Kidd"
 ];
+
+export const specialists = [
+  "Mr. Leach",
+  "Mr. Bloomstine",
+  "Mrs. Sievers",
+  "Mr. Neptun"
+];

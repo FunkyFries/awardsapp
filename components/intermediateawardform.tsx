@@ -74,7 +74,7 @@ const IntermediateAwardForm: NextPage<{
       />
       <Form.Label>3R Award</Form.Label>
       <Form.Control
-        inline
+        inline="true"
         as="select"
         id="threeR"
         value={threeRAward}

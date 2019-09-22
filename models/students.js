@@ -41,6 +41,9 @@ const Student = mongoose.model(
     image: {
       type: String
     },
+    acceleratedReader: {
+      type: Boolean
+    },
     pastAwards: {
       type: Array
     }

@@ -120,6 +120,7 @@ app.prepare().then(() => {
                 threeR: "none",
                 aHonorRoll: false,
                 abHonorRoll: false,
+                acceleratedReader: false,
                 terrificKid: false,
                 terrificKidChosenBy: "null",
                 terrificKidWriteUp: "",
@@ -133,14 +134,13 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: `${student.terrificKid} chosen by ${
-                  student.terrificKidChosenBy
-                }`
+                pastAwards: `${student.terrificKid} chosen by ${student.terrificKidChosenBy}`
               },
               $set: {
                 threeR: "none",
                 aHonorRoll: false,
                 abHonorRoll: false,
+                acceleratedReader: false,
                 terrificKid: false,
                 terrificKidChosenBy: "null",
                 terrificKidWriteUp: "",
@@ -156,6 +156,7 @@ app.prepare().then(() => {
               threeR: "none",
               aHonorRoll: false,
               abHonorRoll: false,
+              acceleratedReader: false,
               terrificKid: false,
               terrificKidChosenBy: "null",
               terrificKidWriteUp: "",

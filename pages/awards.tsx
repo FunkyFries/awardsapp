@@ -72,6 +72,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
                 threeR={student.threeR}
                 userName={user}
                 role={role}
+                acceleratedReader={student.acceleratedReader}
                 pastAwards={student.pastAwards}
               />
             ) : (
