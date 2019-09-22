@@ -9,6 +9,7 @@ const IntermediateAwardForm: NextPage<{
   abHonorRoll: boolean;
   terrificKid: boolean;
   terrificKidChosenBy: string;
+  acceleratedReader: boolean;
   threeR: string;
   userName: string;
   role: string;
@@ -17,6 +18,7 @@ const IntermediateAwardForm: NextPage<{
   aHonorRoll,
   abHonorRoll,
   terrificKid,
+  acceleratedReader,
   threeR,
   userName,
   terrificKidChosenBy,
@@ -27,6 +29,7 @@ const IntermediateAwardForm: NextPage<{
   const [terrific, setTerrific] = useState(terrificKid);
   const [terrificChooser, setTerrificChooser] = useState(terrificKidChosenBy);
   const [threeRAward, setThreeR] = useState(threeR);
+  const [ARaward, setARaward] = useState(acceleratedReader);
 
   useEffect(() => {
     axios.put(`/students/${id}`, {
@@ -34,9 +37,10 @@ const IntermediateAwardForm: NextPage<{
       abHonorRoll: abRoll,
       terrificKid: terrific,
       terrificKidChosenBy: terrificChooser,
-      threeR: threeRAward
+      threeR: threeRAward,
+      acceleratedReader: ARaward
     });
-  }, [aRoll, abRoll, terrific, terrificChooser, threeRAward]);
+  }, [aRoll, abRoll, terrific, terrificChooser, threeRAward, ARaward]);
 
   function handleChange() {
     if (terrificChooser === "null") {
@@ -64,6 +68,14 @@ const IntermediateAwardForm: NextPage<{
         onChange={() => toggleABHonorRoll(!abRoll)}
         checked={!!abRoll}
       />
+      <Form.Check
+        type="checkbox"
+        label="Reader of the Quarter"
+        id="ARaward"
+        onChange={() => setARaward(!ARaward)}
+        checked={!!ARaward}
+        disabled={role === "teacher" || role === "specialist"}
+      ></Form.Check>
       <Form.Check
         type="checkbox"
         label="Terrific Kid"

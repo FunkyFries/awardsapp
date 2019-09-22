@@ -82,6 +82,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
                 abHonorRoll={student.abHonorRoll}
                 terrificKid={student.terrificKid}
                 terrificKidChosenBy={student.terrificKidChosenBy}
+                acceleratedReader={student.acceleratedReader}
                 threeR={student.threeR}
                 userName={user}
                 role={role}

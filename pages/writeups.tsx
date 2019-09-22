@@ -20,9 +20,13 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   const handleSubmit = e => {
     e.preventDefault();
     for (let i = 0; i < e.target.length - 1; i++) {
-      axios.put(`/students/${e.target[i].id}`, {
-        threeRwriteUp: e.target[i].value
-      });
+      role === "teacher"
+        ? axios.put(`/students/${e.target[i].id}`, {
+            threeRwriteUp: e.target[i].value
+          })
+        : axios.put(`/students/${e.target[i].id}`, {
+            terrificKidWriteUp: e.target[i].value
+          });
     }
   };
 
