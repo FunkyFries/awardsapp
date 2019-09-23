@@ -32,14 +32,23 @@ router.get("/:id", ensureAuthenticated, async (req, res) => {
 
 // Create a new student
 router.post("/", ensureAuthenticated, async (req, res) => {
-  const { error } = validateStudent(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = validateStudent(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   if (req.user.role === "admin") {
     const student = new Student({
       name: req.body.name,
       teacher: req.body.teacher,
-      grade: req.body.grade
+      aHonorRoll: false,
+      abHonorRoll: false,
+      terrificKid: false,
+      terrificKidChosenBy: "null",
+      terrificKidWriteUp: "",
+      threeR: "none",
+      acceleratedReader: false,
+      threeRwriteUp: "",
+      image: req.body.image,
+      pastAwards: []
     });
     await student.save();
     res.send(student);

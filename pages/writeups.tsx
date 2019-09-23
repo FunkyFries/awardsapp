@@ -42,13 +42,38 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     filteredStudents = students.filter(
       student => student.terrificKidChosenBy === user
     );
+  } else if (role === "admin") {
+    filteredStudents = students
+      .filter(student => student.terrificKid || student.threeR !== "none")
+      .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
   if ((role === "teacher" || role === "specialist") && students) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp =
         role === "teacher" ? student.threeRwriteUp : student.terrificKidWriteUp;
-      return <WriteUpForm {...student} writeUp={writeUp} key={student._id} />;
+      return (
+        <WriteUpForm
+          {...student}
+          writeUp={writeUp}
+          role={role}
+          key={student._id}
+        />
+      );
+    });
+  } else if (role === "admin") {
+    writeUpForm = filteredStudents.map(student => {
+      let writeUp = student.terrificKid
+        ? student.terrificKidWriteUp
+        : student.threeRwriteUp;
+      return (
+        <WriteUpForm
+          {...student}
+          writeUp={writeUp}
+          key={student._id}
+          role={role}
+        ></WriteUpForm>
+      );
     });
   }
 
@@ -60,7 +85,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
       </Link>
       <Form onSubmit={handleSubmit}>
         {writeUpForm}
-        <button>Submit</button>
+        {role === "admin" ? null : <button>Submit</button>}
       </Form>
     </>
   );

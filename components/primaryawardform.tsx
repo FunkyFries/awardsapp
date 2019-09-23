@@ -60,12 +60,25 @@ const PrimaryAwardForm: NextPage<{
 
   const pastAwardsList = pastAwards.map(award => <li key={award}>{award}</li>);
 
+  let disableTerrific;
+  if (
+    (role !== "teacher" &&
+      terrificKidChosenBy !== "null" &&
+      userName === terrificKidChosenBy &&
+      threeR === "none") ||
+    (role !== "teacher" && terrificKidChosenBy === "null" && threeR === "none")
+  ) {
+    disableTerrific = false;
+  } else {
+    disableTerrific = true;
+  }
+
   return (
     <Form>
       <Form.Check
         type="checkbox"
         label="Reader of the Quarter"
-        id="ARaward"
+        id={`AR-${id}`}
         onChange={() => setARaward(!ARaward)}
         checked={!!ARaward}
         disabled={role === "teacher" || role === "specialist"}
@@ -73,17 +86,17 @@ const PrimaryAwardForm: NextPage<{
       <Form.Check
         type="checkbox"
         label="Terrific Kid"
-        id="terrificKid"
+        id={`TerrificKid-${id}`}
         onChange={handleChange}
         checked={!!terrific}
-        disabled={role === "teacher"}
+        disabled={disableTerrific}
       />
       <Form.Control
         style={{ marginTop: "1rem" }}
         as="select"
-        id="threeR"
+        id={`ThreeR-${id}`}
         value={threeRAward}
-        disabled={role === "specialist"}
+        disabled={role === "specialist" || terrificKid}
         onChange={(e: any) => setThreeR(e.target.value)}
       >
         <option value="none" defaultChecked>
@@ -95,7 +108,7 @@ const PrimaryAwardForm: NextPage<{
         </option>
         <option value={`Relationship - ${currentQuarter}`}>Relationship</option>
       </Form.Control>
-      {pastAwards[0] !== "" ? (
+      {pastAwards.length > 0 && pastAwards[0] !== "" ? (
         <>
           <h6>Past Awards:</h6>
           <ul>{pastAwardsList}</ul>
