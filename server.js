@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken");
 const cookieSession = require("cookie-session");
 const authRoutes = require("./routes/auth-routes");
 const studentRoutes = require("./routes/students");
+const userRoutes = require("./routes/users");
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -92,6 +93,7 @@ app.prepare().then(() => {
   server.use(passport.session());
   server.use("/auth", authRoutes);
   server.use("/students", studentRoutes);
+  server.use("/users", userRoutes);
 
   // Restrict Access to Routes
   const ensureAuthenticated = (req, res, next) => {

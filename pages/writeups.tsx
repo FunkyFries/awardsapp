@@ -1,10 +1,27 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import Link from "next/link";
 import Router from "next/router";
+import NavBar from "../components/navbar";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
 import WriteUpForm from "../components/writeUpForm";
+import styled from "styled-components";
+
+const BackgroundDiv = styled.div`
+  display: flex;
+  text-align: center;
+  background: rgb(0, 47, 95);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 47, 95, 0.6404936974789917) 0%,
+    rgba(0, 135, 112, 1) 100%
+  );
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+`;
 
 const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   students,
@@ -17,16 +34,54 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     }
   });
 
+  const [showErr, setShowErr] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  let message;
+
+  const errMessage = (
+    <Alert variant="danger" onClose={() => setShowErr(false)} dismissible>
+      <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+      <p>
+        Change this and that and try again. Duis mollis, est non commodo luctus,
+        nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
+        consectetur purus sit amet fermentum.
+      </p>
+    </Alert>
+  );
+
+  const successMessage = (
+    <Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
+      <Alert.Heading>
+        You did it! Student successfully updated! Go you!
+      </Alert.Heading>
+    </Alert>
+  );
+
+  if (showErr) {
+    message = errMessage;
+  } else if (showSuccess) {
+    message = successMessage;
+  } else {
+    message = null;
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
     for (let i = 0; i < e.target.length - 1; i++) {
       role === "teacher"
-        ? axios.put(`/students/${e.target[i].id}`, {
-            threeRwriteUp: e.target[i].value
-          })
-        : axios.put(`/students/${e.target[i].id}`, {
-            terrificKidWriteUp: e.target[i].value
-          });
+        ? axios
+            .put(`/students/${e.target[i].id}`, {
+              threeRwriteUp: e.target[i].value
+            })
+            .then(res => setShowSuccess(true))
+            .catch(err => setShowErr(true))
+        : axios
+            .put(`/students/${e.target[i].id}`, {
+              terrificKidWriteUp: e.target[i].value
+            })
+            .then(res => setShowSuccess(true))
+            .catch(err => setShowErr(true));
     }
   };
 
@@ -79,14 +134,17 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
 
   return (
     <>
-      <h1>Writeups</h1>
-      <Link href="/awards">
-        <a>Awards</a>
-      </Link>
-      <Form onSubmit={handleSubmit}>
-        {writeUpForm}
-        {role === "admin" ? null : <button>Submit</button>}
-      </Form>
+      <NavBar role={role} path="/writeups"></NavBar>
+      <BackgroundDiv>
+        <Container style={{ overflow: "auto", margin: "2rem auto" }}>
+          {message}
+          <h1 style={{ color: "#f7eded" }}>Writeups</h1>
+          <Form onSubmit={handleSubmit}>
+            {writeUpForm}
+            {role === "admin" ? null : <button>Submit</button>}
+          </Form>
+        </Container>
+      </BackgroundDiv>
     </>
   );
 };

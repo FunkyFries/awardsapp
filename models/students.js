@@ -4,26 +4,25 @@ const mongoose = require("mongoose");
 const Student = mongoose.model(
   "Students",
   new mongoose.Schema({
+    _id: {
+      type: String
+    },
     name: {
       type: String,
       required: true,
       trim: true
     },
     teacher: {
-      type: String,
-      required: true
+      type: String
     },
     aHonorRoll: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     abHonorRoll: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     terrificKid: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     terrificKidChosenBy: {
       type: String
@@ -32,8 +31,7 @@ const Student = mongoose.model(
       type: String
     },
     threeR: {
-      type: String,
-      required: true
+      type: String
     },
     threeRwriteUp: {
       type: String
@@ -52,10 +50,10 @@ const Student = mongoose.model(
 
 function validateStudent(student) {
   const schema = {
+    id: Joi.string().required(),
     name: Joi.string().required(),
-    grade: Joi.string().required(),
     teacher: Joi.string().required(),
-    awards: Joi.array()
+    image: Joi.string().allow("")
   };
   return Joi.validate(student, schema);
 }
@@ -63,9 +61,17 @@ function validateStudent(student) {
 function validateUpdate(student) {
   const schema = {
     name: Joi.string(),
-    grade: Joi.string(),
     teacher: Joi.string(),
-    awards: Joi.array()
+    image: Joi.string().allow(""),
+    aHonorRoll: Joi.boolean(),
+    abHonorRoll: Joi.boolean(),
+    terrificKid: Joi.boolean(),
+    terrificKidChosenBy: Joi.string(),
+    terrificKidWriteUp: Joi.string(),
+    threeR: Joi.string(),
+    threeRwriteUp: Joi.string(),
+    acceleratedReader: Joi.boolean(),
+    pastAwards: Joi.array()
   };
   return Joi.validate(student, schema);
 }

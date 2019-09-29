@@ -7,7 +7,19 @@ import IntermediateAwardForm from "../components/intermediateawardform";
 import PrimaryAwardForm from "../components/primaryawardform";
 import { useEffect } from "react";
 import Router from "next/router";
-import Link from "next/link";
+import NavBar from "../components/navbar";
+
+const BackgroundDiv = styled.div`
+  background: rgb(0, 47, 95);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 47, 95, 0.6404936974789917) 0%,
+    rgba(0, 135, 112, 1) 100%
+  );
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+`;
 
 const CardImg = styled.img`
   width: 150px;
@@ -98,7 +110,10 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   const AllClasses = teachers.map(teacher => {
     return (
       <div key={teacher}>
-        <h1>{teacher}</h1>
+        <h1 style={{ color: "rgb(247, 237, 237)", margin: "0 1rem" }}>
+          {teacher}
+        </h1>
+        <hr style={{ margin: ".5rem 1rem" }} />
         {StudentCards[teacher]}
       </div>
     );
@@ -115,10 +130,8 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   return (
     <>
-      {Classes}
-      <Link href="/writeups">
-        <a>To Writeups</a>
-      </Link>
+      <NavBar path="/awards" role={role}></NavBar>
+      <BackgroundDiv>{Classes}</BackgroundDiv>
     </>
   );
 };

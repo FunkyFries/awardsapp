@@ -20,11 +20,11 @@ const WriteUpForm: React.FC<Student> = student => {
   };
   let awardName;
   student.terrificKid
-    ? (awardName = `Terrific Kid by ${student.terrificKidChosenBy}`)
+    ? (awardName = `Terrific Kid chosen by ${student.terrificKidChosenBy}`)
     : (awardName = `${student.threeR.substr(
         0,
         student.threeR.indexOf(" ")
-      )} by ${student.teacher}`);
+      )} chosen by ${student.teacher}`);
 
   if (student.role !== "admin") {
     return (
@@ -43,9 +43,10 @@ const WriteUpForm: React.FC<Student> = student => {
     );
   } else {
     return (
-      <Card>
+      <Card style={{ padding: "1rem", margin: ".5rem" }}>
         <Card.Title>{student.name}</Card.Title>
         <Card.Subtitle>{awardName}</Card.Subtitle>
+        <hr />
         <Card.Text>{textValue}</Card.Text>
       </Card>
     );

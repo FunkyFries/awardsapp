@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { useState } from "react";
-import { teachers } from "../components/teachers";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -11,7 +10,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
 
-const StudentRow = styled.div`
+const UserRow = styled.div`
   display: flex;
   width: 100%;
   border: 1px solid #ced4da;
@@ -22,17 +21,17 @@ const StudentRow = styled.div`
   }
 `;
 
-const StudentColumn = styled.div`
+const UserColumnRightBorder = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30%;
   text-align: center;
-  align-items: center;
-  justify-content: center;
   vertical-align: middle;
   border-right: 1px solid #ced4da;
 `;
 
-const StudentButtonColumn = styled.div`
+const UserButtonColumn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +73,18 @@ const FormControl = styled(Form.Control)`
   }
 `;
 
+const FormControlText = styled(Form.Control)`
+  && {
+    width: 100%;
+    text-align: center;
+    border-right: 1px solid #ced4da;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0;
+  }
+`;
+
 const BtnContainer = styled.div`
   display: flex;
   width: 10%;
@@ -81,18 +92,18 @@ const BtnContainer = styled.div`
   background-color: #ffffff;
 `;
 
-const StudentForm: NextPage<{
+const UserForm: NextPage<{
   id: string;
   name: string;
-  teacher: string;
-  image: string;
+  email: string;
+  role: string;
   handleDelete: any;
-  updateStudent: any;
-}> = ({ id, name, teacher, image, handleDelete, updateStudent }) => {
+  updateUser: any;
+}> = ({ id, name, email, role, handleDelete, updateUser }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [studentName, setStudentName] = useState(name);
-  const [studentTeacher, setStudentTeacher] = useState(teacher);
-  const [studentImage, setStudentImage] = useState(image);
+  const [userName, setUserName] = useState(name);
+  const [userEmail, setUserEmail] = useState(email);
+  const [userRole, setUserRole] = useState(role);
   const [validated, setValidated] = useState(false);
 
   function handleSubmit(evt) {
@@ -103,29 +114,21 @@ const StudentForm: NextPage<{
     } else {
       evt.preventDefault();
       evt.stopPropagation();
-      updateStudent({
-        name: studentName,
-        teacher: studentTeacher,
-        image: studentImage,
+      updateUser({
+        name: userName,
+        email: userEmail,
+        role: userRole,
         id: id
       });
-      axios.put(`/students/${id}`, {
-        name: studentName,
-        teacher: studentTeacher,
-        image: studentImage
+      axios.put(`/users/${id}`, {
+        name: userName,
+        email: userEmail,
+        role: userRole
       });
-      setValidated(false);
       setIsEditing(false);
+      setValidated(false);
     }
   }
-
-  const options = teachers.map(teacher => {
-    return (
-      <option key={`${teacher}-${id}`} value={teacher}>
-        {teacher}
-      </option>
-    );
-  });
 
   let display = isEditing ? (
     <Container>
@@ -136,45 +139,45 @@ const StudentForm: NextPage<{
         validated={validated}
       >
         <FormGroup>
-          <FormControl
-            id={`name-${id}`}
+          <FormControlText
+            id={`username-${id}`}
+            onChange={e => setUserName(e.target.value)}
+            value={userName}
             required
-            onChange={e => setStudentName(e.target.value)}
-            value={studentName}
-          ></FormControl>
+          ></FormControlText>
           <Form.Control.Feedback type="invalid">
-            Student name required.
+            User name required.
+          </Form.Control.Feedback>
+        </FormGroup>
+        <FormGroup>
+          <FormControlText
+            id={`email-${id}`}
+            type="email"
+            required
+            onChange={e => setUserEmail(e.target.value)}
+            value={userEmail}
+          ></FormControlText>
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email.
           </Form.Control.Feedback>
         </FormGroup>
         <FormGroup>
           <FormControl
-            id={`teacher-${id}`}
+            id={`role-${id}`}
             as="select"
-            min="2"
-            required
-            onChange={(e: any) => setStudentTeacher(e.target.value)}
-            value={studentTeacher}
+            onChange={(e: any) => setUserRole(e.target.value)}
+            value={userRole}
           >
-            <option value="" defaultChecked></option>
-            {options}
+            <option value="teacher">Teacher</option>
+            <option value="specialist">Specialist</option>
+            <option value="admin">Admin</option>
           </FormControl>
-          <Form.Control.Feedback type="invalid">
-            Please select a teacher.
-          </Form.Control.Feedback>
-        </FormGroup>
-        <FormGroup>
-          <FormControl
-            placeholder="Image URL"
-            id={`image-${id}`}
-            onChange={e => setStudentImage(e.target.value)}
-            value={studentImage}
-          ></FormControl>
         </FormGroup>
         <BtnContainer>
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
-            overlay={<Tooltip id={`save-student-tooltip-top`}>Save</Tooltip>}
+            overlay={<Tooltip id={`save-user-tooltip-top`}>Save</Tooltip>}
           >
             <Button type="submit">
               <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
@@ -185,15 +188,15 @@ const StudentForm: NextPage<{
     </Container>
   ) : (
     <Container>
-      <StudentRow>
-        <StudentColumn>{studentName}</StudentColumn>
-        <StudentColumn>{studentTeacher}</StudentColumn>
-        <StudentColumn>{image}</StudentColumn>
-        <StudentButtonColumn>
+      <UserRow>
+        <UserColumnRightBorder>{userName}</UserColumnRightBorder>
+        <UserColumnRightBorder>{userEmail}</UserColumnRightBorder>
+        <UserColumnRightBorder>{userRole}</UserColumnRightBorder>
+        <UserButtonColumn>
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
-            overlay={<Tooltip id={`edit-student-tooltip-top`}>Edit</Tooltip>}
+            overlay={<Tooltip id={`edit-user-tooltip-top`}>Edit</Tooltip>}
           >
             <Button variant="light" onClick={() => setIsEditing(true)}>
               <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -202,20 +205,18 @@ const StudentForm: NextPage<{
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
-            overlay={
-              <Tooltip id={`delete-student-tooltip-top`}>Delete</Tooltip>
-            }
+            overlay={<Tooltip id={`delete-user-tooltip-top`}>Delete</Tooltip>}
           >
             <Button variant="danger" onClick={() => handleDelete(id)}>
               <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
             </Button>
           </OverlayTrigger>
-        </StudentButtonColumn>
-      </StudentRow>
+        </UserButtonColumn>
+      </UserRow>
     </Container>
   );
 
   return display;
 };
 
-export default StudentForm;
+export default UserForm;

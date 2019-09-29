@@ -4,12 +4,11 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
   "Users",
   new mongoose.Schema({
-    name: {
+    _id: {
       type: String
     },
-    grade: {
-      type: String,
-      enum: ["K", "1", "2", "3", "4", "5", "6", "Specialist", "Admin"]
+    name: {
+      type: String
     },
     email: {
       type: String
@@ -22,12 +21,21 @@ const User = mongoose.model(
 
 function validateUser(user) {
   const schema = {
+    id: Joi.string().required(),
     name: Joi.string().required(),
-    grade: Joi.enum().required(),
     email: Joi.string().required(),
     role: Joi.string().required()
   };
   return Joi.validate(user, schema);
 }
 
-module.exports = { User, validateUser };
+function validateUserUpdate(user) {
+  const schema = {
+    name: Joi.string(),
+    email: Joi.string(),
+    role: Joi.string()
+  };
+  return Joi.validate(user, schema);
+}
+
+module.exports = { User, validateUser, validateUserUpdate };
