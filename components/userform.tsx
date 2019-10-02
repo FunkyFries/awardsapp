@@ -3,94 +3,21 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import styled from "styled-components";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
-
-const UserRow = styled.div`
-  display: flex;
-  width: 100%;
-  border: 1px solid #ced4da;
-  border-top: 0;
-  background-color: #ffffff;
-  : hover {
-    background-color: #f8f9fa;
-  }
-`;
-
-const UserColumnRightBorder = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  text-align: center;
-  vertical-align: middle;
-  border-right: 1px solid #ced4da;
-`;
-
-const UserButtonColumn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 10%;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-`;
-
-const StyledForm = styled(Form)`
-  width: 100%;
-  border: 1px solid #ced4da;
-  border-top: none;
-  border-radius: 0;
-`;
-
-const FormGroup = styled(Form.Group)`
-  && {
-    width: 30%;
-    height: calc(1.5em + 0.75rem + 2px);
-    text-align: center;
-  }
-`;
-
-const FormControl = styled(Form.Control)`
-  && {
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    text-align: center;
-    padding-left: 2rem;
-    background-color: #fff;
-    color: #495057;
-    border-right: 1px solid #ced4da;
-    border-top: none;
-    border-left: none;
-    border-bottom: none;
-    border-radius: 0;
-    outline: 0;
-  }
-`;
-
-const FormControlText = styled(Form.Control)`
-  && {
-    width: 100%;
-    text-align: center;
-    border-right: 1px solid #ced4da;
-    border-top: none;
-    border-left: none;
-    border-bottom: none;
-    border-radius: 0;
-  }
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  width: 10%;
-  justify-content: center;
-  background-color: #ffffff;
-`;
+import {
+  StyledForm,
+  FormGroup,
+  FormControl,
+  FormControlText,
+  BtnContainer,
+  UserRow,
+  UserColumnRightBorder,
+  UserButtonColumn
+} from "../styles/userformstyles";
 
 const UserForm: NextPage<{
   id: string;

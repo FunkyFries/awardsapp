@@ -6,7 +6,7 @@ import StudentForm from "../components/studentform";
 import UserForm from "../components/userform";
 import axios from "axios";
 import Router from "next/router";
-import { BackgroundDiv, FooterDiv } from "./manageusersstyles.js";
+import { BackgroundDiv, FooterDiv } from "../styles/manageusersstyles.js";
 
 const ManageUsers: NextPage<{
   students: any;

@@ -5,23 +5,12 @@ import Router from "next/router";
 import NavBar from "../components/navbar";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import Container from "react-bootstrap/Container";
 import WriteUpForm from "../components/writeUpForm";
-import styled from "styled-components";
-
-const BackgroundDiv = styled.div`
-  display: flex;
-  text-align: center;
-  background: rgb(0, 47, 95);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 47, 95, 0.6404936974789917) 0%,
-    rgba(0, 135, 112, 1) 100%
-  );
-  width: 100%;
-  height: 100vh;
-  overflow: auto;
-`;
+import {
+  BackgroundDiv,
+  WriteUpContainer,
+  WriteUpHeading
+} from "../styles/writeupstyles";
 
 const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   students,
@@ -136,14 +125,14 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     <>
       <NavBar role={role} path="/writeups"></NavBar>
       <BackgroundDiv>
-        <Container style={{ overflow: "auto", margin: "2rem auto" }}>
+        <WriteUpContainer>
           {message}
-          <h1 style={{ color: "#f7eded" }}>Writeups</h1>
+          <WriteUpHeading>Writeups</WriteUpHeading>
           <Form onSubmit={handleSubmit}>
             {writeUpForm}
             {role === "admin" ? null : <button>Submit</button>}
           </Form>
-        </Container>
+        </WriteUpContainer>
       </BackgroundDiv>
     </>
   );

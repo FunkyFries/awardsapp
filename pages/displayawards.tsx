@@ -3,9 +3,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import Router from "next/router";
 import NavBar from "../components/navbar";
-import Container from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
-import styled from "styled-components";
 import {
   teachers,
   specialists,
@@ -13,6 +10,14 @@ import {
   intermediateTeachers
 } from "../components/teachers";
 import moment from "moment";
+import {
+  BackgroundDiv,
+  DisplayAwardsContainer,
+  StyledTable,
+  TopTableHeader,
+  TableHeader,
+  ArAwardsHeader
+} from "../styles/displayawardstyles";
 
 let currentQuarter;
 if (moment().isBefore("2019-11-20")) {
@@ -35,20 +40,6 @@ const DisplayAwards: NextPage<{
       Router.push("/auth/outlook");
     }
   });
-
-  const BackgroundDiv = styled.div`
-    display: flex;
-    text-align: center;
-    background: rgb(0, 47, 95);
-    background: linear-gradient(
-      90deg,
-      rgba(0, 47, 95, 0.6404936974789917) 0%,
-      rgba(0, 135, 112, 1) 100%
-    );
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-  `;
 
   try {
     const threeRstudents = students.filter(
@@ -270,16 +261,11 @@ const DisplayAwards: NextPage<{
       <>
         <NavBar role={role} path="/displayawards"></NavBar>
         <BackgroundDiv>
-          <Container style={{ backgroundColor: "#ffffff", overflow: "auto" }}>
-            <Table striped style={{ marginTop: "1rem" }}>
+          <DisplayAwardsContainer>
+            <StyledTable striped>
               <thead>
                 <tr>
-                  <th
-                    style={{ borderTop: "none", fontSize: "2rem" }}
-                    colSpan={4}
-                  >
-                    Cougar Awards
-                  </th>
+                  <TopTableHeader colSpan={4}>Cougar Awards</TopTableHeader>
                 </tr>
                 <tr>
                   <th>Teacher</th>
@@ -289,13 +275,11 @@ const DisplayAwards: NextPage<{
                 </tr>
               </thead>
               <tbody>{teacherRows}</tbody>
-            </Table>
-            <Table striped style={{ marginTop: "1rem" }}>
+            </StyledTable>
+            <StyledTable striped>
               <thead>
                 <tr>
-                  <th style={{ fontSize: "2rem" }} colSpan={5}>
-                    Terrific Kid Award
-                  </th>
+                  <TableHeader colSpan={5}>Terrific Kid Award</TableHeader>
                 </tr>
                 <tr>
                   <th>Teacher</th>
@@ -304,27 +288,23 @@ const DisplayAwards: NextPage<{
                 </tr>
               </thead>
               <tbody>{specialistRows}</tbody>
-            </Table>
-            <Table striped style={{ marginTop: "1rem" }}>
+            </StyledTable>
+            <StyledTable striped>
               <thead>
                 <tr>
-                  <th colSpan={2} style={{ fontSize: "2rem" }}>
-                    AR Awards
-                  </th>
+                  <TableHeader colSpan={2}>AR Awards</TableHeader>
                 </tr>
                 <tr>
-                  <th style={{ width: "50%" }}>Grade</th>
-                  <th style={{ width: "50%" }}>Recipient</th>
+                  <ArAwardsHeader>Grade</ArAwardsHeader>
+                  <ArAwardsHeader>Recipient</ArAwardsHeader>
                 </tr>
               </thead>
               <tbody>{ARhonorsRows}</tbody>
-            </Table>
-            <Table striped style={{ marginTop: "1rem" }}>
+            </StyledTable>
+            <StyledTable striped>
               <thead>
                 <tr>
-                  <th style={{ fontSize: "2rem" }} colSpan={5}>
-                    Straight A Honors Award
-                  </th>
+                  <TableHeader colSpan={5}>Straight A Honors Award</TableHeader>
                 </tr>
                 <tr>
                   <th colSpan={1}>Teacher</th>
@@ -332,13 +312,11 @@ const DisplayAwards: NextPage<{
                 </tr>
               </thead>
               <tbody>{straightArows}</tbody>
-            </Table>
-            <Table striped style={{ marginTop: "1rem" }}>
+            </StyledTable>
+            <StyledTable striped>
               <thead>
                 <tr>
-                  <th style={{ fontSize: "2rem" }} colSpan={5}>
-                    A/B Honors Award
-                  </th>
+                  <TableHeader colSpan={5}>A/B Honors Award</TableHeader>
                 </tr>
                 <tr>
                   <th colSpan={1}>Teacher</th>
@@ -346,8 +324,8 @@ const DisplayAwards: NextPage<{
                 </tr>
               </thead>
               <tbody>{ABhonorsRows}</tbody>
-            </Table>
-          </Container>
+            </StyledTable>
+          </DisplayAwardsContainer>
         </BackgroundDiv>
       </>
     );

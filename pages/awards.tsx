@@ -1,39 +1,20 @@
 import { NextPage } from "next";
 import axios from "axios";
-import Card from "react-bootstrap/Card";
-import styled from "styled-components";
 import { teachers, primaryTeachers } from "../components/teachers";
 import IntermediateAwardForm from "../components/intermediateawardform";
 import PrimaryAwardForm from "../components/primaryawardform";
 import { useEffect } from "react";
 import Router from "next/router";
 import NavBar from "../components/navbar";
-
-const BackgroundDiv = styled.div`
-  background: rgb(0, 47, 95);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 47, 95, 0.6404936974789917) 0%,
-    rgba(0, 135, 112, 1) 100%
-  );
-  width: 100%;
-  height: 100vh;
-  overflow: auto;
-`;
-
-const CardImg = styled.img`
-  width: 150px;
-  border-radius: 50%;
-  display: flex;
-  align-self: center;
-  margin-top: 1rem;
-`;
-
-const StyledCard = styled(Card)`
-  width: 15rem;
-  display: inline-flex;
-  margin: 1rem;
-`;
+import {
+  StyledCard,
+  CardImg,
+  CardBody,
+  CardTitle,
+  TeacherHeading,
+  StyledHr,
+  BackgroundDiv
+} from "../styles/awardstyles";
 
 const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   students,
@@ -72,10 +53,8 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
       return (
         <StyledCard key={student._id}>
           <CardImg src={student.image} />
-          <Card.Body style={{ padding: "1rem" }}>
-            <Card.Title style={{ textAlign: "center" }}>
-              {student.name}
-            </Card.Title>
+          <CardBody>
+            <CardTitle>{student.name}</CardTitle>
             {primaryTeachers.indexOf(teacher) > -1 ? (
               <PrimaryAwardForm
                 id={student._id}
@@ -101,7 +80,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
                 pastAwards={student.pastAwards}
               />
             )}
-          </Card.Body>
+          </CardBody>
         </StyledCard>
       );
     });
@@ -110,10 +89,8 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   const AllClasses = teachers.map(teacher => {
     return (
       <div key={teacher}>
-        <h1 style={{ color: "rgb(247, 237, 237)", margin: "0 1rem" }}>
-          {teacher}
-        </h1>
-        <hr style={{ margin: ".5rem 1rem" }} />
+        <TeacherHeading>{teacher}</TeacherHeading>
+        <StyledHr />
         {StudentCards[teacher]}
       </div>
     );
