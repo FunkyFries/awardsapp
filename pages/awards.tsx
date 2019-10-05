@@ -98,7 +98,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   const SingleClass = (
     <div>
-      <h1>{user}</h1>
+      <TeacherHeading>{user}</TeacherHeading>
       {StudentCards[user]}
     </div>
   );
