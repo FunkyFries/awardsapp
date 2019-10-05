@@ -19,7 +19,7 @@ const NavBar: React.FC<{ role: string; path: string }> = ({ role, path }) => {
     : null;
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" sticky="top">
       <Link href="/">
         <Navbar.Brand href="#home">CCS Honors Awards</Navbar.Brand>
       </Link>
