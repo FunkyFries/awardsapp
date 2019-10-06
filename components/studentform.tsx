@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import { useSwipeable } from "react-swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +22,8 @@ import {
   SwipeContainer,
   StudentContainer,
   StudentButton,
-  SaveButton
+  SaveButton,
+  ModalBody
 } from "../styles/studentformstyles";
 
 const StudentForm: NextPage<{
@@ -37,6 +40,7 @@ const StudentForm: NextPage<{
   const [studentImage, setStudentImage] = useState(image);
   const [validated, setValidated] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setButtonVisible(true),
@@ -163,10 +167,35 @@ const StudentForm: NextPage<{
               <Tooltip id={`delete-student-tooltip-top`}>Delete</Tooltip>
             }
           >
-            <StudentButton variant="danger" onClick={() => handleDelete(id)}>
+            <StudentButton
+              variant="danger"
+              onClick={() => setConfirmingDelete(true)}
+            >
               <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
             </StudentButton>
           </OverlayTrigger>
+
+          <Modal
+            size="sm"
+            aria-labelledby="confirm-delete"
+            centered
+            show={confirmingDelete}
+            onHide={() => setConfirmingDelete(false)}
+          >
+            <Modal.Header closeButton>Delete Student</Modal.Header>
+            <ModalBody>Are you sure? This cannot be undone!</ModalBody>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setConfirmingDelete(false)}
+              >
+                Close
+              </Button>
+              <Button variant="danger" onClick={() => handleDelete(id)}>
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </StudentButtonColumn>
       </StudentRow>
     </StudentContainer>

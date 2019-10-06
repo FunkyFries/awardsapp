@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const phoneOnly = "@media (max-width: 599px)";
 const tabletPortraitUp = "@media (min-width: 600px)";
@@ -174,4 +175,8 @@ export const SaveButton = styled(Button)`
     width: 100%;
     border-radius: 0;
   }
+`;
+
+export const ModalBody = styled(Modal.Body)`
+  text-align: center;
 `;

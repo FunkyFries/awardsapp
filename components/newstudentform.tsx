@@ -54,7 +54,7 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
     }
   }
 
-  let newStudentForm = (
+  return (
     <>
       <Button
         variant="light"
@@ -125,7 +125,6 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
       </Modal>
     </>
   );
-  return newStudentForm;
 };
 
 export default NewStudentForm;
