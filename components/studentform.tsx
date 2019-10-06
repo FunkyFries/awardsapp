@@ -152,7 +152,7 @@ const StudentForm: NextPage<{
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`edit-student-tooltip-top`}>Edit</Tooltip>}
           >
-            <StudentButton variant="warning" onClick={() => setIsEditing(true)}>
+            <StudentButton variant="light" onClick={() => setIsEditing(true)}>
               <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
             </StudentButton>
           </OverlayTrigger>

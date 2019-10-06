@@ -80,4 +80,9 @@ export const StudentHeading = styled.h1`
 export const UserHeading = styled.h1`
   margin-left: 48.5%;
   font-size: 2.5rem;
+
+  ${phoneOnly} {
+    margin: auto;
+    display: block;
+  }
 `;

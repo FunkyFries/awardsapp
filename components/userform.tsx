@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useSwipeable } from "react-swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -16,7 +17,11 @@ import {
   BtnContainer,
   UserRow,
   UserColumnRightBorder,
-  UserButtonColumn
+  UserButtonColumn,
+  UserContainer,
+  SwipeContainer,
+  UserButton,
+  SaveButton
 } from "../styles/userformstyles";
 
 const UserForm: NextPage<{
@@ -32,6 +37,19 @@ const UserForm: NextPage<{
   const [userEmail, setUserEmail] = useState(email);
   const [userRole, setUserRole] = useState(role);
   const [validated, setValidated] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(false);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setButtonVisible(true),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
+  function onClick() {
+    if (buttonVisible) {
+      setButtonVisible(false);
+    }
+  }
 
   function handleSubmit(evt) {
     if (evt.target.checkValidity() === false) {
@@ -54,6 +72,7 @@ const UserForm: NextPage<{
       });
       setIsEditing(false);
       setValidated(false);
+      setButtonVisible(false);
     }
   }
 
@@ -106,41 +125,42 @@ const UserForm: NextPage<{
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`save-user-tooltip-top`}>Save</Tooltip>}
           >
-            <Button type="submit">
+            <SaveButton type="submit">
               <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
-            </Button>
+            </SaveButton>
           </OverlayTrigger>
         </BtnContainer>
       </StyledForm>
     </Container>
   ) : (
-    <Container>
+    <UserContainer>
+      <SwipeContainer onClick={onClick} {...handlers}></SwipeContainer>
       <UserRow>
         <UserColumnRightBorder>{userName}</UserColumnRightBorder>
         <UserColumnRightBorder>{userEmail}</UserColumnRightBorder>
         <UserColumnRightBorder>{userRole}</UserColumnRightBorder>
-        <UserButtonColumn>
+        <UserButtonColumn buttonVisible={buttonVisible}>
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`edit-user-tooltip-top`}>Edit</Tooltip>}
           >
-            <Button variant="light" onClick={() => setIsEditing(true)}>
+            <UserButton variant="light" onClick={() => setIsEditing(true)}>
               <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-            </Button>
+            </UserButton>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`delete-user-tooltip-top`}>Delete</Tooltip>}
           >
-            <Button variant="danger" onClick={() => handleDelete(id)}>
+            <UserButton variant="danger" onClick={() => handleDelete(id)}>
               <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
-            </Button>
+            </UserButton>
           </OverlayTrigger>
         </UserButtonColumn>
       </UserRow>
-    </Container>
+    </UserContainer>
   );
 
   return display;
