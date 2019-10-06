@@ -54,74 +54,77 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
     }
   }
 
-  let newStudentForm = creatingStudent ? (
-    <Modal
-      size="lg"
-      aria-labelledby="add-new-student-modal"
-      centered
-      show={creatingStudent}
-      onHide={() => setCreatingStudent(false)}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="add-new-student-modal">Add A New Student</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form noValidate onSubmit={newStudentSubmit} validated={validated}>
-          <Form.Group controlId="newStudentName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              required
-              value={newStudentName}
-              onChange={e => setNewStudentName(e.target.value)}
-            ></Form.Control>
-            <Form.Control.Feedback type="invalid">
-              Student name required.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="newStudentTeacher">
-            <Form.Label>Teacher</Form.Label>
-            <Form.Control
-              required
-              as="select"
-              value={newStudentTeacher}
-              min="2"
-              onChange={(e: any) => setNewStudentTeacher(e.target.value)}
-            >
-              <option value="" defaultChecked></option>
-              {options}
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              Please select a teacher.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Image</Form.Label>
-            <Form.Control
-              id="newStudentImage"
-              value={newStudentImage}
-              onChange={e => setNewStudentImage(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-          <Button type="submit" variant="info">
-            Submit
-          </Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
-  ) : (
-    <Button
-      variant="light"
-      onClick={() => setCreatingStudent(true)}
-      style={{ margin: "1rem .5rem 1rem auto" }}
-    >
-      <FontAwesomeIcon
-        icon={faPlus}
-        style={{ marginRight: ".5rem" }}
-      ></FontAwesomeIcon>
-      Add New Student
-    </Button>
+  return (
+    <>
+      <Button
+        variant="light"
+        onClick={() => setCreatingStudent(true)}
+        style={{ margin: "1rem .5rem 1rem auto" }}
+      >
+        <FontAwesomeIcon
+          icon={faPlus}
+          style={{ marginRight: ".5rem" }}
+        ></FontAwesomeIcon>
+        Add New Student
+      </Button>
+
+      <Modal
+        size="lg"
+        aria-labelledby="add-new-student-modal"
+        centered
+        show={creatingStudent}
+        onHide={() => setCreatingStudent(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="add-new-student-modal">
+            Add A New Student
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form noValidate onSubmit={newStudentSubmit} validated={validated}>
+            <Form.Group controlId="newStudentName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                value={newStudentName}
+                onChange={e => setNewStudentName(e.target.value)}
+              ></Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Student name required.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="newStudentTeacher">
+              <Form.Label>Teacher</Form.Label>
+              <Form.Control
+                required
+                as="select"
+                value={newStudentTeacher}
+                min="2"
+                onChange={(e: any) => setNewStudentTeacher(e.target.value)}
+              >
+                <option value="" defaultChecked></option>
+                {options}
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Please select a teacher.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                id="newStudentImage"
+                value={newStudentImage}
+                onChange={e => setNewStudentImage(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+            <Button type="submit" variant="info">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
   );
-  return newStudentForm;
 };
 
 export default NewStudentForm;

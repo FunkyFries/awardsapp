@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import Modal from "react-bootstrap/Modal";
 import { useSwipeable } from "react-swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +22,8 @@ import {
   UserContainer,
   SwipeContainer,
   UserButton,
-  SaveButton
+  SaveButton,
+  ModalBody
 } from "../styles/userformstyles";
 
 const UserForm: NextPage<{
@@ -38,6 +40,7 @@ const UserForm: NextPage<{
   const [userRole, setUserRole] = useState(role);
   const [validated, setValidated] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setButtonVisible(true),
@@ -154,10 +157,35 @@ const UserForm: NextPage<{
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`delete-user-tooltip-top`}>Delete</Tooltip>}
           >
-            <UserButton variant="danger" onClick={() => handleDelete(id)}>
+            <UserButton
+              variant="danger"
+              onClick={() => setConfirmingDelete(true)}
+            >
               <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
             </UserButton>
           </OverlayTrigger>
+
+          <Modal
+            size="sm"
+            aria-labelledby="confirm-delete"
+            centered
+            show={confirmingDelete}
+            onHide={() => setConfirmingDelete(false)}
+          >
+            <Modal.Header closeButton>Delete User</Modal.Header>
+            <ModalBody>Are you sure? This cannot be undone!</ModalBody>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setConfirmingDelete(false)}
+              >
+                Close
+              </Button>
+              <Button variant="danger" onClick={() => handleDelete(id)}>
+                Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </UserButtonColumn>
       </UserRow>
     </UserContainer>

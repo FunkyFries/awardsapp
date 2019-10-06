@@ -45,80 +45,81 @@ const NewUserForm: NextPage<{ addUser: any }> = ({ addUser }) => {
     }
   }
 
-  let newUserForm = creatingUser ? (
-    <Modal
-      size="lg"
-      aria-labelledby="add-new-user-modal"
-      centered
-      show={creatingUser}
-      onHide={() => setCreatingUser(false)}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="add-new-user-modal">Add A New User</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form noValidate onSubmit={newUserSubmit} validated={validated}>
-          <Form.Group controlId="newUserName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              required
-              value={newUserName}
-              onChange={e => setNewUserName(e.target.value)}
-            ></Form.Control>
-            <Form.Control.Feedback type="invalid">
-              Name is required.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="newUserEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              required
-              value={newUserEmail}
-              type="email"
-              onChange={(e: any) => setNewUserEmail(e.target.value)}
-            ></Form.Control>
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid email.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="newUserRole">
-            <Form.Label>Role</Form.Label>
-            <Form.Control
-              required
-              value={newUserRole}
-              as="select"
-              min="2"
-              onChange={(e: any) => setNewUserRole(e.target.value)}
-            >
-              <option value="" defaultChecked></option>
-              <option value="teacher">Teacher</option>
-              <option value="specialist">Specialist</option>
-              <option value="admin">Admin</option>
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              Please select a role.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button type="submit" variant="info">
-            Submit
-          </Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
-  ) : (
-    <Button
-      variant="light"
-      onClick={() => setCreatingUser(true)}
-      style={{ margin: "1rem .5rem 1rem auto" }}
-    >
-      <FontAwesomeIcon
-        icon={faPlus}
-        style={{ marginRight: ".5rem" }}
-      ></FontAwesomeIcon>
-      Add New User
-    </Button>
+  return (
+    <>
+      <Button
+        variant="light"
+        onClick={() => setCreatingUser(true)}
+        style={{ margin: "1rem .5rem 1rem auto" }}
+      >
+        <FontAwesomeIcon
+          icon={faPlus}
+          style={{ marginRight: ".5rem" }}
+        ></FontAwesomeIcon>
+        Add New User
+      </Button>
+
+      <Modal
+        size="lg"
+        aria-labelledby="add-new-user-modal"
+        centered
+        show={creatingUser}
+        onHide={() => setCreatingUser(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="add-new-user-modal">Add A New User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form noValidate onSubmit={newUserSubmit} validated={validated}>
+            <Form.Group controlId="newUserName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                value={newUserName}
+                onChange={e => setNewUserName(e.target.value)}
+              ></Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Name is required.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="newUserEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                value={newUserEmail}
+                type="email"
+                onChange={(e: any) => setNewUserEmail(e.target.value)}
+              ></Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid email.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="newUserRole">
+              <Form.Label>Role</Form.Label>
+              <Form.Control
+                required
+                value={newUserRole}
+                as="select"
+                min="2"
+                onChange={(e: any) => setNewUserRole(e.target.value)}
+              >
+                <option value="" defaultChecked></option>
+                <option value="teacher">Teacher</option>
+                <option value="specialist">Specialist</option>
+                <option value="admin">Admin</option>
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Please select a role.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Button type="submit" variant="info">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
   );
-  return newUserForm;
 };
 
 export default NewUserForm;
