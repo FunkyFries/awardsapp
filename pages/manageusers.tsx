@@ -126,14 +126,14 @@ const ManageUsers: NextPage<{
             add={addStudent}
           ></FormHeader>
           {studentForms}
-          <FormHeader
+          {/* <FormHeader
             heading="Users"
             first="Name"
             second="Email"
             third="Role"
             add={addUser}
           ></FormHeader>
-          {userForms}
+          {userForms} */}
           <FooterDiv />
         </BackgroundDiv>
       </>
