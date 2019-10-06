@@ -2,11 +2,11 @@ import { NextPage } from "next";
 import { useState } from "react";
 import { teachers } from "../components/teachers";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useSwipeable } from "react-swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit, faSave } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -16,7 +16,11 @@ import {
   BtnContainer,
   StudentRow,
   StudentColumn,
-  StudentButtonColumn
+  StudentButtonColumn,
+  SwipeContainer,
+  StudentContainer,
+  StudentButton,
+  SaveButton
 } from "../styles/studentformstyles";
 
 const StudentForm: NextPage<{
@@ -32,6 +36,19 @@ const StudentForm: NextPage<{
   const [studentTeacher, setStudentTeacher] = useState(teacher);
   const [studentImage, setStudentImage] = useState(image);
   const [validated, setValidated] = useState(false);
+  const [buttonVisible, setButtonVisible] = useState(false);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setButtonVisible(true),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
+  function onClick() {
+    if (buttonVisible) {
+      setButtonVisible(false);
+    }
+  }
 
   function handleSubmit(evt) {
     if (evt.target.checkValidity() === false) {
@@ -54,6 +71,7 @@ const StudentForm: NextPage<{
       });
       setValidated(false);
       setIsEditing(false);
+      setButtonVisible(false);
     }
   }
 
@@ -114,28 +132,29 @@ const StudentForm: NextPage<{
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`save-student-tooltip-top`}>Save</Tooltip>}
           >
-            <Button type="submit">
+            <SaveButton type="submit">
               <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>
-            </Button>
+            </SaveButton>
           </OverlayTrigger>
         </BtnContainer>
       </StyledForm>
     </Container>
   ) : (
-    <Container>
+    <StudentContainer>
+      <SwipeContainer onClick={onClick} {...handlers}></SwipeContainer>
       <StudentRow>
         <StudentColumn>{studentName}</StudentColumn>
         <StudentColumn>{studentTeacher}</StudentColumn>
         <StudentColumn>{image}</StudentColumn>
-        <StudentButtonColumn>
+        <StudentButtonColumn buttonVisible={buttonVisible}>
           <OverlayTrigger
             placement="top"
             delay={{ show: 500, hide: 100 }}
             overlay={<Tooltip id={`edit-student-tooltip-top`}>Edit</Tooltip>}
           >
-            <Button variant="light" onClick={() => setIsEditing(true)}>
+            <StudentButton variant="warning" onClick={() => setIsEditing(true)}>
               <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
-            </Button>
+            </StudentButton>
           </OverlayTrigger>
           <OverlayTrigger
             placement="top"
@@ -144,13 +163,13 @@ const StudentForm: NextPage<{
               <Tooltip id={`delete-student-tooltip-top`}>Delete</Tooltip>
             }
           >
-            <Button variant="danger" onClick={() => handleDelete(id)}>
+            <StudentButton variant="danger" onClick={() => handleDelete(id)}>
               <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
-            </Button>
+            </StudentButton>
           </OverlayTrigger>
         </StudentButtonColumn>
       </StudentRow>
-    </Container>
+    </StudentContainer>
   );
 
   return display;
