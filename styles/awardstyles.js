@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 
 const phoneOnly = "@media (max-width: 599px)";
 const tabletPortraitUp = "@media (min-width: 600px)";
@@ -27,14 +28,24 @@ export const CardImg = styled.img`
 `;
 
 export const StyledCard = styled(Card)`
-  width: 15rem;
+  width: 18%;
   display: inline-flex;
-  margin: 1rem;
+  margin: 1%;
 
   ${phoneOnly} {
     width: 80%;
     display: flex;
     margin: 1rem auto;
+  }
+
+  ${tabletPortraitUp} {
+    width: 31%;
+    margin: 1.166666%;
+  }
+
+  ${tabletLandscapeUp} {
+    width: 24%;
+    margin: 0.5%;
   }
 `;
 
@@ -57,4 +68,16 @@ export const TeacherHeading = styled.h1`
 
 export const StyledHr = styled.hr`
   margin: 0.5rem 1rem;
+`;
+
+export const ThreeRDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+`;
+
+export const ThreeRLabel = styled(Form.Label)`
+  font-weight: 500;
+  width: 60%;
+  margin: 0;
 `;

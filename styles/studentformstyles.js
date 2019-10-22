@@ -68,6 +68,7 @@ export const StyledForm = styled(Form)`
   border: 1px solid #ced4da;
   border-top: none;
   border-radius: 0;
+  background: #ffffff;
 
   ${phoneOnly} {
     display: block;

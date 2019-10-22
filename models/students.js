@@ -1,6 +1,14 @@
 const Joi = require("@hapi/joi");
 const mongoose = require("mongoose");
 
+// All In Award: each teacher chooses a student who exemplifies
+
+// Outstanding Achievement Award: Each teacher chooses a student who has shown growth, grit, achievement, determination, etc.
+
+// WOW Award: 3-6 teachers select all students who have met their semester goals in Q2 and Q4 awards assemblies only
+
+// Cougar Community Service: Debbie chooses 1 student from K-2, and 2 students from 3-6
+
 const Student = mongoose.model(
   "Students",
   new mongoose.Schema({
@@ -15,10 +23,16 @@ const Student = mongoose.model(
     teacher: {
       type: String
     },
-    aHonorRoll: {
+    allInAward: {
       type: Boolean
     },
-    abHonorRoll: {
+    outstandingAchievement: {
+      type: Boolean
+    },
+    wowAward: {
+      type: Boolean
+    },
+    cougarCommunityService: {
       type: Boolean
     },
     terrificKid: {
@@ -63,8 +77,10 @@ function validateUpdate(student) {
     name: Joi.string(),
     teacher: Joi.string(),
     image: Joi.string().allow(""),
-    aHonorRoll: Joi.boolean(),
-    abHonorRoll: Joi.boolean(),
+    allInAward: Joi.boolean(),
+    outstandingAchievement: Joi.boolean(),
+    wowAward: Joi.boolean(),
+    cougarCommunityService: Joi.boolean(),
     terrificKid: Joi.boolean(),
     terrificKidChosenBy: Joi.string(),
     terrificKidWriteUp: Joi.string(),

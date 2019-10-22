@@ -3,7 +3,6 @@ import { useState } from "react";
 import { teachers } from "../components/teachers";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Modal from "react-bootstrap/Modal";
@@ -88,7 +87,7 @@ const StudentForm: NextPage<{
   });
 
   let display = isEditing ? (
-    <Container>
+    <StudentContainer>
       <StyledForm
         noValidate
         inline
@@ -142,14 +141,14 @@ const StudentForm: NextPage<{
           </OverlayTrigger>
         </BtnContainer>
       </StyledForm>
-    </Container>
+    </StudentContainer>
   ) : (
     <StudentContainer>
       <SwipeContainer onClick={onClick} {...handlers}></SwipeContainer>
       <StudentRow>
         <StudentColumn>{studentName}</StudentColumn>
         <StudentColumn>{studentTeacher}</StudentColumn>
-        <StudentColumn>{image}</StudentColumn>
+        <StudentColumn>{studentImage.substring(0, 20)}...</StudentColumn>
         <StudentButtonColumn buttonVisible={buttonVisible}>
           <OverlayTrigger
             placement="top"

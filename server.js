@@ -119,13 +119,15 @@ app.prepare().then(() => {
             {
               $push: { pastAwards: student.threeR },
               $set: {
-                threeR: "none",
-                aHonorRoll: false,
-                abHonorRoll: false,
-                acceleratedReader: false,
+                allInAward: false,
+                outstandingAchievement: false,
+                wowAward: false,
+                cougarCommunityService: false,
                 terrificKid: false,
                 terrificKidChosenBy: "null",
                 terrificKidWriteUp: "",
+                threeR: "none",
+                acceleratedReader: false,
                 threeRwriteUp: ""
               }
             }
@@ -139,13 +141,15 @@ app.prepare().then(() => {
                 pastAwards: `${student.terrificKid} chosen by ${student.terrificKidChosenBy}`
               },
               $set: {
-                threeR: "none",
-                aHonorRoll: false,
-                abHonorRoll: false,
-                acceleratedReader: false,
+                allInAward: false,
+                outstandingAchievement: false,
+                wowAward: false,
+                cougarCommunityService: false,
                 terrificKid: false,
                 terrificKidChosenBy: "null",
                 terrificKidWriteUp: "",
+                threeR: "none",
+                acceleratedReader: false,
                 threeRwriteUp: ""
               }
             }
@@ -155,13 +159,15 @@ app.prepare().then(() => {
           { _id: student._id },
           {
             $set: {
-              threeR: "none",
-              aHonorRoll: false,
-              abHonorRoll: false,
-              acceleratedReader: false,
+              allInAward: false,
+              outstandingAchievement: false,
+              wowAward: false,
+              cougarCommunityService: false,
               terrificKid: false,
               terrificKidChosenBy: "null",
               terrificKidWriteUp: "",
+              threeR: "none",
+              acceleratedReader: false,
               threeRwriteUp: ""
             }
           }

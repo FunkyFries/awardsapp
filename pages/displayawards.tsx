@@ -50,9 +50,17 @@ const DisplayAwards: NextPage<{
 
     const ARstudents = students.filter(student => student.acceleratedReader);
 
-    const straightAStudents = students.filter(student => student.aHonorRoll);
+    const allInStudents = students.filter(student => student.allInAward);
 
-    const ABstudents = students.filter(student => student.abHonorRoll);
+    const outstandingStudents = students.filter(
+      student => student.outstandingAchievement
+    );
+
+    const communityServiceStudents = students.filter(
+      student => student.cougarCommunityService
+    );
+
+    const wowStudents = students.filter(student => student.wowAward);
 
     // Create Cougar Awards Table
     const teacherRows = teachers.map(teacher => {
@@ -85,12 +93,31 @@ const DisplayAwards: NextPage<{
       if (responsibilityStudent) {
         responsibility = responsibilityStudent.name;
       }
+
+      let allInStudent = allInStudents.find(
+        student => student.teacher === teacher && student.allInAward
+      );
+      let allIn;
+      if (allInStudent) {
+        allIn = allInStudent.name;
+      }
+
+      let oustandingStudent = outstandingStudents.find(
+        student => student.teacher === teacher && student.outstandingAchievement
+      );
+      let outstanding;
+      if (oustandingStudent) {
+        outstanding = oustandingStudent.name;
+      }
+
       return (
         <tr key={teacher}>
           <td>{teacher}</td>
           <td>{relationship}</td>
           <td>{respect}</td>
           <td>{responsibility}</td>
+          <td>{allIn}</td>
+          <td>{outstanding}</td>
         </tr>
       );
     });
@@ -168,6 +195,63 @@ const DisplayAwards: NextPage<{
       );
     });
 
+    // Create Community Service Table
+    const communityServiceRows = () => {
+      let primary;
+      let intermediate;
+      if (communityServiceStudents) {
+        primary = communityServiceStudents.filter(student =>
+          primaryTeachers.includes(student.teacher)
+        );
+        intermediate = communityServiceStudents.filter(student =>
+          intermediateTeachers.includes(student.teacher)
+        );
+      }
+      let primaryColumn = (
+        <>
+          <td></td>
+        </>
+      );
+      if (primary.length === 1) {
+        primaryColumn = (
+          <>
+            <td>{primary[0].name}</td>
+          </>
+        );
+      }
+
+      let intermediateColumns = (
+        <>
+          <td></td>
+          <td></td>
+        </>
+      );
+      if (intermediate.length === 2) {
+        intermediateColumns = (
+          <>
+            <td>{intermediate[0].name}</td>
+            <td>{intermediate[1].name}</td>
+          </>
+        );
+      }
+      if (intermediate.length === 1) {
+        intermediateColumns = (
+          <>
+            <td>{intermediate[0].name}</td>
+            <td></td>
+          </>
+        );
+      }
+
+      return (
+        <tr>
+          <td>Mrs. Plummer</td>
+          {primaryColumn}
+          {intermediateColumns}
+        </tr>
+      );
+    };
+
     // Create AR Awards Table
     const ARhonorsRows = teachers.map(teacher => {
       let ARbyTeacher = ARstudents.filter(
@@ -199,57 +283,34 @@ const DisplayAwards: NextPage<{
       }
     });
 
-    // Create All A Table
-    const straightArows = intermediateTeachers.map(teacher => {
-      let straightAbyTeacher = straightAStudents.filter(
+    // Create Wow Awards Table
+    const wowAwardsRows = intermediateTeachers.map(teacher => {
+      let wowAwardsByTeacher = wowStudents.filter(
         student => student.teacher === teacher
       );
       let rows = [];
-      if (straightAbyTeacher.length > 0) {
-        let numRows = Math.ceil(straightAbyTeacher.length / 4);
+      if (wowAwardsByTeacher.length > 0) {
+        let numRows = Math.ceil(wowAwardsByTeacher.length / 4);
         for (let i = 0; i < numRows * 4; i += 4) {
           rows.push(
             <tr key={`${teacher}, ${i}`}>
               <td>{i > 0 ? null : teacher}</td>
-              <td>{straightAbyTeacher[i].name}</td>
+              <td>{wowAwardsByTeacher[i].name}</td>
               <td>
-                {straightAbyTeacher[i + 1]
-                  ? straightAbyTeacher[i + 1].name
+                {wowAwardsByTeacher[i + 1]
+                  ? wowAwardsByTeacher[i + 1].name
                   : null}
               </td>
               <td>
-                {straightAbyTeacher[i + 2]
-                  ? straightAbyTeacher[i + 2].name
+                {wowAwardsByTeacher[i + 2]
+                  ? wowAwardsByTeacher[i + 2].name
                   : null}
               </td>
               <td>
-                {straightAbyTeacher[i + 3]
-                  ? straightAbyTeacher[i + 3].name
+                {wowAwardsByTeacher[i + 3]
+                  ? wowAwardsByTeacher[i + 3].name
                   : null}
               </td>
-            </tr>
-          );
-        }
-      }
-      return rows;
-    });
-
-    // Create AB Table
-    const ABhonorsRows = intermediateTeachers.map(teacher => {
-      let ABbyTeacher = ABstudents.filter(
-        student => student.teacher === teacher
-      );
-      let rows = [];
-      if (ABbyTeacher.length > 0) {
-        let numRows = Math.ceil(ABbyTeacher.length / 4);
-        for (let i = 0; i < numRows * 4; i += 4) {
-          rows.push(
-            <tr key={`${teacher}, ${i}`}>
-              <td>{i > 0 ? null : teacher}</td>
-              <td>{ABbyTeacher[i].name}</td>
-              <td>{ABbyTeacher[i + 1] ? ABbyTeacher[i + 1].name : null}</td>
-              <td>{ABbyTeacher[i + 2] ? ABbyTeacher[i + 2].name : null}</td>
-              <td>{ABbyTeacher[i + 3] ? ABbyTeacher[i + 3].name : null}</td>
             </tr>
           );
         }
@@ -265,13 +326,15 @@ const DisplayAwards: NextPage<{
             <StyledTable striped>
               <thead>
                 <tr>
-                  <TopTableHeader colSpan={4}>Cougar Awards</TopTableHeader>
+                  <TopTableHeader colSpan={6}>Cougar Awards</TopTableHeader>
                 </tr>
                 <tr>
                   <th>Teacher</th>
                   <th>Relationship</th>
                   <th>Respect</th>
                   <th>Responsibility</th>
+                  <th>All In</th>
+                  <th>Oustanding Achievement</th>
                 </tr>
               </thead>
               <tbody>{teacherRows}</tbody>
@@ -292,6 +355,19 @@ const DisplayAwards: NextPage<{
             <StyledTable striped>
               <thead>
                 <tr>
+                  <TableHeader colSpan={4}>Community Service Award</TableHeader>
+                </tr>
+                <tr>
+                  <th>Teacher</th>
+                  <th colSpan={1}>Primary Recipient</th>
+                  <th colSpan={2}>Intermediate Recipient</th>
+                </tr>
+              </thead>
+              <tbody>{communityServiceRows()}</tbody>
+            </StyledTable>
+            <StyledTable striped>
+              <thead>
+                <tr>
                   <TableHeader colSpan={2}>AR Awards</TableHeader>
                 </tr>
                 <tr>
@@ -301,30 +377,20 @@ const DisplayAwards: NextPage<{
               </thead>
               <tbody>{ARhonorsRows}</tbody>
             </StyledTable>
-            <StyledTable striped>
-              <thead>
-                <tr>
-                  <TableHeader colSpan={5}>Straight A Honors Award</TableHeader>
-                </tr>
-                <tr>
-                  <th colSpan={1}>Teacher</th>
-                  <th colSpan={4}>Recipients</th>
-                </tr>
-              </thead>
-              <tbody>{straightArows}</tbody>
-            </StyledTable>
-            <StyledTable striped>
-              <thead>
-                <tr>
-                  <TableHeader colSpan={5}>A/B Honors Award</TableHeader>
-                </tr>
-                <tr>
-                  <th colSpan={1}>Teacher</th>
-                  <th colSpan={4}>Recipients</th>
-                </tr>
-              </thead>
-              <tbody>{ABhonorsRows}</tbody>
-            </StyledTable>
+            {wowStudents.length > 0 ? (
+              <StyledTable striped>
+                <thead>
+                  <tr>
+                    <TableHeader colSpan={5}>Wow Awards</TableHeader>
+                  </tr>
+                  <tr>
+                    <th colSpan={1}>Teacher</th>
+                    <th colSpan={4}>Recipients</th>
+                  </tr>
+                </thead>
+                <tbody>{wowAwardsRows}</tbody>
+              </StyledTable>
+            ) : null}
           </DisplayAwardsContainer>
         </BackgroundDiv>
       </>
@@ -337,11 +403,13 @@ const DisplayAwards: NextPage<{
 DisplayAwards.getInitialProps = async ({ req, res }) => {
   let obj;
   let students = { students: [] };
-  if (req && req.user.role !== "admin") {
-    res.writeHead(302, {
-      Location: "http://localhost:8080/awards"
-    });
-    res.end();
+  if (req && req.user) {
+    if (req.user.role !== "admin") {
+      res.writeHead(302, {
+        Location: "http://localhost:8080/awards"
+      });
+      res.end();
+    }
   }
   if (req && req.headers.cookie !== undefined) {
     obj = await axios.get("http://localhost:8080/students", {
