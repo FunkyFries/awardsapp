@@ -57,22 +57,17 @@ app.prepare().then(() => {
         // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
         var waadProfile = jwt.decode(params.access_token);
 
-        await User.findOne({ email: waadProfile.upn.toLowerCase() }).then(
-          currentUser => {
+        await User.findOne({ email: waadProfile.upn.toLowerCase() })
+          .then(currentUser => {
             if (currentUser) {
               done(null, currentUser);
             } else {
-              new User({
-                profileId: profile.id,
-                email: profile.EmailAddress
-              })
-                .save()
-                .then(newUser => {
-                  done(null, newUser);
-                });
+              throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
             }
-          }
-        );
+          })
+          .catch(err => {
+            done(err);
+          });
       }
     )
   );
