@@ -1,8 +1,7 @@
 import { NextPage } from "next";
 import axios from "axios";
-import { teachers, primaryTeachers } from "../components/teachers";
-import IntermediateAwardForm from "../components/intermediateawardform";
-import PrimaryAwardForm from "../components/primaryawardform";
+import { teachers } from "../components/teachers";
+import AwardForm from "../components/awardform";
 import { useEffect } from "react";
 import Router from "next/router";
 import NavBar from "../components/navbar";
@@ -55,31 +54,21 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
           <CardImg src={student.image} />
           <CardBody>
             <CardTitle>{student.name}</CardTitle>
-            {primaryTeachers.indexOf(teacher) > -1 ? (
-              <PrimaryAwardForm
-                id={student._id}
-                terrificKid={student.terrificKid}
-                terrificKidChosenBy={student.terrificKidChosenBy}
-                threeR={student.threeR}
-                userName={user}
-                role={role}
-                acceleratedReader={student.acceleratedReader}
-                pastAwards={student.pastAwards}
-              />
-            ) : (
-              <IntermediateAwardForm
-                id={student._id}
-                aHonorRoll={student.aHonorRoll}
-                abHonorRoll={student.abHonorRoll}
-                terrificKid={student.terrificKid}
-                terrificKidChosenBy={student.terrificKidChosenBy}
-                acceleratedReader={student.acceleratedReader}
-                threeR={student.threeR}
-                userName={user}
-                role={role}
-                pastAwards={student.pastAwards}
-              />
-            )}
+            <AwardForm
+              id={student._id}
+              teacher={student.teacher}
+              allInAward={student.allInAward}
+              outstandingAchievement={student.outstandingAchievement}
+              wowAward={student.wowAward}
+              cougarCommunityService={student.cougarCommunityService}
+              terrificKid={student.terrificKid}
+              terrificKidChosenBy={student.terrificKidChosenBy}
+              acceleratedReader={student.acceleratedReader}
+              threeR={student.threeR}
+              userName={user}
+              role={role}
+              pastAwards={student.pastAwards}
+            />
           </CardBody>
         </StyledCard>
       );

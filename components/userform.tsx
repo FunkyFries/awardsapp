@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import Modal from "react-bootstrap/Modal";
@@ -80,7 +79,7 @@ const UserForm: NextPage<{
   }
 
   let display = isEditing ? (
-    <Container>
+    <UserContainer>
       <StyledForm
         noValidate
         inline
@@ -134,7 +133,7 @@ const UserForm: NextPage<{
           </OverlayTrigger>
         </BtnContainer>
       </StyledForm>
-    </Container>
+    </UserContainer>
   ) : (
     <UserContainer>
       <SwipeContainer onClick={onClick} {...handlers}></SwipeContainer>
