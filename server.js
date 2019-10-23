@@ -133,7 +133,73 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: `${student.terrificKid} chosen by ${student.terrificKidChosenBy}`
+                pastAwards: `Terrific Kid chosen by ${student.terrificKidChosenBy}`
+              },
+              $set: {
+                allInAward: false,
+                outstandingAchievement: false,
+                wowAward: false,
+                cougarCommunityService: false,
+                terrificKid: false,
+                terrificKidChosenBy: "null",
+                terrificKidWriteUp: "",
+                threeR: "none",
+                acceleratedReader: false,
+                threeRwriteUp: ""
+              }
+            }
+          );
+        }
+        if (student.allInAward) {
+          return Student.findOneAndUpdate(
+            { _id: student._id },
+            {
+              $push: {
+                pastAwards: "All In Award"
+              },
+              $set: {
+                allInAward: false,
+                outstandingAchievement: false,
+                wowAward: false,
+                cougarCommunityService: false,
+                terrificKid: false,
+                terrificKidChosenBy: "null",
+                terrificKidWriteUp: "",
+                threeR: "none",
+                acceleratedReader: false,
+                threeRwriteUp: ""
+              }
+            }
+          );
+        }
+        if (student.outstandingAchievement) {
+          return Student.findOneAndUpdate(
+            { _id: student._id },
+            {
+              $push: {
+                pastAwards: "Outstanding Achievement"
+              },
+              $set: {
+                allInAward: false,
+                outstandingAchievement: false,
+                wowAward: false,
+                cougarCommunityService: false,
+                terrificKid: false,
+                terrificKidChosenBy: "null",
+                terrificKidWriteUp: "",
+                threeR: "none",
+                acceleratedReader: false,
+                threeRwriteUp: ""
+              }
+            }
+          );
+        }
+        if (student.cougarCommunityService) {
+          return Student.findOneAndUpdate(
+            { _id: student._id },
+            {
+              $push: {
+                pastAwards: "Cougar Community Service"
               },
               $set: {
                 allInAward: false,
@@ -174,6 +240,9 @@ app.prepare().then(() => {
         .catch(console.error);
     });
   }
+
+  // Test Job
+  // schedule.scheduleJob("5 * * * * *", newQuarterJob);
 
   schedule.scheduleJob("* * 20 11 *", newQuarterJob);
   schedule.scheduleJob("* * 12 2 *", newQuarterJob);
