@@ -402,7 +402,7 @@ const DisplayAwards: NextPage<{
 
 DisplayAwards.getInitialProps = async ({ req, res }) => {
   let obj;
-  let students = { students: [] };
+  let students;
   if (req && req.user) {
     if (req.user.role !== "admin") {
       res.writeHead(302, {
@@ -418,13 +418,13 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
       },
       withCredentials: true
     });
-    students.students = obj.data.students;
+    students.students = [obj.data.students];
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
-    students.students = obj.data.students;
+    students.students = [obj.data.students];
     return students;
   }
 };
