@@ -31,11 +31,6 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   const errMessage = (
     <Alert variant="danger" onClose={() => setShowErr(false)} dismissible>
       <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-      <p>
-        Change this and that and try again. Duis mollis, est non commodo luctus,
-        nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-        consectetur purus sit amet fermentum.
-      </p>
     </Alert>
   );
 
@@ -92,7 +87,10 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
       .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
-  if ((role === "teacher" || role === "specialist") && students) {
+  if (
+    (role === "teacher" || role === "specialist") &&
+    filteredStudents.length > 0
+  ) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp =
         role === "teacher" ? student.threeRwriteUp : student.terrificKidWriteUp;
@@ -105,7 +103,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         />
       );
     });
-  } else if (role === "admin") {
+  } else if (role === "admin" && filteredStudents.length > 0) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp = student.terrificKid
         ? student.terrificKidWriteUp
