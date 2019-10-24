@@ -12,7 +12,7 @@ const Index: NextPage = () => {
     <BackgroundDiv>
       <ForegroundContainer>
         <Heading>CCS Honors Awards</Heading>
-        <Link href="/auth/outlook">
+        <Link href="/auth">
           <LoginButton size="lg" variant="info">
             Login
           </LoginButton>
