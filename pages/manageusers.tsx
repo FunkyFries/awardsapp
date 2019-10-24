@@ -89,6 +89,7 @@ const ManageUsers: NextPage<{
   }
   try {
     let studentForms = allStudents.map(student => {
+      console.log(student);
       return (
         <StudentForm
           key={student._id}
