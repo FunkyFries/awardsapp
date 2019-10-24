@@ -22,7 +22,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 }) => {
   useEffect(() => {
     if (!user || !students) {
-      Router.push("/auth/outlook");
+      Router.push("/auth");
     }
   });
 
@@ -113,14 +113,14 @@ Awards.getInitialProps = async ({ req }) => {
       withCredentials: true
     });
     console.log(res.data.students);
-    students = [res.data.students];
+    students[students] = [res.data.students];
     return students;
   } else {
     res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
     console.log(res.data.students);
-    students = [res.data.students];
+    students[students] = [res.data.students];
     return students;
   }
 };
