@@ -89,7 +89,10 @@ app.prepare().then(() => {
   server.use("/students", studentRoutes);
   server.use("/users", userRoutes);
 
-  server.get("/auth/outlook", passport.authenticate("azure_ad_oauth2"));
+  server.get(
+    "https://ccsawardsapp.herokuapp.com/auth/outlook",
+    passport.authenticate("azure_ad_oauth2")
+  );
   server.get(
     "/outlook/callback",
     passport.authenticate("azure_ad_oauth2", { failureRedirect: "/outlook" }),
