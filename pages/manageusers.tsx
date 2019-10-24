@@ -20,6 +20,8 @@ const ManageUsers: NextPage<{
     }
   });
 
+  console.log(users);
+
   function compare(a, b) {
     if (a.name < b.name) {
       return -1;
@@ -161,6 +163,7 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       withCredentials: true
     });
     students = { students: [obj.data.students], users: [obj2.data.users] };
+    console.log(students);
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
@@ -170,6 +173,7 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       withCredentials: true
     });
     students = { students: [obj.data.students], users: [obj2.data.users] };
+    console.log(students);
     return students;
   }
 };
