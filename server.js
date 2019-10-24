@@ -56,7 +56,7 @@ app.prepare().then(() => {
         // currently we can't find a way to exchange access token by user info (see userProfile implementation), so
         // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
         var waadProfile = jwt.decode(params.access_token);
-
+        console.log(callbackURL);
         await User.findOne({ email: waadProfile.upn.toLowerCase() })
           .then(currentUser => {
             if (currentUser) {
