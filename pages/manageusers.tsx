@@ -20,8 +20,6 @@ const ManageUsers: NextPage<{
     }
   });
 
-  console.log(students);
-
   function compare(a, b) {
     if (a.name < b.name) {
       return -1;
@@ -33,6 +31,8 @@ const ManageUsers: NextPage<{
   }
   const [allStudents, setAllStudents] = useState(students);
   const [allUsers, setAllUsers] = useState(users);
+
+  console.log(allStudents);
 
   function addStudent(student) {
     let newStudentArray = [...allStudents, student].sort(compare);
@@ -89,7 +89,6 @@ const ManageUsers: NextPage<{
   }
   try {
     let studentForms = allStudents.map(student => {
-      console.log(student);
       return (
         <StudentForm
           key={student._id}
@@ -164,7 +163,6 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       withCredentials: true
     });
     students = { students: [obj.data.students], users: [obj2.data.users] };
-    console.log(students);
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
@@ -174,7 +172,6 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       withCredentials: true
     });
     students = { students: [obj.data.students], users: [obj2.data.users] };
-    console.log(students);
     return students;
   }
 };
