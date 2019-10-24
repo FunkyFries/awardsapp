@@ -20,7 +20,7 @@ const ManageUsers: NextPage<{
     }
   });
 
-  console.log(users);
+  console.log(students);
 
   function compare(a, b) {
     if (a.name < b.name) {

@@ -41,7 +41,7 @@ const StudentForm: NextPage<{
   const [buttonVisible, setButtonVisible] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
-  console.log(studentImage);
+  console.log(name);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => setButtonVisible(true),
