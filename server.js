@@ -56,23 +56,12 @@ app.prepare().then(() => {
         // currently we can't find a way to exchange access token by user info (see userProfile implementation), so
         // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
         var waadProfile = jwt.decode(params.access_token);
-        console.log(waadProfile.upn);
         await User.findOne({ email: waadProfile.upn.toLowerCase() })
           .then(currentUser => {
             if (currentUser) {
               done(null, currentUser);
             } else {
-              new User({
-                _id: "5fb7de00-e0a2-11e9-a80b-8940bd38ab2b",
-                name: "Jimbo",
-                role: "admin",
-                email: waadProfile.upn.toLowerCase()
-              })
-                .save()
-                .then(newUser => {
-                  done(null, newUser);
-                });
-              // throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
+              throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
             }
           })
           .catch(err => {
