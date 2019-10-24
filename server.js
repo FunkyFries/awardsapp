@@ -46,7 +46,7 @@ app.prepare().then(() => {
       {
         clientID: process.env.OUTLOOK_CLIENT_ID,
         clientSecret: process.env.OUTLOOK_CLIENT_SECRET,
-        callbackURL: "/auth/outlook/callback",
+        callbackURL: "/auth/callback",
         // tenant: process.env.TENANT_ID,
         scope: ["User.read"],
         authorizationURL: process.env.OUTLOOK_AUTHORITY,
@@ -85,26 +85,16 @@ app.prepare().then(() => {
   // Add Passport and Auth routes
   server.use(passport.initialize());
   server.use(passport.session());
-  // server.use("/auth", authRoutes);
+  server.use("/auth", authRoutes);
   server.use("/students", studentRoutes);
   server.use("/users", userRoutes);
-
-  server.get("/auth/outlook", passport.authenticate("azure_ad_oauth2"));
-  server.get(
-    "/outlook/callback",
-    passport.authenticate("azure_ad_oauth2", { failureRedirect: "/outlook" }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect("/awards");
-    }
-  );
 
   // Restrict Access to Routes
   const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     }
-    res.redirect("/auth/outlook");
+    res.redirect("/auth");
   };
 
   // Schedule database updates for each quarter
