@@ -56,7 +56,6 @@ app.prepare().then(() => {
         // currently we can't find a way to exchange access token by user info (see userProfile implementation), so
         // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
         var waadProfile = jwt.decode(params.access_token);
-        console.log(callbackURL);
         await User.findOne({ email: waadProfile.upn.toLowerCase() })
           .then(currentUser => {
             if (currentUser) {
@@ -86,9 +85,19 @@ app.prepare().then(() => {
   // Add Passport and Auth routes
   server.use(passport.initialize());
   server.use(passport.session());
-  server.use("/auth", authRoutes);
+  // server.use("/auth", authRoutes);
   server.use("/students", studentRoutes);
   server.use("/users", userRoutes);
+
+  server.get("auth/outlook", passport.authenticate("azure_ad_oauth2"));
+  server.get(
+    "/outlook/callback",
+    passport.authenticate("azure_ad_oauth2", { failureRedirect: "/outlook" }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect("/awards");
+    }
+  );
 
   // Restrict Access to Routes
   const ensureAuthenticated = (req, res, next) => {
