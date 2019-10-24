@@ -140,7 +140,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
 
 WriteUps.getInitialProps = async ({ req }) => {
   let res;
-  let students = { students: [] };
+  let students;
   if (req && req.headers.cookie !== undefined) {
     res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       headers: {
@@ -148,13 +148,13 @@ WriteUps.getInitialProps = async ({ req }) => {
       },
       withCredentials: true
     });
-    students.students = res.data.students;
+    students.students = [res.data.students];
     return students;
   } else {
     res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
-    students.students = res.data.students;
+    students.students = [res.data.students];
     return students;
   }
 };
