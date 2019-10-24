@@ -19,7 +19,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
 }) => {
   useEffect(() => {
     if (!user || !students) {
-      Router.push("/auth/outlook");
+      Router.push("/auth");
     }
   });
 
@@ -148,13 +148,13 @@ WriteUps.getInitialProps = async ({ req }) => {
       },
       withCredentials: true
     });
-    students.students = [res.data.students];
+    students = { students: [res.data.students] };
     return students;
   } else {
     res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
-    students.students = [res.data.students];
+    students = { students: [res.data.students] };
     return students;
   }
 };

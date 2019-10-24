@@ -37,7 +37,7 @@ const DisplayAwards: NextPage<{
 }> = ({ students, user, role }) => {
   useEffect(() => {
     if (!user || !students || role !== "admin") {
-      Router.push("/auth/outlook");
+      Router.push("/auth");
     }
   });
 
@@ -418,13 +418,13 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
       },
       withCredentials: true
     });
-    students.students = [obj.data.students];
+    students = { students: [obj.data.students] };
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
-    students.students = [obj.data.students];
+    students = { students: [obj.data.students] };
     return students;
   }
 };
