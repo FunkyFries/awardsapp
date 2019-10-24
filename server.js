@@ -63,8 +63,10 @@ app.prepare().then(() => {
               done(null, currentUser);
             } else {
               new User({
-                profileId: profile.id,
-                email: profile.EmailAddress
+                _id: "5fb7de00-e0a2-11e9-a80b-8940bd38ab2b",
+                name: "Jimbo",
+                role: "admin",
+                email: waadProfile.upn.toLowerCase()
               })
                 .save()
                 .then(newUser => {
