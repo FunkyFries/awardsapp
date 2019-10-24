@@ -406,13 +406,13 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
   if (req && req.user) {
     if (req.user.role !== "admin") {
       res.writeHead(302, {
-        Location: "http://localhost:8080/awards"
+        Location: "https://ccsawardsapp.herokuapp.com/awards"
       });
       res.end();
     }
   }
   if (req && req.headers.cookie !== undefined) {
-    obj = await axios.get("http://localhost:8080/students", {
+    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       headers: {
         cookie: req.headers.cookie
       },
@@ -421,7 +421,7 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
     students.students = obj.data.students;
     return students;
   } else {
-    obj = await axios.get("http://localhost:8080/students", {
+    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
     students.students = obj.data.students;

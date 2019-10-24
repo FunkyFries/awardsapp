@@ -11,7 +11,7 @@ router.get(
   passport.authenticate("azure_ad_oauth2", { failureRedirect: "/outlook" }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect("http://localhost:8080/awards");
+    res.redirect("https://ccsawardsapp.herokuapp.com/awards");
   }
 );
 
