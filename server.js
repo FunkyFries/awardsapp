@@ -86,8 +86,7 @@ app.prepare().then(() => {
   // Add Passport and Auth routes
   server.use(passport.initialize());
   server.use(passport.session());
-  server.user(authRoutes);
-  // server.use("/auth", authRoutes);
+  server.use("/auth", authRoutes);
   server.use("/students", studentRoutes);
   server.use("/users", userRoutes);
 
