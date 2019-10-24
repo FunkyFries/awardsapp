@@ -104,7 +104,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
 Awards.getInitialProps = async ({ req }) => {
   let res;
-  let students = { students: [] };
+  let students;
   if (req && req.headers.cookie !== undefined) {
     res = await axios.get("http://localhost:8080/students", {
       headers: {
@@ -112,13 +112,13 @@ Awards.getInitialProps = async ({ req }) => {
       },
       withCredentials: true
     });
-    students.students = res.data.students;
+    students.students = [res.data.students];
     return students;
   } else {
     res = await axios.get("http://localhost:8080/students", {
       withCredentials: true
     });
-    students.students = res.data.students;
+    students.students = [res.data.students];
     return students;
   }
 };
