@@ -32,8 +32,6 @@ const ManageUsers: NextPage<{
   const [allStudents, setAllStudents] = useState(students);
   const [allUsers, setAllUsers] = useState(users);
 
-  console.log(allStudents);
-
   function addStudent(student) {
     let newStudentArray = [...allStudents, student].sort(compare);
     setAllStudents(newStudentArray);

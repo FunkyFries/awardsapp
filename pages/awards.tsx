@@ -112,13 +112,13 @@ Awards.getInitialProps = async ({ req }) => {
       },
       withCredentials: true
     });
-    students = { students: [res.data.students] };
+    students = { students: res.data.students };
     return students;
   } else {
     res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       withCredentials: true
     });
-    students = { students: [res.data.students] };
+    students = { students: res.data.students };
     return students;
   }
 };
