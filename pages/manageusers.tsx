@@ -146,7 +146,7 @@ const ManageUsers: NextPage<{
 ManageUsers.getInitialProps = async ({ req, res }) => {
   let obj;
   let obj2;
-  let students = { students: [], users: [] };
+  let students;
   if (req && req.headers.cookie !== undefined && req.user.role === "admin") {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       headers: {
@@ -160,8 +160,8 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       },
       withCredentials: true
     });
-    students.students = obj.data.students;
-    students.users = obj2.data.users;
+    students.students = [obj.data.students];
+    students.users = [obj2.data.users];
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
@@ -170,8 +170,8 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
     obj2 = await axios.get("https://ccsawardsapp.herokuapp.com/users", {
       withCredentials: true
     });
-    students.students = obj.data.students;
-    students.users = obj2.data.users;
+    students.students = [obj.data.students];
+    students.users = [obj2.data.users];
     return students;
   }
 };
