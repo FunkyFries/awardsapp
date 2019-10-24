@@ -62,7 +62,15 @@ app.prepare().then(() => {
             if (currentUser) {
               done(null, currentUser);
             } else {
-              throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
+              new User({
+                profileId: profile.id,
+                email: profile.EmailAddress
+              })
+                .save()
+                .then(newUser => {
+                  done(null, newUser);
+                });
+              // throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
             }
           })
           .catch(err => {
