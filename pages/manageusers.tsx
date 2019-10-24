@@ -162,7 +162,7 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
       },
       withCredentials: true
     });
-    students = { students: [obj.data.students], users: [obj2.data.users] };
+    students = { students: obj.data.students, users: obj2.data.users };
     return students;
   } else {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
@@ -171,7 +171,7 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
     obj2 = await axios.get("https://ccsawardsapp.herokuapp.com/users", {
       withCredentials: true
     });
-    students = { students: [obj.data.students], users: [obj2.data.users] };
+    students = { students: obj.data.students, users: obj2.data.users };
     return students;
   }
 };
