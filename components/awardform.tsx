@@ -59,28 +59,6 @@ const AwardForm: NextPage<{
   }
 
   useEffect(() => {
-    axios.put(`/students/${id}`, {
-      allInAward: allIn,
-      outstandingAchievement: outstanding,
-      wowAward: wow,
-      cougarCommunityService: communityService,
-      terrificKid: terrific,
-      terrificKidChosenBy: terrificChooser,
-      threeR: threeRAward,
-      acceleratedReader: ARaward
-    });
-  }, [
-    allIn,
-    outstanding,
-    wow,
-    communityService,
-    terrific,
-    terrificChooser,
-    threeRAward,
-    ARaward
-  ]);
-
-  useEffect(() => {
     if (
       (role !== "teacher" &&
         terrificKidChosenBy !== "null" &&
@@ -99,11 +77,66 @@ const AwardForm: NextPage<{
     }
   }, [allIn, outstanding, communityService, terrific, threeRAward]);
 
+  function updateWowAward() {
+    axios
+      .put(`students/${id}`, {
+        wowAward: !wow
+      })
+      .then(() => toggleWow(!wow));
+  }
+
+  function updateAllInAward() {
+    axios
+      .put(`students/${id}`, {
+        allInAward: !allIn
+      })
+      .then(() => toggleAllIn(!allIn));
+  }
+
+  function updateOutstandingAchievement() {
+    axios
+      .put(`students/${id}`, {
+        outstandingAchievement: !outstanding
+      })
+      .then(() => toggleOutstanding(!outstanding));
+  }
+
+  function updateCougarCommunityService() {
+    axios
+      .put(`students/${id}`, {
+        cougarCommunityService: !communityService
+      })
+      .then(() => toggleCommunityService(!communityService));
+  }
+
+  function updateThreeR(e) {
+    axios.put(`students/${id}`, {
+      threeR: e.target.value
+    });
+    setThreeR(e.target.value);
+  }
+
+  function updateAcceleratedReader() {
+    axios
+      .put(`students/${id}`, {
+        acceleratedReader: !ARaward
+      })
+      .then(() => setARaward(!ARaward));
+  }
+
   function handleChange() {
     if (terrificChooser === "null") {
+      axios.put(`students/${id}`, {
+        terrificKid: true,
+        terrificKidChosenBy: userName
+      });
       setTerrific(true);
       setTerrificChooser(userName);
     } else if (terrificChooser === userName) {
+      axios.put(`students/${id}`, {
+        terrificKid: false,
+        terrificKidChosenBy: "null"
+      });
       setTerrific(false);
       setTerrificChooser("null");
     }
@@ -121,7 +154,7 @@ const AwardForm: NextPage<{
           type="checkbox"
           label="Wow Award"
           id={`wowAward-${id}`}
-          onChange={() => toggleWow(!wow)}
+          onChange={updateWowAward}
           checked={wow}
           disabled={role === "specialist"}
         />
@@ -130,7 +163,7 @@ const AwardForm: NextPage<{
         type="checkbox"
         label="All In Award"
         id={`AllInAward-${id}`}
-        onChange={() => toggleAllIn(!allIn)}
+        onChange={updateAllInAward}
         checked={allIn}
         disabled={
           role === "specialist" ||
@@ -144,7 +177,7 @@ const AwardForm: NextPage<{
         type="checkbox"
         label="Outstanding Achievement"
         id={`OutstandingAchievement-${id}`}
-        onChange={() => toggleOutstanding(!outstanding)}
+        onChange={updateOutstandingAchievement}
         checked={outstanding}
         disabled={
           role === "specialist" ||
@@ -158,7 +191,7 @@ const AwardForm: NextPage<{
         type="checkbox"
         label="Cougar Community Service"
         id={`cougarCommunityService-${id}`}
-        onChange={() => toggleCommunityService(!communityService)}
+        onChange={updateCougarCommunityService}
         checked={communityService}
         disabled={
           role === "teacher" ||
@@ -181,7 +214,7 @@ const AwardForm: NextPage<{
         type="checkbox"
         label="Reader of the Quarter"
         id={`AR-${id}`}
-        onChange={() => setARaward(!ARaward)}
+        onChange={updateAcceleratedReader}
         checked={!!ARaward}
         disabled={role === "teacher" || role === "specialist"}
       ></Form.Check>
@@ -199,7 +232,7 @@ const AwardForm: NextPage<{
             outstanding ||
             communityService
           }
-          onChange={(e: any) => setThreeR(e.target.value)}
+          onChange={updateThreeR}
         >
           <option value="none" defaultChecked>
             none
