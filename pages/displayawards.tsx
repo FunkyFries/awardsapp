@@ -36,7 +36,7 @@ const DisplayAwards: NextPage<{
   role: string;
 }> = ({ students, user, role }) => {
   useEffect(() => {
-    if (!user || !students || role !== "admin") {
+    if (!user || !students) {
       Router.push("/auth");
     }
   });
@@ -403,14 +403,6 @@ const DisplayAwards: NextPage<{
 DisplayAwards.getInitialProps = async ({ req, res }) => {
   let obj;
   let students;
-  if (req && req.user) {
-    if (req.user.role !== "admin") {
-      res.writeHead(302, {
-        Location: "https://ccsawardsapp.herokuapp.com/awards"
-      });
-      res.end();
-    }
-  }
   if (req && req.headers.cookie !== undefined) {
     obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
       headers: {
