@@ -7,14 +7,9 @@ const NavBar: React.FC<{ role: string; path: string }> = ({ role, path }) => {
   let adminLinks;
   role === "admin"
     ? (adminLinks = (
-        <>
-          <Link href="/displayawards" passHref>
-            <Nav.Link active={path === "/displayawards"}>Awards Table</Nav.Link>
-          </Link>
-          <Link href="/manageusers" passHref>
-            <Nav.Link active={path === "/manageusers"}>Manage Users</Nav.Link>
-          </Link>
-        </>
+        <Link href="/manageusers" passHref>
+          <Nav.Link active={path === "/manageusers"}>Manage Users</Nav.Link>
+        </Link>
       ))
     : null;
 
@@ -31,6 +26,9 @@ const NavBar: React.FC<{ role: string; path: string }> = ({ role, path }) => {
           </Link>
           <Link href="/writeups" passHref>
             <Nav.Link active={path === "/writeups"}>Writeups</Nav.Link>
+          </Link>
+          <Link href="/displayawards" passHref>
+            <Nav.Link active={path === "/displayawards"}>Awards Table</Nav.Link>
           </Link>
           {adminLinks}
         </Nav>
