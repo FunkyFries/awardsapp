@@ -5,6 +5,7 @@ import Router from "next/router";
 import NavBar from "../components/navbar";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import WriteUpForm from "../components/writeUpForm";
 import {
   BackgroundDiv,
@@ -53,19 +54,21 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   const handleSubmit = e => {
     e.preventDefault();
     for (let i = 0; i < e.target.length - 1; i++) {
-      role === "teacher"
-        ? axios
-            .put(`/students/${e.target[i].id}`, {
-              threeRwriteUp: e.target[i].value
-            })
-            .then(res => setShowSuccess(true))
-            .catch(err => setShowErr(true))
-        : axios
-            .put(`/students/${e.target[i].id}`, {
-              terrificKidWriteUp: e.target[i].value
-            })
-            .then(res => setShowSuccess(true))
-            .catch(err => setShowErr(true));
+      if (e.target[i].value.length > 0) {
+        role === "teacher"
+          ? axios
+              .put(`/students/${e.target[i].id}`, {
+                threeRwriteUp: e.target[i].value
+              })
+              .then(res => setShowSuccess(true))
+              .catch(err => setShowErr(true))
+          : axios
+              .put(`/students/${e.target[i].id}`, {
+                terrificKidWriteUp: e.target[i].value
+              })
+              .then(res => setShowSuccess(true))
+              .catch(err => setShowErr(true));
+      }
     }
   };
 
@@ -128,7 +131,11 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
           <WriteUpHeading>Writeups</WriteUpHeading>
           <Form onSubmit={handleSubmit}>
             {writeUpForm}
-            {role === "admin" ? null : <button>Submit</button>}
+            {role === "admin" ? null : (
+              <Button type="submit" size="lg" variant="dark">
+                Submit
+              </Button>
+            )}
           </Form>
         </WriteUpContainer>
       </BackgroundDiv>

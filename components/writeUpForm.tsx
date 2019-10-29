@@ -29,13 +29,14 @@ const WriteUpForm: React.FC<Student> = student => {
   if (student.role !== "admin") {
     return (
       <Form.Group>
-        <Form.Label>
+        <Form.Label style={{ color: "#f7eded" }}>
           {student.name}: {awardName}
         </Form.Label>
         <Form.Control
           id={student._id}
           as="textarea"
           rows="3"
+          placeholder="Write those super words here!"
           value={textValue}
           onChange={handleChange}
         />
