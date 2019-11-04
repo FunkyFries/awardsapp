@@ -35,7 +35,7 @@ app.prepare().then(() => {
     cookieSession({
       secret: process.env.SESSION_SECRET,
       name: "session",
-      httpOnly: false,
+      httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000
     })
   );
@@ -46,7 +46,7 @@ app.prepare().then(() => {
       {
         clientID: process.env.OUTLOOK_CLIENT_ID,
         clientSecret: process.env.OUTLOOK_CLIENT_SECRET,
-        callbackURL: "https://ccsawardsapp.herokuapp.com/auth/callback",
+        callbackURL: `${process.env.HTTP}/auth/callback`,
         // tenant: process.env.TENANT_ID,
         scope: ["User.read"],
         authorizationURL: process.env.OUTLOOK_AUTHORITY,

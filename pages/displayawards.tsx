@@ -1,8 +1,9 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 import Router from "next/router";
 import NavBar from "../components/navbar";
+import ArCertificate from "../components/arcertificate";
 import {
   teachers,
   specialists,
@@ -42,6 +43,8 @@ const DisplayAwards: NextPage<{
   });
 
   try {
+    const componentRef = useRef();
+
     const threeRstudents = students.filter(
       student => student.threeR !== "none"
     );
@@ -321,7 +324,8 @@ const DisplayAwards: NextPage<{
     return (
       <>
         <NavBar role={role} path="/displayawards"></NavBar>
-        <BackgroundDiv>
+        <ArCertificate students={ARstudents} />
+        <BackgroundDiv className="d-print-none">
           <DisplayAwardsContainer>
             <StyledTable striped>
               <thead>
@@ -404,7 +408,7 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
   let obj;
   let students;
   if (req && req.headers.cookie !== undefined) {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
         cookie: req.headers.cookie
       },
@@ -413,7 +417,7 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
     students = { students: obj.data.students };
     return students;
   } else {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       withCredentials: true
     });
     students = { students: obj.data.students };
