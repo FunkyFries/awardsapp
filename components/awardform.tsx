@@ -194,7 +194,7 @@ const AwardForm: NextPage<{
         onChange={updateCougarCommunityService}
         checked={communityService}
         disabled={
-          userName !== "Mrs. Plummer" ||
+          (role !== "admin" && userName !== "Mrs. Plummer") ||
           allIn ||
           outstanding ||
           terrific ||
