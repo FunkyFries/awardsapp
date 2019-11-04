@@ -50,7 +50,7 @@ export const StyledCard = styled(Card)`
 
   ${desktopUp} {
     width: 19%;
-    margin: 0.4%;
+    margin: 0.5%;
   }
 `;
 
