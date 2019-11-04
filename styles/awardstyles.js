@@ -47,6 +47,11 @@ export const StyledCard = styled(Card)`
     width: 24%;
     margin: 0.5%;
   }
+
+  ${desktopUp} {
+    width: 19%;
+    margin: 0.4%;
+  }
 `;
 
 export const CardBody = styled(Card.Body)`
