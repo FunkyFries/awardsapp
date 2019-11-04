@@ -404,7 +404,7 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
   let obj;
   let students;
   if (req && req.headers.cookie !== undefined) {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
         cookie: req.headers.cookie
       },
@@ -413,7 +413,7 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
     students = { students: obj.data.students };
     return students;
   } else {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       withCredentials: true
     });
     students = { students: obj.data.students };

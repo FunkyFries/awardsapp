@@ -148,13 +148,13 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
   let obj2;
   let students;
   if (req && req.headers.cookie !== undefined && req.user.role === "admin") {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
         cookie: req.headers.cookie
       },
       withCredentials: true
     });
-    obj2 = await axios.get("https://ccsawardsapp.herokuapp.com/users", {
+    obj2 = await axios.get(`${process.env.HTTP}/users`, {
       headers: {
         cookie: req.headers.cookie
       },
@@ -163,10 +163,10 @@ ManageUsers.getInitialProps = async ({ req, res }) => {
     students = { students: obj.data.students, users: obj2.data.users };
     return students;
   } else {
-    obj = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    obj = await axios.get(`${process.env.HTTP}/students`, {
       withCredentials: true
     });
-    obj2 = await axios.get("https://ccsawardsapp.herokuapp.com/users", {
+    obj2 = await axios.get(`${process.env.HTTP}/users`, {
       withCredentials: true
     });
     students = { students: obj.data.students, users: obj2.data.users };

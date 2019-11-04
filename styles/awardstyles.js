@@ -81,3 +81,8 @@ export const ThreeRLabel = styled(Form.Label)`
   width: 60%;
   margin: 0;
 `;
+
+export const DueDate = styled.h1`
+  background: #f8f9fa;
+  text-align: center;
+`;

@@ -46,7 +46,7 @@ app.prepare().then(() => {
       {
         clientID: process.env.OUTLOOK_CLIENT_ID,
         clientSecret: process.env.OUTLOOK_CLIENT_SECRET,
-        callbackURL: "https://ccsawardsapp.herokuapp.com/auth/callback",
+        callbackURL: process.env.OUTLOOK_CALLBACK_URL,
         // tenant: process.env.TENANT_ID,
         scope: ["User.read"],
         authorizationURL: process.env.OUTLOOK_AUTHORITY,

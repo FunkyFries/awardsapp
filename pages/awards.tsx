@@ -12,7 +12,8 @@ import {
   CardTitle,
   TeacherHeading,
   StyledHr,
-  BackgroundDiv
+  BackgroundDiv,
+  DueDate
 } from "../styles/awardstyles";
 
 const Awards: NextPage<{ students: any; role: any; user: any }> = ({
@@ -97,6 +98,8 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   return (
     <>
       <NavBar path="/awards" role={role}></NavBar>
+      {role === "teacher" ? <DueDate>Due November 12th</DueDate> : null}
+      {role === "specialist" ? <DueDate>Due November 15th</DueDate> : null}
       <BackgroundDiv>{Classes}</BackgroundDiv>
     </>
   );
@@ -106,7 +109,7 @@ Awards.getInitialProps = async ({ req }) => {
   let res;
   let students;
   if (req && req.headers.cookie !== undefined) {
-    res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    res = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
         cookie: req.headers.cookie
       },
@@ -115,7 +118,7 @@ Awards.getInitialProps = async ({ req }) => {
     students = { students: res.data.students };
     return students;
   } else {
-    res = await axios.get("https://ccsawardsapp.herokuapp.com/students", {
+    res = await axios.get(`${process.env.HTTP}/students`, {
       withCredentials: true
     });
     students = { students: res.data.students };
