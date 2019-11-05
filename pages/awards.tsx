@@ -2,15 +2,19 @@ import { NextPage } from "next";
 import axios from "axios";
 import { teachers } from "../components/teachers";
 import AwardForm from "../components/awardform";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Router from "next/router";
 import NavBar from "../components/navbar";
+import Accordion from "react-bootstrap/Accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import {
   StyledCard,
   CardImg,
   CardBody,
   CardTitle,
   TeacherHeading,
+  TeacherHeadingDiv,
   StyledHr,
   BackgroundDiv,
   DueDate
@@ -77,11 +81,27 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   }
 
   const AllClasses = teachers.map(teacher => {
+    const [collapsed, setCollapsed] = useState(false);
     return (
       <div key={teacher}>
-        <TeacherHeading>{teacher}</TeacherHeading>
-        <StyledHr />
-        {StudentCards[teacher]}
+        <Accordion defaultActiveKey="0">
+          <Accordion.Toggle
+            as={TeacherHeadingDiv}
+            eventKey="0"
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            <TeacherHeading>{teacher}</TeacherHeading>
+            {collapsed ? (
+              <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
+            ) : (
+              <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
+            )}
+          </Accordion.Toggle>
+          <StyledHr />
+          <Accordion.Collapse eventKey="0">
+            <>{StudentCards[teacher]}</>
+          </Accordion.Collapse>
+        </Accordion>
       </div>
     );
   });

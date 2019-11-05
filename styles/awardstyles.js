@@ -63,12 +63,19 @@ export const CardTitle = styled(Card.Title)`
 `;
 
 export const TeacherHeading = styled.h1`
-  color: rgb(247, 237, 237);
   margin: 0 1rem;
 
   ${phoneOnly} {
     text-align: center;
   }
+`;
+
+export const TeacherHeadingDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1rem;
+  color: rgb(247, 237, 237);
 `;
 
 export const StyledHr = styled.hr`
