@@ -55,19 +55,28 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     e.preventDefault();
     for (let i = 0; i < e.target.length - 1; i++) {
       if (e.target[i].value.length > 0) {
-        role === "teacher"
-          ? axios
-              .put(`/students/${e.target[i].id}`, {
-                threeRwriteUp: e.target[i].value
-              })
-              .then(res => setShowSuccess(true))
-              .catch(err => setShowErr(true))
-          : axios
-              .put(`/students/${e.target[i].id}`, {
-                terrificKidWriteUp: e.target[i].value
-              })
-              .then(res => setShowSuccess(true))
-              .catch(err => setShowErr(true));
+        if (role === "teacher") {
+          axios
+            .put(`/students/${e.target[i].id}`, {
+              threeRwriteUp: e.target[i].value
+            })
+            .then(res => setShowSuccess(true))
+            .catch(err => setShowErr(true));
+        } else if (user === "Mrs. Plummer") {
+          axios
+            .put(`/students/${e.target[i].id}`, {
+              ccsWriteup: e.target[i].value
+            })
+            .then(res => setShowSuccess(true))
+            .catch(err => setShowErr(true));
+        } else {
+          axios
+            .put(`/students/${e.target[i].id}`, {
+              terrificKidWriteUp: e.target[i].value
+            })
+            .then(res => setShowSuccess(true))
+            .catch(err => setShowErr(true));
+        }
       }
     }
   };
@@ -80,23 +89,43 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     filteredStudents = students.filter(
       student => student.teacher === user && student.threeR !== "none"
     );
+  } else if (user === "Mrs. Plummer") {
+    filteredStudents = students.filter(
+      student => student.cougarCommunityService
+    );
   } else if (role === "specialist") {
     filteredStudents = students.filter(
       student => student.terrificKidChosenBy === user
     );
   } else if (role === "admin") {
     filteredStudents = students
-      .filter(student => student.terrificKid || student.threeR !== "none")
+      .filter(
+        student =>
+          student.terrificKid ||
+          student.threeR !== "none" ||
+          student.cougarCommunityService
+      )
       .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
-  if (
-    (role === "teacher" || role === "specialist") &&
-    filteredStudents.length > 0
-  ) {
+  if (filteredStudents.length > 0) {
     writeUpForm = filteredStudents.map(student => {
-      let writeUp =
-        role === "teacher" ? student.threeRwriteUp : student.terrificKidWriteUp;
+      let writeUp;
+      if (role === "teacher") {
+        writeUp = student.threeRwriteUp;
+      } else if (user === "Mrs. Plummer") {
+        writeUp = student.ccsWriteup;
+      } else if (role === "admin") {
+        if (student.terrificKid) {
+          writeUp = student.terrificKidWriteUp;
+        } else if (student.cougarCommunityService) {
+          writeUp = student.ccsWriteup;
+        } else {
+          writeUp = student.threeRwriteUp;
+        }
+      } else {
+        writeUp = student.terrificKidWriteUp;
+      }
       return (
         <WriteUpForm
           {...student}

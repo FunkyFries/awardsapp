@@ -35,6 +35,9 @@ const Student = mongoose.model(
     cougarCommunityService: {
       type: Boolean
     },
+    ccsWriteup: {
+      type: String
+    },
     terrificKid: {
       type: Boolean
     },
@@ -81,6 +84,7 @@ function validateUpdate(student) {
     outstandingAchievement: Joi.boolean(),
     wowAward: Joi.boolean(),
     cougarCommunityService: Joi.boolean(),
+    ccsWriteup: Joi.string(),
     terrificKid: Joi.boolean(),
     terrificKidChosenBy: Joi.string(),
     terrificKidWriteUp: Joi.string(),
