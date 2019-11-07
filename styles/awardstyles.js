@@ -64,6 +64,7 @@ export const CardTitle = styled(Card.Title)`
 
 export const TeacherHeading = styled.h1`
   margin: 0 1rem;
+  color: rgb(247, 237, 237);
 
   ${phoneOnly} {
     text-align: center;

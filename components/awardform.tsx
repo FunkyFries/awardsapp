@@ -61,10 +61,12 @@ const AwardForm: NextPage<{
   useEffect(() => {
     if (
       (role !== "teacher" &&
+        userName !== "Mrs. Plummer" &&
         terrificKidChosenBy !== "null" &&
         userName === terrificKidChosenBy &&
         threeRAward === "none") ||
       (role !== "teacher" &&
+        userName !== "Mrs. Plummer" &&
         terrificKidChosenBy === "null" &&
         threeRAward === "none" &&
         !allIn &&

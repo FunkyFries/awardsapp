@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Router from "next/router";
 import NavBar from "../components/navbar";
 import Accordion from "react-bootstrap/Accordion";
+import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -113,13 +114,24 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
     </div>
   );
 
-  const Classes = role === "teacher" ? SingleClass : AllClasses;
+  let Classes = role === "teacher" ? SingleClass : AllClasses;
+
+  if (moment().isBefore("2019-11-07", "day") && role === "teacher") {
+    Classes = <DueDate>Awards Will Open November 8th</DueDate>;
+  }
+  if (moment().isBefore("2019-11-12", "day") && role === "specialist") {
+    Classes = <DueDate>Awards Will Open November 13th</DueDate>;
+  }
 
   return (
     <>
       <NavBar path="/awards" role={role}></NavBar>
-      {role === "teacher" ? <DueDate>Due November 12th</DueDate> : null}
-      {role === "specialist" ? <DueDate>Due November 15th</DueDate> : null}
+      {role === "teacher" && moment().isAfter("2019-11-07") ? (
+        <DueDate>Due November 12th</DueDate>
+      ) : null}
+      {role === "specialist" && moment().isAfter("2019-11-12") ? (
+        <DueDate>Due November 15th</DueDate>
+      ) : null}
       <BackgroundDiv>{Classes}</BackgroundDiv>
     </>
   );

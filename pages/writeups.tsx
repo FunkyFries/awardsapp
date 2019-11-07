@@ -160,7 +160,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
           <WriteUpHeading>Writeups</WriteUpHeading>
           <Form onSubmit={handleSubmit}>
             {writeUpForm}
-            {role === "admin" ? null : (
+            {role === "admin" || filteredStudents.length === 0 ? null : (
               <Button type="submit" size="lg" variant="dark">
                 Submit
               </Button>
