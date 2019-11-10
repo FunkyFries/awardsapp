@@ -1,9 +1,11 @@
 import { NextPage } from "next";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import NavBar from "../components/navbar";
 import ArCertificate from "../components/arcertificate";
+import ThreeRCertificate from "../components/threeRcertificate";
+import Button from "react-bootstrap/Button";
 import {
   teachers,
   specialists,
@@ -36,15 +38,14 @@ const DisplayAwards: NextPage<{
   user: string;
   role: string;
 }> = ({ students, user, role }) => {
+  const [printReady, setPrintReady] = useState(false);
   useEffect(() => {
     if (!user || !students) {
       Router.push("/auth");
     }
-  });
+  }, []);
 
   try {
-    const componentRef = useRef();
-
     const threeRstudents = students.filter(
       student => student.threeR !== "none"
     );
@@ -324,7 +325,10 @@ const DisplayAwards: NextPage<{
     return (
       <>
         <NavBar role={role} path="/displayawards"></NavBar>
-        <ArCertificate students={ARstudents} />
+        <ThreeRCertificate
+          currentQuarter={currentQuarter}
+          students={threeRstudents}
+        />
         <BackgroundDiv className="d-print-none">
           <DisplayAwardsContainer>
             <StyledTable striped>
@@ -397,6 +401,16 @@ const DisplayAwards: NextPage<{
             ) : null}
           </DisplayAwardsContainer>
         </BackgroundDiv>
+        <ArCertificate setPrintReady={setPrintReady} students={ARstudents} />
+        {printReady ? (
+          <Button
+            variant="info"
+            className="d-print-none"
+            onClick={() => window.print()}
+          >
+            Print AR Certificates
+          </Button>
+        ) : null}
       </>
     );
   } catch {

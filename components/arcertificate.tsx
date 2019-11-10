@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import {
   PrintDiv,
   CertDiv,
@@ -13,7 +12,10 @@ import {
   HR
 } from "../styles/certstyles";
 
-const ArCertificate: React.FC<{ students: any }> = ({ students }) => {
+const ArCertificate: React.FC<{ students: any; setPrintReady: any }> = ({
+  students,
+  setPrintReady
+}) => {
   const certs = students.map(student => {
     let grade;
     if (
@@ -72,13 +74,10 @@ const ArCertificate: React.FC<{ students: any }> = ({ students }) => {
       </CertDiv>
     );
   });
+  Promise.all(certs).then(() => setPrintReady(true));
   return (
     <>
-      {/* className="d-none d-print-block" */}
-      <PrintDiv>{certs}</PrintDiv>
-      <Button className="d-print-none" onClick={() => window.print()}>
-        Print this stuff
-      </Button>
+      <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>
     </>
   );
 };
