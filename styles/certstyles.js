@@ -157,6 +157,7 @@ export const ThreeRh1 = styled.h1`
   font-weight: 700;
   color: #062f5f;
 `;
+
 export const ThreeRh2 = styled.h1`
   font-family: "Noto Sans";
   font-size: 4rem;
@@ -180,4 +181,138 @@ export const ThreeRh5 = styled.h1`
   font-weight: 700;
   font-family: "Noto Sans";
   font-size: 1rem;
+`;
+
+export const ThreeRWriteup = styled.h1`
+  font-size: 1.5rem;
+  font-family: "Noto Sans";
+`;
+
+export const ThreeRWriteupTitle = styled.h1`
+  font-size: 4rem;
+  font-family: "Cormorant Garamond";
+  align-self: flex-start;
+`;
+
+export const ThreeRWriteupContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 3rem;
+  height: 100vh;
+`;
+
+export const ThreeRLogoContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const ThreeRLogoImage = styled.img`
+  width: 225px;
+  height: 135px;
+`;
+
+export const ThreeRWriteupSignature = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+export const ThreeRWriteupTeacherDiv = styled.div`
+  border-top: 1px solid #000;
+  margin-top: 1rem;
+`;
+
+export const OutstandingCCS = styled.img`
+  display: flex;
+  margin-top: 2rem;
+  align-self: flex-start;
+  z-index: 11;
+  position: absolute;
+  padding-left: 1rem;
+  padding-bottom: 1.5rem;
+`;
+
+export const OutstandingInnerBorder = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid #062f5f;
+`;
+
+export const OutstandingOuterBorder = styled.div`
+  margin: 2rem 1rem;
+  padding: 0.5rem;
+  display: flex;
+  width: 100%;
+  border: 10px solid #398771;
+`;
+
+export const OutstandingH1 = styled.h1`
+  font-family: "Calligraffitti", cursive;
+  width: 100%;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #062f5f;
+  text-align: center;
+  margin: 0;
+`;
+
+export const OutstandingH2 = styled.h1`
+  width: 100%;
+  font-size: 4rem;
+  font-family: "Calligraffitti", cursive;
+  text-align: center;
+  margin: 0;
+`;
+
+export const OutstandingH3 = styled.h1`
+  width: 100%;
+  font-family: "Calligraffitti", cursive;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #062f5f;
+  margin: 0;
+`;
+
+export const OutstandingH4 = styled.h1`
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
+  font-family: "Noto Sans", sans-serif;
+  color: #398771;
+`;
+
+export const OutstandingH5 = styled.h1`
+  width: 100%;
+  font-size: 1.7rem;
+  font-family: "Noto Sans", sans-serif;
+  color: #062f5f;
+  text-align: center;
+  margin: 0;
+`;
+
+export const OutstandingH6 = styled.h1`
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1.3rem;
+  margin: 0;
+`;
+
+export const OutstandingSignatures = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+`;
+
+export const OutstandingStar = styled.img`
+  display: flex;
+  align-self: flex-end;
+  z-index: 11;
+  position: absolute;
+  padding-left: 1rem;
+  padding-bottom: 4rem;
 `;

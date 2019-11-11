@@ -5,6 +5,8 @@ import Router from "next/router";
 import NavBar from "../components/navbar";
 import ArCertificate from "../components/arcertificate";
 import ThreeRCertificate from "../components/threeRcertificate";
+import OutstandingCertificate from "../components/outstandingcertificate";
+import CommunityServiceCertificate from "../components/communityservicecertificate";
 import Button from "react-bootstrap/Button";
 import {
   teachers,
@@ -329,6 +331,15 @@ const DisplayAwards: NextPage<{
           currentQuarter={currentQuarter}
           students={threeRstudents}
         />
+        <ArCertificate setPrintReady={setPrintReady} students={ARstudents} />
+        <OutstandingCertificate
+          students={outstandingStudents}
+          currentQuarter={currentQuarter}
+        />
+        <CommunityServiceCertificate
+          students={communityServiceStudents}
+          currentQuarter={currentQuarter}
+        />
         <BackgroundDiv className="d-print-none">
           <DisplayAwardsContainer>
             <StyledTable striped>
@@ -401,7 +412,6 @@ const DisplayAwards: NextPage<{
             ) : null}
           </DisplayAwardsContainer>
         </BackgroundDiv>
-        <ArCertificate setPrintReady={setPrintReady} students={ARstudents} />
         {printReady ? (
           <Button
             variant="info"

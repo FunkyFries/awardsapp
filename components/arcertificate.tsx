@@ -76,8 +76,9 @@ const ArCertificate: React.FC<{ students: any; setPrintReady: any }> = ({
   });
   Promise.all(certs).then(() => setPrintReady(true));
   return (
+    // className="d-none d-print-block"
     <>
-      <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>
+      <PrintDiv>{certs}</PrintDiv>
     </>
   );
 };

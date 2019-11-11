@@ -40,11 +40,7 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Jomolhari&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Noto+Sans:400,400i,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Calligraffitti|Cormorant+Garamond|Jomolhari|Noto+Sans:400,400i,700&display=swap"
             rel="stylesheet"
           />
         </Head>
