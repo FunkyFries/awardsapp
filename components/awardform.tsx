@@ -61,10 +61,12 @@ const AwardForm: NextPage<{
   useEffect(() => {
     if (
       (role !== "teacher" &&
+        userName !== "Mrs. Plummer" &&
         terrificKidChosenBy !== "null" &&
         userName === terrificKidChosenBy &&
         threeRAward === "none") ||
       (role !== "teacher" &&
+        userName !== "Mrs. Plummer" &&
         terrificKidChosenBy === "null" &&
         threeRAward === "none" &&
         !allIn &&
@@ -194,7 +196,7 @@ const AwardForm: NextPage<{
         onChange={updateCougarCommunityService}
         checked={communityService}
         disabled={
-          userName !== "Mrs. Plummer" ||
+          (role !== "admin" && userName !== "Mrs. Plummer") ||
           allIn ||
           outstanding ||
           terrific ||
