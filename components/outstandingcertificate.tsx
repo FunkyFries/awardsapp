@@ -56,7 +56,7 @@ const OutstandingCertificate: React.FC<{
       </CertDiv>
     );
   });
-  return <PrintDiv>{certs}</PrintDiv>;
+  return <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>;
 };
 
 export default OutstandingCertificate;

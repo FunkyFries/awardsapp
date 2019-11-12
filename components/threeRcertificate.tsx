@@ -131,7 +131,7 @@ const ThreeRCertificate: React.FC<{
       </div>
     );
   });
-  return <PrintDiv>{certs}</PrintDiv>;
+  return <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>;
 };
 
 export default ThreeRCertificate;

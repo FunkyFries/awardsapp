@@ -89,7 +89,7 @@ export const InnerBorder = styled.div`
 `;
 
 export const OuterBorder = styled.div`
-  margin: 2rem 1rem;
+  margin: 3rem;
   padding: 1rem;
   display: flex;
   width: 100%;
@@ -111,7 +111,7 @@ export const ThreeRLogo = styled.img`
   height: 25%;
   display: flex;
   position: absolute;
-  margin: 1rem 6rem;
+  margin: 2.5rem 6rem;
   z-index: 10;
 `;
 
@@ -243,7 +243,7 @@ export const OutstandingInnerBorder = styled.div`
 `;
 
 export const OutstandingOuterBorder = styled.div`
-  margin: 2rem 1rem;
+  margin: 3rem;
   padding: 0.5rem;
   display: flex;
   width: 100%;
@@ -313,6 +313,59 @@ export const OutstandingStar = styled.img`
   align-self: flex-end;
   z-index: 11;
   position: absolute;
-  padding-left: 1rem;
   padding-bottom: 4rem;
+`;
+
+export const CommunityServiceStar = styled.img`
+  display: flex;
+  align-self: flex-end;
+  z-index: 11;
+  position: absolute;
+  padding-bottom: 4rem;
+  height: 25%;
+`;
+
+export const AllInH1 = styled.h1`
+  font-family: "Cormorant Garamond", serif;
+  width: 100%;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #062f5f;
+  text-align: center;
+  margin: 0;
+`;
+
+export const AllInLogo = styled.img`
+  width: 40%;
+  display: flex;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+`;
+
+export const AllInContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 10rem;
+  padding-right: 2rem;
+  width: 60%;s
+`;
+
+export const AllInCCS = styled.img`
+  display: flex;
+  align-self: flex-end;
+  width: 150px;
+  position: absolute;
+  padding-left: 1rem;
+  padding-bottom: 5rem;
+`;
+
+export const AllInH5 = styled.h1`
+  width: 100%;
+  font-size: 1.3rem;
+  font-family: "Noto Sans", sans-serif;
+  color: #062f5f;
+  text-align: center;
+  margin: 0;
 `;
