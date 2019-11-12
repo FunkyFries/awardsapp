@@ -20,6 +20,7 @@ import {
   BackgroundDiv,
   DueDate
 } from "../styles/awardstyles";
+import { H1 } from "../styles/certstyles";
 
 const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   students,

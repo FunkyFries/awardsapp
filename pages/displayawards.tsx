@@ -1,8 +1,14 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import NavBar from "../components/navbar";
+import ArCertificate from "../components/arcertificate";
+import ThreeRCertificate from "../components/threeRcertificate";
+import OutstandingCertificate from "../components/outstandingcertificate";
+import CommunityServiceCertificate from "../components/communityservicecertificate";
+import AllInCertificate from "../components/allincertificate";
+import Button from "react-bootstrap/Button";
 import {
   teachers,
   specialists,
@@ -18,6 +24,7 @@ import {
   TableHeader,
   ArAwardsHeader
 } from "../styles/displayawardstyles";
+import TerrificKidCertificate from "../components/terrifickidcertificate";
 
 let currentQuarter;
 if (moment().isBefore("2019-11-20")) {
@@ -35,11 +42,12 @@ const DisplayAwards: NextPage<{
   user: string;
   role: string;
 }> = ({ students, user, role }) => {
+  // const [printReady, setPrintReady] = useState(false);
   useEffect(() => {
     if (!user || !students) {
       Router.push("/auth");
     }
-  });
+  }, []);
 
   try {
     const threeRstudents = students.filter(
@@ -321,8 +329,39 @@ const DisplayAwards: NextPage<{
     return (
       <>
         <NavBar role={role} path="/displayawards"></NavBar>
-        <BackgroundDiv>
+        <ThreeRCertificate
+          currentQuarter={currentQuarter}
+          students={threeRstudents}
+        />
+        {/* <ArCertificate setPrintReady={setPrintReady} students={ARstudents} /> */}
+        <AllInCertificate
+          currentQuarter={currentQuarter}
+          students={allInStudents}
+        ></AllInCertificate>
+        <OutstandingCertificate
+          students={outstandingStudents}
+          currentQuarter={currentQuarter}
+        />
+        <CommunityServiceCertificate
+          students={communityServiceStudents}
+          currentQuarter={currentQuarter}
+        />
+        <TerrificKidCertificate
+          students={terrificStudents}
+          currentQuarter={currentQuarter}
+        ></TerrificKidCertificate>
+        <BackgroundDiv className="d-print-none">
           <DisplayAwardsContainer>
+            {role === "admin" ? (
+              <Button
+                style={{ marginTop: "1rem" }}
+                variant="info"
+                className="d-print-none"
+                onClick={() => window.print()}
+              >
+                Print Certificates
+              </Button>
+            ) : null}
             <StyledTable striped>
               <thead>
                 <tr>
