@@ -9,6 +9,7 @@ type Student = {
   writeUp: string;
   terrificKid: boolean;
   terrificKidChosenBy: string;
+  cougarCommunityService: boolean;
   role: string;
   teacher: string;
 };
@@ -19,12 +20,16 @@ const WriteUpForm: React.FC<Student> = student => {
     setTextValue(e.target.value);
   };
   let awardName;
-  student.terrificKid
-    ? (awardName = `Terrific Kid chosen by ${student.terrificKidChosenBy}`)
-    : (awardName = `${student.threeR.substr(
-        0,
-        student.threeR.indexOf(" ")
-      )} chosen by ${student.teacher}`);
+  if (student.terrificKid) {
+    awardName = `Terrific Kid chosen by ${student.terrificKidChosenBy}`;
+  } else if (student.cougarCommunityService) {
+    awardName = "Cougar Community Service chosen by Mrs. Plummer";
+  } else {
+    awardName = `${student.threeR.substr(
+      0,
+      student.threeR.indexOf(" ")
+    )} chosen by ${student.teacher}`;
+  }
 
   if (student.role !== "admin") {
     return (

@@ -43,6 +43,7 @@ router.post("/", ensureAuthenticated, async (req, res) => {
       outstandingAchievement: false,
       wowAward: false,
       cougarCommunityService: false,
+      ccsWriteup: "",
       terrificKid: false,
       terrificKidChosenBy: "null",
       terrificKidWriteUp: "",
