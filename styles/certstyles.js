@@ -173,7 +173,7 @@ export const ThreeRh3 = styled.h1`
 `;
 export const ThreeRh4 = styled.h1`
   font-family: "Cormorant Garamond";
-  font-size: 2rem;
+  font-size: 1.9rem;
   margin-bottom: 2.5rem;
 `;
 export const ThreeRh5 = styled.h1`
@@ -313,7 +313,7 @@ export const OutstandingStar = styled.img`
   align-self: flex-end;
   z-index: 11;
   position: absolute;
-  padding-bottom: 4rem;
+  padding-bottom: 6rem;
 `;
 
 export const CommunityServiceStar = styled.img`
@@ -321,7 +321,7 @@ export const CommunityServiceStar = styled.img`
   align-self: flex-end;
   z-index: 11;
   position: absolute;
-  padding-bottom: 4rem;
+  padding-bottom: 6rem;
   height: 25%;
 `;
 
@@ -347,7 +347,7 @@ export const AllInContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-top: 10rem;
+  padding-top: 4rem;
   padding-right: 2rem;
   width: 60%;s
 `;
