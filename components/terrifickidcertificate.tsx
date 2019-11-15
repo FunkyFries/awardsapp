@@ -29,7 +29,13 @@ const TerrificKidCertificate: React.FC<{
               src="/static/terrifickidlogo.png"
               alt="Terrific Kid Logo"
             />
-            <ThreeRWriteupTitle style={{ width: "100%", fontSize: "3rem" }}>
+            <ThreeRWriteupTitle
+              style={{
+                width: "100%",
+                fontSize: "2rem",
+                fontFamily: "Noto Sans"
+              }}
+            >
               {currentQuarter} 2019 - 2020
             </ThreeRWriteupTitle>
             <ThreeRh3>{student.name}</ThreeRh3>
