@@ -172,8 +172,8 @@ export const ThreeRh3 = styled.h1`
   font-size: 2rem;
 `;
 export const ThreeRh4 = styled.h1`
-  font-family: "Cormorant Garamond";
-  font-size: 1.9rem;
+  font-family: "Noto Sans";
+  font-size: 1.5rem;
   margin-bottom: 2.5rem;
 `;
 export const ThreeRh5 = styled.h1`
@@ -253,7 +253,7 @@ export const OutstandingOuterBorder = styled.div`
 export const OutstandingH1 = styled.h1`
   font-family: "Calligraffitti", cursive;
   width: 100%;
-  font-size: 4.5rem;
+  font-size: 4rem;
   font-weight: 700;
   color: #062f5f;
   text-align: center;
@@ -270,8 +270,8 @@ export const OutstandingH2 = styled.h1`
 
 export const OutstandingH3 = styled.h1`
   width: 100%;
-  font-family: "Calligraffitti", cursive;
-  font-size: 2.5rem;
+  font-family: "Noto Sans", cursive;
+  font-size: 2rem;
   text-align: center;
   color: #062f5f;
   margin: 0;
@@ -368,4 +368,13 @@ export const AllInH5 = styled.h1`
   color: #062f5f;
   text-align: center;
   margin: 0;
+`;
+
+export const TerrificH1 = styled.h1`
+  font-family: "Noto Sans", sans-serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: #062f5f;
+  display: flex;
+  margin: auto;
 `;
