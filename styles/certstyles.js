@@ -82,6 +82,8 @@ export const InnerBorder = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -90,7 +92,6 @@ export const InnerBorder = styled.div`
 
 export const OuterBorder = styled.div`
   margin: 3rem;
-  padding: 1rem;
   display: flex;
   width: 100%;
   border: 10px solid #398771;
@@ -99,11 +100,10 @@ export const OuterBorder = styled.div`
 export const TitleDiv = styled.div`
   display: flex;
   z-index: -1;
+  margin-bottom: 2rem;
   width: 100%;
-  height: 25%;
   justify-content: flex-end;
   background-repeat: no-repeat;
-  background-size: contain;
   background-image: url(/static/Header.png);
 `;
 
@@ -144,7 +144,7 @@ export const ThreeRSignatures = styled.div`
 
 export const ThreeRTitle = styled.h1`
   font-family: "Cormorant Garamond", serif;
-  margin-top: 1rem;
+  margin-top: 1.6rem;
   margin-right: 6rem;
   font-size: 5rem;
   color: #062f5f;

@@ -23,7 +23,8 @@ import {
   ThreeRWriteup,
   ThreeRWriteupTitle,
   ThreeRWriteupSignature,
-  ThreeRWriteupTeacherDiv
+  ThreeRWriteupTeacherDiv,
+  OutstandingInnerBorder
 } from "../styles/certstyles";
 
 const ThreeRCertificate: React.FC<{
@@ -83,7 +84,7 @@ const ThreeRCertificate: React.FC<{
           <ThreeRLogo src="/static/3Rlogo.png" alt="3R logo" />
           <ThreeRContainer>
             <OuterBorder>
-              <InnerBorder>
+              <OutstandingInnerBorder style={{ margin: ".5rem" }}>
                 <TitleDiv>
                   <ThreeRTitle>Cougar Character</ThreeRTitle>
                 </TitleDiv>
@@ -105,7 +106,7 @@ const ThreeRCertificate: React.FC<{
                     <h5>Teacher</h5>
                   </ThreeRSignatures>
                 </ContentDiv>
-              </InnerBorder>
+              </OutstandingInnerBorder>
             </OuterBorder>
             <ThreeRCCS src="/static/Logo.png" alt="CCS Logo" />
           </ThreeRContainer>
@@ -131,7 +132,8 @@ const ThreeRCertificate: React.FC<{
       </div>
     );
   });
-  return <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>;
+  return <PrintDiv>{certs}</PrintDiv>;
 };
+// className="d-none d-print-block"
 
 export default ThreeRCertificate;
