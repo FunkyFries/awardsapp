@@ -87,7 +87,10 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   // Filter students assigned to teacher
   if (role === "teacher" && students) {
     filteredStudents = students.filter(
-      student => student.teacher === user && student.threeR !== "none"
+      student =>
+        (student.teacher === user && student.threeR !== "none") ||
+        (student.teacher === user && student.allInAward) ||
+        (student.teacher === user && student.outstandingAchievement)
     );
   } else if (user === "Mrs. Plummer") {
     filteredStudents = students.filter(
@@ -103,7 +106,9 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         student =>
           student.terrificKid ||
           student.threeR !== "none" ||
-          student.cougarCommunityService
+          student.cougarCommunityService ||
+          student.allInAward ||
+          student.outstandingAchievement
       )
       .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
@@ -111,8 +116,16 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   if (filteredStudents.length > 0) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp;
+      let allInWriteup;
+      let outstandingWriteup;
       if (role === "teacher") {
-        writeUp = student.threeRwriteUp;
+        if (student.allInAward) {
+          writeUp = student.allInWriteup;
+        } else if (student.outstandingAchievement) {
+          writeUp = student.outstandingWriteup;
+        } else {
+          writeUp = student.threeRwriteUp;
+        }
       } else if (user === "Mrs. Plummer") {
         writeUp = student.ccsWriteup;
       } else if (role === "admin") {
@@ -120,6 +133,10 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
           writeUp = student.terrificKidWriteUp;
         } else if (student.cougarCommunityService) {
           writeUp = student.ccsWriteup;
+        } else if (student.allInAward) {
+          writeUp = student.allInWriteup;
+        } else if (student.outstandingAchievement) {
+          writeUp = student.outstandingWriteup;
         } else {
           writeUp = student.threeRwriteUp;
         }

@@ -19,7 +19,6 @@ import {
   ThreeRLogoContainer,
   ThreeRLogoImage,
   ThreeRWriteupTitle,
-  ThreeRh4,
   ThreeRh3,
   ThreeRWriteup,
   ThreeRWriteupSignature,
