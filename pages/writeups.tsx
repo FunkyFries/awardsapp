@@ -136,9 +136,9 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         } else if (student.cougarCommunityService) {
           writeUp = student.ccsWriteup;
         } else if (student.allInAward) {
-          writeUp = student.threeRwriteup;
+          writeUp = student.threeRwriteUp;
         } else if (student.outstandingAchievement) {
-          writeUp = student.threeRwriteup;
+          writeUp = student.threeRwriteUp;
         } else {
           writeUp = student.threeRwriteUp;
         }
