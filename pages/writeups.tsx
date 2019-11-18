@@ -113,19 +113,21 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
       .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
+  //Fix this!!!
+
   if (filteredStudents.length > 0) {
     writeUpForm = filteredStudents.map(student => {
       let writeUp;
       let allInWriteup;
       let outstandingWriteup;
       if (role === "teacher") {
-        if (student.allInAward) {
-          writeUp = student.allInWriteup;
-        } else if (student.outstandingAchievement) {
-          writeUp = student.outstandingWriteup;
-        } else {
-          writeUp = student.threeRwriteUp;
-        }
+        // if (student.allInAward) {
+        //   writeUp = student.allInWriteup;
+        // } else if (student.outstandingAchievement) {
+        //   writeUp = student.outstandingWriteup;
+        // } else {
+        writeUp = student.threeRwriteUp;
+        // }
       } else if (user === "Mrs. Plummer") {
         writeUp = student.ccsWriteup;
       } else if (role === "admin") {

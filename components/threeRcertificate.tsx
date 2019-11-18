@@ -86,6 +86,15 @@ const ThreeRCertificate: React.FC<{
             <OuterBorder>
               <OutstandingInnerBorder style={{ margin: ".5rem" }}>
                 <TitleDiv>
+                  <img
+                    src="/static/Header.png"
+                    alt="Header Background"
+                    style={{
+                      zIndex: -20,
+                      height: "100%",
+                      width: "100%"
+                    }}
+                  />
                   <ThreeRTitle>Cougar Character</ThreeRTitle>
                 </TitleDiv>
                 <ContentDiv>
