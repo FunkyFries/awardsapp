@@ -105,7 +105,7 @@ const AllInCertificate: React.FC<{
                 All In Award
               </ThreeRWriteupTitle>
               <ThreeRh3 style={{ width: "100%" }}>{student.name}</ThreeRh3>
-              <ThreeRWriteup>{student.allInWriteup}</ThreeRWriteup>
+              <ThreeRWriteup>{student.threeRwriteUp}</ThreeRWriteup>
             </div>
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>

@@ -17,21 +17,14 @@ export const CertDiv = styled.div`
 export const H1 = styled.h1`
   text-align: center;
   padding-top: 7.5rem;
-  font-size: 5rem;
-  font-family: "Olde English Regular";
-
-  @font-face {
-    font-family: "Olde English Regular";
-    font-style: normal;
-    font-weight: normal;
-    src: url("/static/OldeEnglish.woff") format("woff");
-  }
+  font-size: 3.5rem;
+  font-family: "Libre Baskerville", serif;
 `;
 
 export const H2 = styled.h2`
   text-align: center;
-  font-size: 4rem;
-  font-family: "Olde English Regular";
+  font-size: 3rem;
+  font-family: "Libre Baskerville", serif;
 `;
 
 export const H3 = styled.h3`
@@ -103,8 +96,6 @@ export const TitleDiv = styled.div`
   margin-bottom: 2rem;
   width: 100%;
   justify-content: flex-end;
-  background-repeat: no-repeat;
-  background-image: url(/static/Header.png);
 `;
 
 export const ThreeRLogo = styled.img`
@@ -144,9 +135,10 @@ export const ThreeRSignatures = styled.div`
 
 export const ThreeRTitle = styled.h1`
   font-family: "Cormorant Garamond", serif;
-  margin-top: 1.6rem;
-  margin-right: 6rem;
+  margin-top: 1rem;
+  right: 8rem;
   font-size: 5rem;
+  position: absolute;
   color: #062f5f;
 `;
 

@@ -12,10 +12,7 @@ import {
   HR
 } from "../styles/certstyles";
 
-const ArCertificate: React.FC<{ students: any; setPrintReady: any }> = ({
-  students,
-  setPrintReady
-}) => {
+const ArCertificate: React.FC<{ students: any }> = ({ students }) => {
   const certs = students.map(student => {
     let grade;
     if (
@@ -74,7 +71,6 @@ const ArCertificate: React.FC<{ students: any; setPrintReady: any }> = ({
       </CertDiv>
     );
   });
-  Promise.all(certs).then(() => setPrintReady(true));
   return <PrintDiv className="d-none d-print-block">{certs}</PrintDiv>;
 };
 

@@ -105,7 +105,7 @@ const OutstandingCertificate: React.FC<{
                 Outstanding Achievement Award
               </ThreeRWriteupTitle>
               <ThreeRh3 style={{ width: "100%" }}>{student.name}</ThreeRh3>
-              <ThreeRWriteup>{student.outstandingWriteup}</ThreeRWriteup>
+              <ThreeRWriteup>{student.threeRwriteUp}</ThreeRWriteup>
             </div>
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>

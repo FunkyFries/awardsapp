@@ -42,7 +42,8 @@ const DisplayAwards: NextPage<{
   user: string;
   role: string;
 }> = ({ students, user, role }) => {
-  // const [printReady, setPrintReady] = useState(false);
+  const [printReady, setPrintReady] = useState(false);
+
   useEffect(() => {
     if (!user || !students) {
       Router.push("/auth");
@@ -333,7 +334,7 @@ const DisplayAwards: NextPage<{
           currentQuarter={currentQuarter}
           students={threeRstudents}
         />
-        {/* <ArCertificate setPrintReady={setPrintReady} students={ARstudents} /> */}
+        {/* <ArCertificate students={ARstudents} /> */}
         <AllInCertificate
           currentQuarter={currentQuarter}
           students={allInStudents}
