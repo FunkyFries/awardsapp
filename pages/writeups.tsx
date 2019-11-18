@@ -113,7 +113,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
       .sort((a, b) => (a.name > b.name ? 1 : -1));
   }
 
-  //Fix this!!!
+  //Fix this!!! Create additional filters for Outstanding and All In and generate separate Write Up forms
 
   if (filteredStudents.length > 0) {
     writeUpForm = filteredStudents.map(student => {
@@ -136,9 +136,9 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         } else if (student.cougarCommunityService) {
           writeUp = student.ccsWriteup;
         } else if (student.allInAward) {
-          writeUp = student.allInWriteup;
+          writeUp = student.threeRwriteup;
         } else if (student.outstandingAchievement) {
-          writeUp = student.outstandingWriteup;
+          writeUp = student.threeRwriteup;
         } else {
           writeUp = student.threeRwriteUp;
         }
