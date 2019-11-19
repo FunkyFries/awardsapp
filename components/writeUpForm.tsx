@@ -1,6 +1,11 @@
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 type Student = {
   name: string;
@@ -21,6 +26,8 @@ const WriteUpForm: React.FC<Student> = student => {
   const handleChange = e => {
     setTextValue(e.target.value);
   };
+  const [editingWriteup, setEditingWriteup] = useState(false);
+
   let awardName;
   if (student.terrificKid) {
     awardName = `Terrific Kid chosen by ${student.terrificKidChosenBy}`;
@@ -36,6 +43,32 @@ const WriteUpForm: React.FC<Student> = student => {
       student.threeR.indexOf(" ")
     )} chosen by ${student.teacher}`;
   }
+
+  const updateWriteup = e => {
+    e.preventDefault();
+    if (student.terrificKid) {
+      axios
+        .put(`/students/${student._id}`, {
+          terrificKidWriteUp: textValue
+        })
+        .then(res => setEditingWriteup(false))
+        .catch(err => console.log(err));
+    } else if (student.cougarCommunityService) {
+      axios
+        .put(`/students/${student._id}`, {
+          ccsWriteup: textValue
+        })
+        .then(res => setEditingWriteup(false))
+        .catch(err => console.log(err));
+    } else {
+      axios
+        .put(`/students/${student._id}`, {
+          threeRwriteUp: textValue
+        })
+        .then(res => setEditingWriteup(false))
+        .catch(err => console.log(err));
+    }
+  };
 
   if (student.role !== "admin") {
     return (
@@ -56,7 +89,48 @@ const WriteUpForm: React.FC<Student> = student => {
   } else {
     return (
       <Card style={{ padding: "1rem", margin: ".5rem" }}>
-        <Card.Title>{student.name}</Card.Title>
+        <Modal
+          size="lg"
+          aria-labelledby="add-new-student-modal"
+          centered
+          show={editingWriteup}
+          onHide={() => setEditingWriteup(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="add-new-student-modal">{student.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group>
+                <Form.Label>Write Up</Form.Label>
+                <Form.Control
+                  required
+                  as="textarea"
+                  rows="6"
+                  value={textValue}
+                  onChange={handleChange}
+                ></Form.Control>
+              </Form.Group>
+              <Button onClick={updateWriteup} variant="info">
+                Submit
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
+        <Card.Title>
+          {student.name}{" "}
+          <Button
+            variant="light"
+            onClick={() => setEditingWriteup(true)}
+            style={{ position: "absolute", right: "1rem", paddingRight: "0" }}
+          >
+            <FontAwesomeIcon
+              icon={faEdit}
+              style={{ marginRight: ".5rem" }}
+            ></FontAwesomeIcon>
+          </Button>
+        </Card.Title>
         <Card.Subtitle>{awardName}</Card.Subtitle>
         <hr />
         <Card.Text>{textValue}</Card.Text>

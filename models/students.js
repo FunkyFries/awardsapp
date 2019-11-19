@@ -26,15 +26,15 @@ const Student = mongoose.model(
     allInAward: {
       type: Boolean
     },
-    allInWriteup: {
-      type: String
-    },
+    // allInWriteup: {
+    //   type: String
+    // },
     outstandingAchievement: {
       type: Boolean
     },
-    outstandingWriteup: {
-      type: String
-    },
+    // outstandingWriteup: {
+    //   type: String
+    // },
     wowAward: {
       type: Boolean
     },
@@ -87,9 +87,9 @@ function validateUpdate(student) {
     teacher: Joi.string(),
     image: Joi.string().allow(""),
     allInAward: Joi.boolean(),
-    allInWriteup: Joi.string(),
+    // allInWriteup: Joi.string(),
     outstandingAchievement: Joi.boolean(),
-    outstandingWriteup: Joi.string(),
+    // outstandingWriteup: Joi.string(),
     wowAward: Joi.boolean(),
     cougarCommunityService: Joi.boolean(),
     ccsWriteup: Joi.string(),

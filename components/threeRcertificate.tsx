@@ -127,7 +127,7 @@ const ThreeRCertificate: React.FC<{
             </ThreeRLogoContainer>
             <ThreeRWriteupTitle>{awardName} Cougar Award</ThreeRWriteupTitle>
             <ThreeRh4 style={{ fontStyle: "italic" }}>{definition}</ThreeRh4>
-            <ThreeRh3>{student.name}</ThreeRh3>
+            <ThreeRh3 style={{ width: "100%" }}>{student.name}</ThreeRh3>
             <ThreeRWriteup>{student.threeRwriteUp}</ThreeRWriteup>
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>
