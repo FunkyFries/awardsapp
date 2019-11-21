@@ -249,7 +249,7 @@ app.prepare().then(() => {
   // Test Job
   // schedule.scheduleJob("5 * * * * *", newQuarterJob);
 
-  schedule.scheduleJob("* * 20 11 *", newQuarterJob);
+  schedule.scheduleJob("* * 21 11 *", newQuarterJob);
   schedule.scheduleJob("* * 12 2 *", newQuarterJob);
   schedule.scheduleJob("* * 22 4 *", newQuarterJob);
 
