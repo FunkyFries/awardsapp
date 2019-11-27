@@ -13,13 +13,32 @@ const AwardForm: NextPage<{
   outstandingAchievement: boolean;
   wowAward: boolean;
   cougarCommunityService: boolean;
+  handlePrimaryCommunityServiceUpdate: any;
+  disablePrimaryCommunity: boolean;
+  handleIntermediateCommunityServiceUpdate: any;
+  disableIntermediateCommunity: boolean;
   terrificKid: boolean;
   terrificKidChosenBy: string;
+  handlePrimaryTerrificKidUpdate: any;
+  disableTerrificPrimary: boolean;
+  handleIntermediateTerrificKidUpdate: any;
+  disableTerrificIntermediate: boolean;
   acceleratedReader: boolean;
   threeR: string;
   userName: string;
   role: string;
   pastAwards: string[];
+  setRespectStudents: any;
+  disableRespect: boolean;
+  setResponsibilityStudents: any;
+  disableResponsibility: boolean;
+  setRelationshipStudents: any;
+  disableRelationship: boolean;
+  handleNoneUpdate: any;
+  setAllInStudents: any;
+  disableAllIn: boolean;
+  setOutstandingStudents: any;
+  disableOutstanding: boolean;
 }> = ({
   id,
   teacher,
@@ -27,13 +46,32 @@ const AwardForm: NextPage<{
   outstandingAchievement,
   wowAward,
   cougarCommunityService,
+  handlePrimaryCommunityServiceUpdate,
+  disablePrimaryCommunity,
+  handleIntermediateCommunityServiceUpdate,
+  disableIntermediateCommunity,
   terrificKid,
+  handlePrimaryTerrificKidUpdate,
+  disableTerrificPrimary,
+  handleIntermediateTerrificKidUpdate,
+  disableTerrificIntermediate,
   acceleratedReader,
   threeR,
   userName,
   terrificKidChosenBy,
   role,
-  pastAwards
+  pastAwards,
+  setRespectStudents,
+  disableRespect,
+  setResponsibilityStudents,
+  disableResponsibility,
+  setRelationshipStudents,
+  disableRelationship,
+  handleNoneUpdate,
+  setAllInStudents,
+  disableAllIn,
+  setOutstandingStudents,
+  disableOutstanding
 }) => {
   const [allIn, toggleAllIn] = useState(allInAward);
   const [outstanding, toggleOutstanding] = useState(outstandingAchievement);
@@ -88,6 +126,7 @@ const AwardForm: NextPage<{
   }
 
   function updateAllInAward() {
+    setAllInStudents(id);
     axios
       .put(`students/${id}`, {
         allInAward: !allIn
@@ -96,6 +135,7 @@ const AwardForm: NextPage<{
   }
 
   function updateOutstandingAchievement() {
+    setOutstandingStudents(id);
     axios
       .put(`students/${id}`, {
         outstandingAchievement: !outstanding
@@ -104,6 +144,11 @@ const AwardForm: NextPage<{
   }
 
   function updateCougarCommunityService() {
+    if (primaryTeachers.includes(teacher)) {
+      handlePrimaryCommunityServiceUpdate(id);
+    } else {
+      handleIntermediateCommunityServiceUpdate(id);
+    }
     axios
       .put(`students/${id}`, {
         cougarCommunityService: !communityService
@@ -112,6 +157,15 @@ const AwardForm: NextPage<{
   }
 
   function updateThreeR(e) {
+    if (e.target.value === `Respect - ${currentQuarter}`) {
+      setRespectStudents(id);
+    } else if (e.target.value === `Responsibility - ${currentQuarter}`) {
+      setResponsibilityStudents(id);
+    } else if (e.target.value === `Relationship - ${currentQuarter}`) {
+      setRelationshipStudents(id);
+    } else if (e.target.value === "none") {
+      handleNoneUpdate(id);
+    }
     axios.put(`students/${id}`, {
       threeR: e.target.value
     });
@@ -127,6 +181,13 @@ const AwardForm: NextPage<{
   }
 
   function handleChange() {
+    if (primaryTeachers.includes(teacher) && role !== "admin") {
+      handlePrimaryTerrificKidUpdate(id);
+    }
+    if (primaryTeachers.indexOf(teacher) === -1 && role !== "admin") {
+      handleIntermediateTerrificKidUpdate(id);
+    }
+
     if (terrificChooser === "null") {
       axios.put(`students/${id}`, {
         terrificKid: true,
@@ -134,7 +195,7 @@ const AwardForm: NextPage<{
       });
       setTerrific(true);
       setTerrificChooser(userName);
-    } else if (terrificChooser === userName) {
+    } else if (terrificChooser === userName || role === "admin") {
       axios.put(`students/${id}`, {
         terrificKid: false,
         terrificKidChosenBy: "null"
@@ -172,7 +233,8 @@ const AwardForm: NextPage<{
           outstanding ||
           communityService ||
           terrific ||
-          threeRAward !== "none"
+          threeRAward !== "none" ||
+          (disableAllIn && allIn === false && role !== "admin")
         }
       />
       <Form.Check
@@ -186,7 +248,8 @@ const AwardForm: NextPage<{
           allIn ||
           communityService ||
           terrific ||
-          threeRAward !== "none"
+          threeRAward !== "none" ||
+          (disableOutstanding && outstanding === false && role !== "admin")
         }
       />
       <Form.Check
@@ -200,7 +263,15 @@ const AwardForm: NextPage<{
           allIn ||
           outstanding ||
           terrific ||
-          threeRAward !== "none"
+          threeRAward !== "none" ||
+          (primaryTeachers.includes(teacher) &&
+            disablePrimaryCommunity &&
+            communityService === false &&
+            role !== "admin") ||
+          (primaryTeachers.indexOf(teacher) === -1 &&
+            disableIntermediateCommunity &&
+            communityService === false &&
+            role !== "admin")
         }
       />
 
@@ -210,7 +281,17 @@ const AwardForm: NextPage<{
         id={`TerrificKid-${id}`}
         onChange={handleChange}
         checked={!!terrific}
-        disabled={disableTerrific}
+        disabled={
+          (disableTerrific && role !== "admin") ||
+          (primaryTeachers.indexOf(teacher) !== -1 &&
+            disableTerrificPrimary &&
+            terrific === false &&
+            role !== "admin") ||
+          (primaryTeachers.indexOf(teacher) === -1 &&
+            disableTerrificIntermediate &&
+            terrific === false &&
+            role !== "admin")
+        }
       />
       <Form.Check
         type="checkbox"
@@ -239,11 +320,22 @@ const AwardForm: NextPage<{
           <option value="none" defaultChecked>
             none
           </option>
-          <option value={`Respect - ${currentQuarter}`}>Respect</option>
-          <option value={`Responsibility - ${currentQuarter}`}>
+          <option
+            disabled={disableRespect && role !== "admin"}
+            value={`Respect - ${currentQuarter}`}
+          >
+            Respect
+          </option>
+          <option
+            disabled={disableResponsibility && role !== "admin"}
+            value={`Responsibility - ${currentQuarter}`}
+          >
             Responsibility
           </option>
-          <option value={`Relationship - ${currentQuarter}`}>
+          <option
+            disabled={disableRelationship && role !== "admin"}
+            value={`Relationship - ${currentQuarter}`}
+          >
             Relationship
           </option>
         </Form.Control>

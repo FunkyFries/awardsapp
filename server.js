@@ -249,9 +249,9 @@ app.prepare().then(() => {
   // Test Job
   // schedule.scheduleJob("5 * * * * *", newQuarterJob);
 
-  schedule.scheduleJob("* * 21 11 *", newQuarterJob);
-  schedule.scheduleJob("* * 12 2 *", newQuarterJob);
-  schedule.scheduleJob("* * 22 4 *", newQuarterJob);
+  schedule.scheduleJob("0 0 21 11 *", newQuarterJob);
+  schedule.scheduleJob("0 0 12 2 *", newQuarterJob);
+  schedule.scheduleJob("0 0 22 4 *", newQuarterJob);
 
   // handling everything else with Next.js
   server.get("*", (req, res) => {
