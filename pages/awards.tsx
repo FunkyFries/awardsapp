@@ -25,7 +25,6 @@ import {
   BackgroundDiv,
   DueDate
 } from "../styles/awardstyles";
-import { isBuffer } from "util";
 
 const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   students,
@@ -384,6 +383,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
               }
               disableTerrificIntermediate={disableTerrificIntermediate}
               acceleratedReader={student.acceleratedReader}
+              words={student.words}
               threeR={student.threeR}
               userName={user}
               role={role}
