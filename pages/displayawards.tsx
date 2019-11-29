@@ -22,9 +22,12 @@ import {
   StyledTable,
   TopTableHeader,
   TableHeader,
-  ArAwardsHeader
+  ArAwardsHeader,
+  PageBreak,
+  PrintFormContainer
 } from "../styles/displayawardstyles";
 import TerrificKidCertificate from "../components/terrifickidcertificate";
+import Form from "react-bootstrap/Form";
 
 let currentQuarter;
 if (moment().isBefore("2019-11-20")) {
@@ -42,13 +45,20 @@ const DisplayAwards: NextPage<{
   user: string;
   role: string;
 }> = ({ students, user, role }) => {
-  const [printReady, setPrintReady] = useState(false);
-
   useEffect(() => {
     if (!user || !students) {
       Router.push("/auth");
     }
   }, []);
+
+  const [printThreeR, setPrintThreeR] = useState(true);
+  const [printAllIn, setPrintAllIn] = useState(true);
+  const [printOutstanding, setPrintOutstanding] = useState(true);
+  const [printWow, setPrintWow] = useState(true);
+  const [printCommunityService, setPrintCommunityService] = useState(true);
+  const [printTerrific, setPrintTerrific] = useState(true);
+  const [printAR, setPrintAR] = useState(true);
+  const [printAwardsTable, setPrintAwardsTable] = useState(false);
 
   try {
     const threeRstudents = students.filter(
@@ -326,42 +336,118 @@ const DisplayAwards: NextPage<{
       }
       return rows;
     });
-
     return (
       <>
         <NavBar role={role} path="/displayawards"></NavBar>
-        <ThreeRCertificate
-          currentQuarter={currentQuarter}
-          students={threeRstudents}
-        />
-        {/* <ArCertificate students={ARstudents} /> */}
-        <AllInCertificate
-          currentQuarter={currentQuarter}
-          students={allInStudents}
-        ></AllInCertificate>
-        <OutstandingCertificate
-          students={outstandingStudents}
-          currentQuarter={currentQuarter}
-        />
-        <CommunityServiceCertificate
-          students={communityServiceStudents}
-          currentQuarter={currentQuarter}
-        />
-        <TerrificKidCertificate
-          students={terrificStudents}
-          currentQuarter={currentQuarter}
-        ></TerrificKidCertificate>
-        <BackgroundDiv className="d-print-none">
+        {printThreeR ? (
+          <ThreeRCertificate
+            currentQuarter={currentQuarter}
+            students={threeRstudents}
+          />
+        ) : null}
+        {printAllIn ? (
+          <AllInCertificate
+            currentQuarter={currentQuarter}
+            students={allInStudents}
+          ></AllInCertificate>
+        ) : null}
+        {printOutstanding ? (
+          <OutstandingCertificate
+            students={outstandingStudents}
+            currentQuarter={currentQuarter}
+          />
+        ) : null}
+        {printTerrific ? (
+          <TerrificKidCertificate
+            students={terrificStudents}
+            currentQuarter={currentQuarter}
+          ></TerrificKidCertificate>
+        ) : null}
+        {printCommunityService ? (
+          <CommunityServiceCertificate
+            students={communityServiceStudents}
+            currentQuarter={currentQuarter}
+          />
+        ) : null}
+        {printAR ? <ArCertificate students={ARstudents} /> : null}
+        <BackgroundDiv className={printAwardsTable ? "" : "d-print-none"}>
           <DisplayAwardsContainer>
             {role === "admin" ? (
-              <Button
-                style={{ marginTop: "1rem" }}
-                variant="info"
-                className="d-print-none"
-                onClick={() => window.print()}
-              >
-                Print Certificates
-              </Button>
+              <PrintFormContainer>
+                <Form
+                  style={{ margin: "1rem auto", textAlign: "left" }}
+                  className="d-print-none"
+                >
+                  <Form.Check
+                    type="checkbox"
+                    label="Three R Certificates"
+                    id="printThreeRCertificates"
+                    onChange={() => setPrintThreeR(!printThreeR)}
+                    checked={printThreeR}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="All In Certificates"
+                    id="printAllInCertificates"
+                    onChange={() => setPrintAllIn(!printAllIn)}
+                    checked={printAllIn}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Outstanding Certificates"
+                    id="printOutstandingCertificates"
+                    onChange={() => setPrintOutstanding(!printOutstanding)}
+                    checked={printOutstanding}
+                  />
+                  {wowStudents.length > 0 ? (
+                    <Form.Check
+                      type="checkbox"
+                      label="Wow Certificates"
+                      id="printWowCertificates"
+                      onChange={() => setPrintWow(!printWow)}
+                      checked={printWow}
+                    />
+                  ) : null}
+                  <Form.Check
+                    type="checkbox"
+                    label="Terrific Kid Certificates"
+                    id="printTerrificKidCertificates"
+                    onChange={() => setPrintTerrific(!printTerrific)}
+                    checked={printTerrific}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Community Service Certificates"
+                    id="printCommunityServiceCertificates"
+                    onChange={() =>
+                      setPrintCommunityService(!printCommunityService)
+                    }
+                    checked={printCommunityService}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="AR Certificates"
+                    id="printArCertificates"
+                    onChange={() => setPrintAR(!printAR)}
+                    checked={printAR}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Awards Table"
+                    id="printAwardsTable"
+                    onChange={() => setPrintAwardsTable(!printAwardsTable)}
+                    checked={printAwardsTable}
+                  />
+                </Form>
+                <Button
+                  style={{ margin: "0 auto", width: "16rem" }}
+                  variant="info"
+                  className="d-print-none"
+                  onClick={() => window.print()}
+                >
+                  Print
+                </Button>
+              </PrintFormContainer>
             ) : null}
             <StyledTable striped>
               <thead>
@@ -379,6 +465,7 @@ const DisplayAwards: NextPage<{
               </thead>
               <tbody>{teacherRows}</tbody>
             </StyledTable>
+            <PageBreak></PageBreak>
             <StyledTable striped>
               <thead>
                 <tr>
@@ -418,18 +505,21 @@ const DisplayAwards: NextPage<{
               <tbody>{ARhonorsRows}</tbody>
             </StyledTable>
             {wowStudents.length > 0 ? (
-              <StyledTable striped>
-                <thead>
-                  <tr>
-                    <TableHeader colSpan={5}>Wow Awards</TableHeader>
-                  </tr>
-                  <tr>
-                    <th colSpan={1}>Teacher</th>
-                    <th colSpan={4}>Recipients</th>
-                  </tr>
-                </thead>
-                <tbody>{wowAwardsRows}</tbody>
-              </StyledTable>
+              <>
+                <PageBreak></PageBreak>
+                <StyledTable striped>
+                  <thead>
+                    <tr>
+                      <TableHeader colSpan={5}>Wow Awards</TableHeader>
+                    </tr>
+                    <tr>
+                      <th colSpan={1}>Teacher</th>
+                      <th colSpan={4}>Recipients</th>
+                    </tr>
+                  </thead>
+                  <tbody>{wowAwardsRows}</tbody>
+                </StyledTable>
+              </>
             ) : null}
           </DisplayAwardsContainer>
         </BackgroundDiv>
