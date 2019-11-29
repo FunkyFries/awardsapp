@@ -5,6 +5,8 @@ import { primaryTeachers } from "./teachers";
 import { ThreeRDiv, ThreeRLabel } from "../styles/awardstyles";
 import axios from "axios";
 import moment from "moment";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const AwardForm: NextPage<{
   id: string;
@@ -24,6 +26,7 @@ const AwardForm: NextPage<{
   handleIntermediateTerrificKidUpdate: any;
   disableTerrificIntermediate: boolean;
   acceleratedReader: boolean;
+  words: number;
   threeR: string;
   userName: string;
   role: string;
@@ -56,6 +59,7 @@ const AwardForm: NextPage<{
   handleIntermediateTerrificKidUpdate,
   disableTerrificIntermediate,
   acceleratedReader,
+  words,
   threeR,
   userName,
   terrificKidChosenBy,
@@ -83,6 +87,8 @@ const AwardForm: NextPage<{
   const [terrificChooser, setTerrificChooser] = useState(terrificKidChosenBy);
   const [threeRAward, setThreeR] = useState(threeR);
   const [ARaward, setARaward] = useState(acceleratedReader);
+  const [showARModal, setShowARModal] = useState(false);
+  const [arWords, setWords] = useState(words);
   const [disableTerrific, toggleDisableTerrific] = useState();
 
   let currentQuarter;
@@ -173,11 +179,26 @@ const AwardForm: NextPage<{
   }
 
   function updateAcceleratedReader() {
+    if (ARaward) {
+      axios
+        .put(`students/${id}`, {
+          acceleratedReader: false,
+          words: 0
+        })
+        .then(() => setARaward(false));
+    } else {
+      setShowARModal(true);
+    }
+  }
+
+  function submitARreader() {
+    setARaward(true);
     axios
       .put(`students/${id}`, {
-        acceleratedReader: !ARaward
+        acceleratedReader: true,
+        words: arWords
       })
-      .then(() => setARaward(!ARaward));
+      .then(() => setShowARModal(false));
   }
 
   function handleChange() {
@@ -301,6 +322,30 @@ const AwardForm: NextPage<{
         checked={!!ARaward}
         disabled={role === "teacher" || role === "specialist"}
       ></Form.Check>
+      <Modal
+        show={showARModal}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        onHide={() => setShowARModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Accelerated Reader Words
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            onChange={e => setWords(e.target.value)}
+            type="number"
+            placeholder="Words"
+            required
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={submitARreader}>Submit</Button>
+        </Modal.Footer>
+      </Modal>
       <ThreeRDiv>
         <ThreeRLabel>Three R : </ThreeRLabel>
         <Form.Control

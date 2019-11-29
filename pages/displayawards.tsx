@@ -369,7 +369,12 @@ const DisplayAwards: NextPage<{
             currentQuarter={currentQuarter}
           />
         ) : null}
-        {printAR ? <ArCertificate students={ARstudents} /> : null}
+        {printAR ? (
+          <ArCertificate
+            students={ARstudents}
+            currentQuarter={currentQuarter}
+          />
+        ) : null}
         <BackgroundDiv className={printAwardsTable ? "" : "d-print-none"}>
           <DisplayAwardsContainer>
             {role === "admin" ? (

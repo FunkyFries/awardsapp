@@ -12,7 +12,10 @@ import {
   HR
 } from "../styles/certstyles";
 
-const ArCertificate: React.FC<{ students: any }> = ({ students }) => {
+const ArCertificate: React.FC<{ students: any; currentQuarter: string }> = ({
+  students,
+  currentQuarter
+}) => {
   const certs = students.map(student => {
     let grade;
     if (
@@ -45,14 +48,18 @@ const ArCertificate: React.FC<{ students: any }> = ({ students }) => {
     } else if (student.teacher === "Mrs. Kidd") {
       grade = "sixth grade";
     }
+    const formattedWords = student.words
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     return (
       <CertDiv key={student._id}>
         <H1>AR Reader of the Quarter</H1>
         <H4>presented to</H4>
         <H2>{student.name}</H2>
         <H3>
-          on this 20th day of November, 2019 for reading 110014 words in the
-          first quarter!
+          on this 20th day of November, 2019 for reading {formattedWords} words
+          in the {currentQuarter.toLowerCase()}!
         </H3>
         <H3>The most in {grade}!</H3>
         <Img src="/static/Logo.png" alt="CCS Logo" />

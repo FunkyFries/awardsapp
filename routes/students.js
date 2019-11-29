@@ -49,6 +49,7 @@ router.post("/", ensureAuthenticated, async (req, res) => {
       terrificKidWriteUp: "",
       threeR: "none",
       acceleratedReader: false,
+      words: 0,
       threeRwriteUp: "",
       image: req.body.image,
       pastAwards: []
