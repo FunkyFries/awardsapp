@@ -25,7 +25,8 @@ app.prepare().then(() => {
   mongoose
     .connect(process.env.DB, {
       useNewUrlParser: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useUnifiedTopology: true
     })
     .then(() => console.log("Connected to MongoDB..."))
     .catch(err => console.error(err.message));
