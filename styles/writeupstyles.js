@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Container from "react-bootstrap/Container";
+import Toast from "react-bootstrap/Toast";
 
 export const BackgroundDiv = styled.div`
   display: flex;
@@ -22,4 +23,18 @@ export const WriteUpContainer = styled(Container)`
 
 export const WriteUpHeading = styled.h1`
   color: #f7eded;
+`;
+
+export const SuccessToast = styled(Toast.Header)`
+  background: #d4edda;
+  color: #245824;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ErrorToast = styled(Toast.Header)`
+  background: #f8d7da;
+  color: #721c24;
+  display: flex;
+  justify-content: space-between;
 `;

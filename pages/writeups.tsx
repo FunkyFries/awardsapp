@@ -4,13 +4,16 @@ import axios from "axios";
 import Router from "next/router";
 import NavBar from "../components/navbar";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
+import Toast from "react-bootstrap/Toast";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import WriteUpForm from "../components/writeUpForm";
 import {
   BackgroundDiv,
   WriteUpContainer,
-  WriteUpHeading
+  WriteUpHeading,
+  SuccessToast,
+  ErrorToast
 } from "../styles/writeupstyles";
 
 const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
@@ -30,17 +33,25 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   let message;
 
   const errMessage = (
-    <Alert variant="danger" onClose={() => setShowErr(false)} dismissible>
-      <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-    </Alert>
+    <Toast
+      delay={5000}
+      autohide
+      onClose={() => setShowErr(false)}
+      style={{ maxWidth: "25%", position: "fixed", bottom: "0" }}
+    >
+      <ErrorToast>Error... something broke.</ErrorToast>
+    </Toast>
   );
 
   const successMessage = (
-    <Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
-      <Alert.Heading>
-        You did it! Student successfully updated! Go you!
-      </Alert.Heading>
-    </Alert>
+    <Toast
+      delay={5000}
+      autohide
+      onClose={() => setShowSuccess(false)}
+      style={{ maxWidth: "25%", position: "fixed", bottom: "0" }}
+    >
+      <SuccessToast>Successfully updated!</SuccessToast>
+    </Toast>
   );
 
   if (showErr) {
