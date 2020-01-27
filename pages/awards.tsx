@@ -430,21 +430,21 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   let Classes = role === "teacher" ? SingleClass : AllClasses;
 
-  if (moment().isBefore("2019-11-07", "day") && role === "teacher") {
-    Classes = <DueDate>Awards Will Open November 8th</DueDate>;
+  if (moment().isBefore("2020-01-27", "day") && role === "teacher") {
+    Classes = <DueDate>Awards Will Open January 28th</DueDate>;
   }
-  if (moment().isBefore("2019-11-12", "day") && role === "specialist") {
-    Classes = <DueDate>Awards Will Open November 13th</DueDate>;
+  if (moment().isBefore("2020-01-30", "day") && role === "specialist") {
+    Classes = <DueDate>Awards Will Open January 31st</DueDate>;
   }
 
   return (
     <>
       <NavBar path="/awards" role={role}></NavBar>
-      {role === "teacher" && moment().isAfter("2019-11-07") ? (
-        <DueDate>Due November 12th</DueDate>
+      {role === "teacher" && moment().isAfter("2020-01-27") ? (
+        <DueDate>Due January 31st</DueDate>
       ) : null}
-      {role === "specialist" && moment().isAfter("2019-11-12") ? (
-        <DueDate>Due November 15th</DueDate>
+      {role === "specialist" && moment().isAfter("2020-01-31") ? (
+        <DueDate>Due February 3rd</DueDate>
       ) : null}
       <BackgroundDiv>{Classes}</BackgroundDiv>
     </>

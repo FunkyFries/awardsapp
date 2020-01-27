@@ -58,7 +58,7 @@ const ArCertificate: React.FC<{ students: any; currentQuarter: string }> = ({
         <H4>presented to</H4>
         <H2>{student.name}</H2>
         <H3>
-          on this 20th day of November, 2019 for reading {formattedWords} words
+          on this 12th day of February, 2020 for reading {formattedWords} words
           in the {currentQuarter.toLowerCase()}!
         </H3>
         <H3>The most in {grade}!</H3>

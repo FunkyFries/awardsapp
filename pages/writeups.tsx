@@ -6,7 +6,6 @@ import NavBar from "../components/navbar";
 import Form from "react-bootstrap/Form";
 import Toast from "react-bootstrap/Toast";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
 import WriteUpForm from "../components/writeUpForm";
 import {
   BackgroundDiv,
