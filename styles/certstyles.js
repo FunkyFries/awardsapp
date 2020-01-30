@@ -370,3 +370,14 @@ export const TerrificH1 = styled.h1`
   display: flex;
   margin: auto;
 `;
+
+export const WowH1 = styled.h1`
+  font-family: "Calligraffitti", cursive;
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #062f5f;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.4rem;
+`;
