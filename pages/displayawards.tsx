@@ -8,6 +8,8 @@ import ThreeRCertificate from "../components/threeRcertificate";
 import OutstandingCertificate from "../components/outstandingcertificate";
 import CommunityServiceCertificate from "../components/communityservicecertificate";
 import AllInCertificate from "../components/allincertificate";
+import WowCertificate from "../components/wowcertificate";
+import TerrificKidCertificate from "../components/terrifickidcertificate";
 import Button from "react-bootstrap/Button";
 import {
   teachers,
@@ -26,7 +28,6 @@ import {
   PageBreak,
   PrintFormContainer
 } from "../styles/displayawardstyles";
-import TerrificKidCertificate from "../components/terrifickidcertificate";
 import Form from "react-bootstrap/Form";
 
 let currentQuarter;
@@ -366,6 +367,12 @@ const DisplayAwards: NextPage<{
         {printCommunityService ? (
           <CommunityServiceCertificate
             students={communityServiceStudents}
+            currentQuarter={currentQuarter}
+          />
+        ) : null}
+        {printWow ? (
+          <WowCertificate
+            students={wowStudents}
             currentQuarter={currentQuarter}
           />
         ) : null}
