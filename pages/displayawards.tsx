@@ -387,7 +387,11 @@ const DisplayAwards: NextPage<{
             {role === "admin" ? (
               <PrintFormContainer>
                 <Form
-                  style={{ margin: "1rem auto", textAlign: "left" }}
+                  style={{
+                    margin: "1rem auto",
+                    textAlign: "left",
+                    fontFamily: "Noto Sans"
+                  }}
                   className="d-print-none"
                 >
                   <Form.Check
@@ -452,7 +456,11 @@ const DisplayAwards: NextPage<{
                   />
                 </Form>
                 <Button
-                  style={{ margin: "0 auto", width: "16rem" }}
+                  style={{
+                    margin: "0 auto",
+                    width: "16rem",
+                    fontFamily: "Calligraffitti"
+                  }}
                   variant="info"
                   className="d-print-none"
                   onClick={() => window.print()}
