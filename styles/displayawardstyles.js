@@ -21,7 +21,8 @@ export const BackgroundDiv = styled.div`
 
 export const DisplayAwardsContainer = styled(Container)`
   background-color: #ffffff;
-  overflow: auto;
+  overflow: visible;
+  height: fit-content;
   @media print {
     margin-left: 1cm;
     margin-right: 1cm;
