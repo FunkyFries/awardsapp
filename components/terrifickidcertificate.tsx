@@ -38,7 +38,9 @@ const TerrificKidCertificate: React.FC<{
             >
               {currentQuarter} 2019 - 2020
             </ThreeRWriteupTitle>
-            <ThreeRh3>{student.name}</ThreeRh3>
+            <div style={{ width: "100%" }}>
+              <ThreeRh3>{student.name}</ThreeRh3>
+            </div>
             <ThreeRWriteup>{student.terrificKidWriteUp}</ThreeRWriteup>
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>
