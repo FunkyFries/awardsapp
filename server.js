@@ -26,10 +26,10 @@ app.prepare().then(() => {
     .connect(process.env.DB, {
       useNewUrlParser: true,
       useFindAndModify: false,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     })
     .then(() => console.log("Connected to MongoDB..."))
-    .catch(err => console.error(err.message));
+    .catch((err) => console.error(err.message));
 
   // Add sesion management
   server.use(
@@ -37,7 +37,7 @@ app.prepare().then(() => {
       secret: process.env.SESSION_SECRET,
       name: "session",
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000
+      maxAge: 24 * 60 * 60 * 1000,
     })
   );
 
@@ -51,21 +51,21 @@ app.prepare().then(() => {
         // tenant: process.env.TENANT_ID,
         scope: ["User.read"],
         authorizationURL: process.env.OUTLOOK_AUTHORITY,
-        tokenURL: process.env.OUTLOOK_TOKEN_URL
+        tokenURL: process.env.OUTLOOK_TOKEN_URL,
       },
-      async function(accessToken, refresh_token, params, profile, done) {
+      async function (accessToken, refresh_token, params, profile, done) {
         // currently we can't find a way to exchange access token by user info (see userProfile implementation), so
         // you will need a jwt-package like https://github.com/auth0/node-jsonwebtoken to decode id_token and get waad profile
         var waadProfile = jwt.decode(params.access_token);
         await User.findOne({ email: waadProfile.upn.toLowerCase() })
-          .then(currentUser => {
+          .then((currentUser) => {
             if (currentUser) {
               done(null, currentUser);
             } else {
               throw "I'm afraid I may have broken something... Gathering duct tape... Please try again later";
             }
           })
-          .catch(err => {
+          .catch((err) => {
             done(err);
           });
       }
@@ -78,7 +78,7 @@ app.prepare().then(() => {
   });
 
   passport.deserializeUser((id, done) => {
-    User.findOne({ _id: id }).then(user => {
+    User.findOne({ _id: id }).then((user) => {
       done(null, user);
     });
   });
@@ -100,14 +100,14 @@ app.prepare().then(() => {
 
   // Schedule database updates for each quarter
   function newQuarterJob() {
-    Student.find({}, function(err, students) {
+    Student.find({}, function (err, students) {
       if (err) {
         console.log("Error!");
       }
 
       console.log(students);
 
-      const updatePromises = students.map(student => {
+      const updatePromises = students.map((student) => {
         if (student.threeR !== "none") {
           return Student.findOneAndUpdate(
             { _id: student._id },
@@ -124,8 +124,8 @@ app.prepare().then(() => {
                 terrificKidWriteUp: "",
                 threeR: "none",
                 acceleratedReader: false,
-                threeRwriteUp: ""
-              }
+                threeRwriteUp: "",
+              },
             }
           );
         }
@@ -134,7 +134,7 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: `Terrific Kid chosen by ${student.terrificKidChosenBy}`
+                pastAwards: `Terrific Kid chosen by ${student.terrificKidChosenBy}`,
               },
               $set: {
                 allInAward: false,
@@ -147,8 +147,8 @@ app.prepare().then(() => {
                 terrificKidWriteUp: "",
                 threeR: "none",
                 acceleratedReader: false,
-                threeRwriteUp: ""
-              }
+                threeRwriteUp: "",
+              },
             }
           );
         }
@@ -157,7 +157,7 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: "All In Award"
+                pastAwards: "All In Award",
               },
               $set: {
                 allInAward: false,
@@ -170,8 +170,8 @@ app.prepare().then(() => {
                 terrificKidWriteUp: "",
                 threeR: "none",
                 acceleratedReader: false,
-                threeRwriteUp: ""
-              }
+                threeRwriteUp: "",
+              },
             }
           );
         }
@@ -180,7 +180,7 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: "Outstanding Achievement"
+                pastAwards: "Outstanding Achievement",
               },
               $set: {
                 allInAward: false,
@@ -193,8 +193,8 @@ app.prepare().then(() => {
                 terrificKidWriteUp: "",
                 threeR: "none",
                 acceleratedReader: false,
-                threeRwriteUp: ""
-              }
+                threeRwriteUp: "",
+              },
             }
           );
         }
@@ -203,7 +203,7 @@ app.prepare().then(() => {
             { _id: student._id },
             {
               $push: {
-                pastAwards: "Cougar Community Service"
+                pastAwards: "Cougar Community Service",
               },
               $set: {
                 allInAward: false,
@@ -216,8 +216,8 @@ app.prepare().then(() => {
                 terrificKidWriteUp: "",
                 threeR: "none",
                 acceleratedReader: false,
-                threeRwriteUp: ""
-              }
+                threeRwriteUp: "",
+              },
             }
           );
         }
@@ -235,8 +235,8 @@ app.prepare().then(() => {
               terrificKidWriteUp: "",
               threeR: "none",
               acceleratedReader: false,
-              threeRwriteUp: ""
-            }
+              threeRwriteUp: "",
+            },
           }
         );
       });
@@ -250,9 +250,9 @@ app.prepare().then(() => {
   // Test Job
   // schedule.scheduleJob("5 * * * * *", newQuarterJob);
 
-  schedule.scheduleJob("0 0 21 11 *", newQuarterJob);
-  schedule.scheduleJob("0 0 12 2 *", newQuarterJob);
-  schedule.scheduleJob("0 0 22 4 *", newQuarterJob);
+  // schedule.scheduleJob("0 0 21 11 *", newQuarterJob);
+  // schedule.scheduleJob("0 0 12 2 *", newQuarterJob);
+  // schedule.scheduleJob("0 0 22 4 *", newQuarterJob);
 
   // function addNewField() {
   //   Student.bulkWrite([
@@ -273,7 +273,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(process.env.PORT, err => {
+  server.listen(process.env.PORT, (err) => {
     if (err) throw err;
     console.log(`listening on port ${process.env.PORT}`);
   });

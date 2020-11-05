@@ -10,7 +10,7 @@ import {
   primaryTeachers,
   intermediateTeachers,
   teachers,
-  specialists
+  specialists,
 } from "../components/teachers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
@@ -23,13 +23,13 @@ import {
   TeacherHeadingDiv,
   StyledHr,
   BackgroundDiv,
-  DueDate
+  DueDate,
 } from "../styles/awardstyles";
 
 const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   students,
   role,
-  user
+  user,
 }) => {
   useEffect(() => {
     if (!user || !students) {
@@ -52,24 +52,24 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   // Filter students assigned to teacher
   if (role === "teacher" && students) {
     filteredStudents[user] = students.filter(
-      student => student.teacher === user
+      (student) => student.teacher === user
     );
 
     respectStudent = filteredStudents[user]
-      .filter(student => student.threeR.includes("Respect"))
-      .map(student => student._id);
+      .filter((student) => student.threeR.includes("Respect"))
+      .map((student) => student._id);
     responsibilityStudent = filteredStudents[user]
-      .filter(student => student.threeR.includes("Responsibility"))
-      .map(student => student._id);
+      .filter((student) => student.threeR.includes("Responsibility"))
+      .map((student) => student._id);
     relationshipStudent = filteredStudents[user]
-      .filter(student => student.threeR.includes("Relationship"))
-      .map(student => student._id);
+      .filter((student) => student.threeR.includes("Relationship"))
+      .map((student) => student._id);
     allInStudent = filteredStudents[user]
-      .filter(student => student.allInAward)
-      .map(student => student._id);
+      .filter((student) => student.allInAward)
+      .map((student) => student._id);
     outstandingStudent = filteredStudents[user]
-      .filter(student => student.outstandingAchievement)
-      .map(student => student._id);
+      .filter((student) => student.outstandingAchievement)
+      .map((student) => student._id);
   } else if (role && students) {
     // Sort students into groups by teacher
     const sortedStudents = students.reduce((groups, student) => {
@@ -82,36 +82,36 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
     filteredStudents = sortedStudents;
     primaryCommunityServiceStudents = students
       .filter(
-        student =>
+        (student) =>
           student.cougarCommunityService &&
           primaryTeachers.includes(student.teacher)
       )
-      .map(student => student._id);
+      .map((student) => student._id);
     intermediateCommunityServiceStudents = students
       .filter(
-        student =>
+        (student) =>
           student.cougarCommunityService &&
           intermediateTeachers.includes(student.teacher)
       )
-      .map(student => student._id);
-    specialists.map(specialist => {
+      .map((student) => student._id);
+    specialists.map((specialist) => {
       primaryTerrificStudents[specialist] = students
         .filter(
-          student =>
+          (student) =>
             student.terrificKid &&
             primaryTeachers.includes(student.teacher) &&
             student.terrificKidChosenBy === specialist
         )
-        .map(student => student._id);
+        .map((student) => student._id);
 
       intermediateTerrificStudents[specialist] = students
         .filter(
-          student =>
+          (student) =>
             student.terrificKid &&
             primaryTeachers.indexOf(student.teacher) === -1 &&
             student.terrificKidChosenBy === specialist
         )
-        .map(student => student._id);
+        .map((student) => student._id);
     });
   }
 
@@ -153,11 +153,11 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   const [
     intermediateCommunityStudents,
-    setIntermediateCommunityStudents
+    setIntermediateCommunityStudents,
   ] = useState(intermediateCommunityServiceStudents);
   const [
     disableIntermediateCommunity,
-    setDisableIntermediateCommunity
+    setDisableIntermediateCommunity,
   ] = useState(intermediateCommunityStudents.length > 1);
 
   const [primaryTerrificKids, setPrimaryTerrificKids] = useState(
@@ -171,7 +171,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   );
   const [
     disableTerrificIntermediate,
-    setDisableTerrificIntermediate
+    setDisableTerrificIntermediate,
   ] = useState(
     intermediateTerrificKids[user]
       ? intermediateTerrificKids[user].length > 1
@@ -342,7 +342,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   // Generate StudentCards for each teacher
   for (const teacher in filteredStudents) {
-    StudentCards[teacher] = filteredStudents[teacher].map(student => {
+    StudentCards[teacher] = filteredStudents[teacher].map((student) => {
       return (
         <StyledCard key={student._id}>
           <CardImg src={student.image} />
@@ -395,7 +395,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
     });
   }
 
-  const AllClasses = teachers.map(teacher => {
+  const AllClasses = teachers.map((teacher) => {
     const [collapsed, setCollapsed] = useState(false);
     return (
       <div key={teacher}>
@@ -430,22 +430,22 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
 
   let Classes = role === "teacher" ? SingleClass : AllClasses;
 
-  if (moment().isBefore("2020-01-27", "day") && role === "teacher") {
-    Classes = <DueDate>Awards Will Open January 28th</DueDate>;
-  }
-  if (moment().isBefore("2020-01-30", "day") && role === "specialist") {
-    Classes = <DueDate>Awards Will Open January 31st</DueDate>;
-  }
+  // if (moment().isBefore("2020-01-27", "day") && role === "teacher") {
+  //   Classes = <DueDate>Awards Will Open January 28th</DueDate>;
+  // }
+  // if (moment().isBefore("2020-01-30", "day") && role === "specialist") {
+  //   Classes = <DueDate>Awards Will Open January 31st</DueDate>;
+  // }
 
   return (
     <>
       <NavBar path="/awards" role={role}></NavBar>
-      {role === "teacher" && moment().isAfter("2020-01-27") ? (
+      {/* {role === "teacher" && moment().isAfter("2020-01-27") ? (
         <DueDate>Due January 31st</DueDate>
       ) : null}
       {role === "specialist" && moment().isAfter("2020-01-31") ? (
         <DueDate>Due February 3rd</DueDate>
-      ) : null}
+      ) : null} */}
       <BackgroundDiv>{Classes}</BackgroundDiv>
     </>
   );
@@ -457,15 +457,15 @@ Awards.getInitialProps = async ({ req }) => {
   if (req && req.headers.cookie !== undefined) {
     res = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
-        cookie: req.headers.cookie
+        cookie: req.headers.cookie,
       },
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: res.data.students };
     return students;
   } else {
     res = await axios.get(`${process.env.HTTP}/students`, {
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: res.data.students };
     return students;
