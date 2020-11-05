@@ -22,45 +22,17 @@ import {
   ThreeRWriteup,
   ThreeRWriteupSignature,
   ThreeRWriteupTeacherDiv,
-  ThreeRh5
+  ThreeRh5,
 } from "../styles/certstyles";
+import { determineGrade } from "./teachers";
 
 const AllInCertificate: React.FC<{
   students: any;
   currentQuarter: string;
 }> = ({ students, currentQuarter }) => {
-  const certs = students.map(student => {
-    let grade;
-    if (
-      student.teacher === "Mrs. Martin" ||
-      student.teacher === "Mrs. Johnson"
-    ) {
-      grade = "Kindergarten";
-    } else if (
-      student.teacher === "Mrs. Alfaro" ||
-      student.teacher === "Mrs. Estep"
-    ) {
-      grade = "First Grade";
-    } else if (
-      student.teacher === "Mrs. Broberg" ||
-      student.teacher === "Mrs. Brar"
-    ) {
-      grade = "Second Grade";
-    } else if (
-      student.teacher === "Mrs. Chavez" ||
-      student.teacher === "Mrs. Carroll"
-    ) {
-      grade = "Third Grade";
-    } else if (student.teacher === "Mr. Kranik") {
-      grade = "Fourth Grade";
-    } else if (
-      student.teacher === "Mrs. Helle" ||
-      student.teacher === "Mrs. Kasemeier"
-    ) {
-      grade = "Fifth Grade";
-    } else if (student.teacher === "Mrs. Kidd") {
-      grade = "Sixth Grade";
-    }
+  const certs = students.map((student) => {
+    let grade = determineGrade(student.teacher);
+
     return (
       <div key={`${student._id}allin`}>
         <CertDiv>
@@ -79,7 +51,7 @@ const AllInCertificate: React.FC<{
                     for exemplifying the CCS Spiritual Theme during the
                   </AllInH5>
                   <ThreeRh4 style={{ paddingTop: "2rem" }}>
-                    {currentQuarter} of the 2019-2020 School Year
+                    {currentQuarter} of the 2020-2021 School Year
                   </ThreeRh4>
                 </AllInContainer>
                 <ThreeRSignatures style={{ width: "100%" }}>

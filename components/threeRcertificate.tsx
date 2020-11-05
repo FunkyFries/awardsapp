@@ -24,14 +24,15 @@ import {
   ThreeRWriteupTitle,
   ThreeRWriteupSignature,
   ThreeRWriteupTeacherDiv,
-  OutstandingInnerBorder
+  OutstandingInnerBorder,
 } from "../styles/certstyles";
+import { determineGrade } from "./teachers";
 
 const ThreeRCertificate: React.FC<{
   students: any;
   currentQuarter: string;
 }> = ({ students, currentQuarter }) => {
-  const certs = students.map(student => {
+  const certs = students.map((student) => {
     let awardName = student.threeR.substr(0, student.threeR.indexOf(" "));
 
     let definition;
@@ -46,37 +47,7 @@ const ThreeRCertificate: React.FC<{
         "Responsibility is being trustworthy, self-monitored, and accountable for one’s choices and accepting all consequences for one’s actions.";
     }
 
-    let grade;
-    if (
-      student.teacher === "Mrs. Martin" ||
-      student.teacher === "Mrs. Johnson"
-    ) {
-      grade = "Kindergarten";
-    } else if (
-      student.teacher === "Mrs. Alfaro" ||
-      student.teacher === "Mrs. Estep"
-    ) {
-      grade = "First Grade";
-    } else if (
-      student.teacher === "Mrs. Broberg" ||
-      student.teacher === "Mrs. Brar"
-    ) {
-      grade = "Second Grade";
-    } else if (
-      student.teacher === "Mrs. Chavez" ||
-      student.teacher === "Mrs. Carroll"
-    ) {
-      grade = "Third Grade";
-    } else if (student.teacher === "Mr. Kranik") {
-      grade = "Fourth Grade";
-    } else if (
-      student.teacher === "Mrs. Helle" ||
-      student.teacher === "Mrs. Kasemeier"
-    ) {
-      grade = "Fifth Grade";
-    } else if (student.teacher === "Mrs. Kidd") {
-      grade = "Sixth Grade";
-    }
+    let grade = determineGrade(student.teacher);
 
     return (
       <div key={`${student._id}threeR`}>
@@ -92,7 +63,7 @@ const ThreeRCertificate: React.FC<{
                     style={{
                       zIndex: -20,
                       height: "100%",
-                      width: "100%"
+                      width: "100%",
                     }}
                   />
                   <ThreeRTitle>Cougar Character</ThreeRTitle>
@@ -105,7 +76,7 @@ const ThreeRCertificate: React.FC<{
                   </ThreeRh3>
                   <ThreeRh3>the qualities of a leader.</ThreeRh3>
                   <ThreeRh5>Frederickson Campus</ThreeRh5>
-                  <ThreeRh4>{currentQuarter} of 19-20 School Year</ThreeRh4>
+                  <ThreeRh4>{currentQuarter} of 20-21 School Year</ThreeRh4>
                   <ThreeRSignatures>
                     <ThreeRHR />
                     <ThreeRHR />

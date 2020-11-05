@@ -75,7 +75,7 @@ const AwardForm: NextPage<{
   setAllInStudents,
   disableAllIn,
   setOutstandingStudents,
-  disableOutstanding
+  disableOutstanding,
 }) => {
   const [allIn, toggleAllIn] = useState(allInAward);
   const [outstanding, toggleOutstanding] = useState(outstandingAchievement);
@@ -89,14 +89,14 @@ const AwardForm: NextPage<{
   const [ARaward, setARaward] = useState(acceleratedReader);
   const [showARModal, setShowARModal] = useState(false);
   const [arWords, setWords] = useState(words);
-  const [disableTerrific, toggleDisableTerrific] = useState();
+  const [disableTerrific, toggleDisableTerrific] = useState(null);
 
   let currentQuarter;
-  if (moment().isBefore("2019-11-20")) {
+  if (moment().isBefore("2020-11-20")) {
     currentQuarter = "First Quarter";
-  } else if (moment().isBefore("2020-02-12")) {
+  } else if (moment().isBefore("2021-02-12")) {
     currentQuarter = "Second Quarter";
-  } else if (moment().isBefore("2020-04-22")) {
+  } else if (moment().isBefore("2021-04-22")) {
     currentQuarter = "Third Quarter";
   } else {
     currentQuarter = "Fourth Quarter";
@@ -126,7 +126,7 @@ const AwardForm: NextPage<{
   function updateWowAward() {
     axios
       .put(`students/${id}`, {
-        wowAward: !wow
+        wowAward: !wow,
       })
       .then(() => toggleWow(!wow));
   }
@@ -135,7 +135,7 @@ const AwardForm: NextPage<{
     setAllInStudents(id);
     axios
       .put(`students/${id}`, {
-        allInAward: !allIn
+        allInAward: !allIn,
       })
       .then(() => toggleAllIn(!allIn));
   }
@@ -144,7 +144,7 @@ const AwardForm: NextPage<{
     setOutstandingStudents(id);
     axios
       .put(`students/${id}`, {
-        outstandingAchievement: !outstanding
+        outstandingAchievement: !outstanding,
       })
       .then(() => toggleOutstanding(!outstanding));
   }
@@ -157,7 +157,7 @@ const AwardForm: NextPage<{
     }
     axios
       .put(`students/${id}`, {
-        cougarCommunityService: !communityService
+        cougarCommunityService: !communityService,
       })
       .then(() => toggleCommunityService(!communityService));
   }
@@ -173,7 +173,7 @@ const AwardForm: NextPage<{
       handleNoneUpdate(id);
     }
     axios.put(`students/${id}`, {
-      threeR: e.target.value
+      threeR: e.target.value,
     });
     setThreeR(e.target.value);
   }
@@ -183,7 +183,7 @@ const AwardForm: NextPage<{
       axios
         .put(`students/${id}`, {
           acceleratedReader: false,
-          words: 0
+          words: 0,
         })
         .then(() => setARaward(false));
     } else {
@@ -196,7 +196,7 @@ const AwardForm: NextPage<{
     axios
       .put(`students/${id}`, {
         acceleratedReader: true,
-        words: arWords
+        words: arWords,
       })
       .then(() => setShowARModal(false));
   }
@@ -212,21 +212,23 @@ const AwardForm: NextPage<{
     if (terrificChooser === "null") {
       axios.put(`students/${id}`, {
         terrificKid: true,
-        terrificKidChosenBy: userName
+        terrificKidChosenBy: userName,
       });
       setTerrific(true);
       setTerrificChooser(userName);
     } else if (terrificChooser === userName || role === "admin") {
       axios.put(`students/${id}`, {
         terrificKid: false,
-        terrificKidChosenBy: "null"
+        terrificKidChosenBy: "null",
       });
       setTerrific(false);
       setTerrificChooser("null");
     }
   }
 
-  const pastAwardsList = pastAwards.map(award => <li key={award}>{award}</li>);
+  const pastAwardsList = pastAwards.map((award) => (
+    <li key={award}>{award}</li>
+  ));
 
   return (
     <Form>
@@ -336,7 +338,7 @@ const AwardForm: NextPage<{
         </Modal.Header>
         <Modal.Body>
           <Form.Control
-            onChange={e => setWords(e.target.value)}
+            onChange={(e) => setWords(e.target.value)}
             type="number"
             placeholder="Words"
             required

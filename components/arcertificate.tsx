@@ -9,45 +9,17 @@ import {
   P,
   Img,
   Signatures,
-  HR
+  HR,
 } from "../styles/certstyles";
+import { determineGrade } from "./teachers";
 
 const ArCertificate: React.FC<{ students: any; currentQuarter: string }> = ({
   students,
-  currentQuarter
+  currentQuarter,
 }) => {
-  const certs = students.map(student => {
-    let grade;
-    if (
-      student.teacher === "Mrs. Martin" ||
-      student.teacher === "Mrs. Johnson"
-    ) {
-      grade = "kindergarten";
-    } else if (
-      student.teacher === "Mrs. Alfaro" ||
-      student.teacher === "Mrs. Estep"
-    ) {
-      grade = "first grade";
-    } else if (
-      student.teacher === "Mrs. Broberg" ||
-      student.teacher === "Mrs. Brar"
-    ) {
-      grade = "second grade";
-    } else if (
-      student.teacher === "Mrs. Chavez" ||
-      student.teacher === "Mrs. Carroll"
-    ) {
-      grade = "third grade";
-    } else if (student.teacher === "Mr. Kranik") {
-      grade = "fourth grade";
-    } else if (
-      student.teacher === "Mrs. Helle" ||
-      student.teacher === "Mrs. Kasemeier"
-    ) {
-      grade = "fifth grade";
-    } else if (student.teacher === "Mrs. Kidd") {
-      grade = "sixth grade";
-    }
+  const certs = students.map((student) => {
+    let grade = determineGrade(student.teacher);
+
     const formattedWords = student.words
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -58,7 +30,7 @@ const ArCertificate: React.FC<{ students: any; currentQuarter: string }> = ({
         <H4>presented to</H4>
         <H2>{student.name}</H2>
         <H3>
-          on this 12th day of February, 2020 for reading {formattedWords} words
+          on this 18th day of November, 2020 for reading {formattedWords} words
           in the {currentQuarter.toLowerCase()}!
         </H3>
         <H3>The most in {grade}!</H3>

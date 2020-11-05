@@ -23,14 +23,14 @@ import {
   ThreeRWriteup,
   ThreeRWriteupSignature,
   ThreeRWriteupTeacherDiv,
-  ThreeRh5
+  ThreeRh5,
 } from "../styles/certstyles";
 
 const CommunityServiceCertificate: React.FC<{
   students: any;
   currentQuarter: string;
 }> = ({ students, currentQuarter }) => {
-  const certs = students.map(student => {
+  const certs = students.map((student) => {
     return (
       <div key={`${student._id}communityservice`}>
         <CertDiv>
@@ -49,7 +49,7 @@ const CommunityServiceCertificate: React.FC<{
                 <OutstandingH2>{student.name}</OutstandingH2>
                 <OutstandingH5>For community service during the</OutstandingH5>
                 <OutstandingH3>
-                  {currentQuarter} of the 2019-2020 School Year
+                  {currentQuarter} of the 2020-2021 School Year
                 </OutstandingH3>
                 <OutstandingSignatures>
                   <ThreeRHR />

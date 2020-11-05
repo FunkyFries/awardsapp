@@ -15,7 +15,7 @@ import {
   teachers,
   specialists,
   primaryTeachers,
-  intermediateTeachers
+  intermediateTeachers,
 } from "../components/teachers";
 import moment from "moment";
 import {
@@ -26,16 +26,16 @@ import {
   TableHeader,
   ArAwardsHeader,
   PageBreak,
-  PrintFormContainer
+  PrintFormContainer,
 } from "../styles/displayawardstyles";
 import Form from "react-bootstrap/Form";
 
 let currentQuarter;
-if (moment().isBefore("2019-11-20")) {
+if (moment().isBefore("2020-11-20")) {
   currentQuarter = "First Quarter";
-} else if (moment().isBefore("2020-02-12")) {
+} else if (moment().isBefore("2021-02-12")) {
   currentQuarter = "Second Quarter";
-} else if (moment().isBefore("2020-04-22")) {
+} else if (moment().isBefore("2021-04-22")) {
   currentQuarter = "Third Quarter";
 } else {
   currentQuarter = "Fourth Quarter";
@@ -62,30 +62,44 @@ const DisplayAwards: NextPage<{
   const [printAwardsTable, setPrintAwardsTable] = useState(false);
 
   try {
-    const threeRstudents = students.filter(
-      student => student.threeR !== "none"
-    );
+    const compare = (sortProperty) => (a, b) => {
+      if (a[sortProperty] < b[sortProperty]) {
+        return -1;
+      }
+      if (a[sortProperty] > b[sortProperty]) {
+        return 1;
+      }
+      return 0;
+    };
 
-    const terrificStudents = students.filter(student => student.terrificKid);
+    const threeRstudents = students
+      .filter((student) => student.threeR !== "none")
+      .sort(compare("teacher"));
 
-    const ARstudents = students.filter(student => student.acceleratedReader);
+    const terrificStudents = students
+      .filter((student) => student.terrificKid)
+      .sort(compare("terrificKidChosenBy"));
 
-    const allInStudents = students.filter(student => student.allInAward);
+    const ARstudents = students.filter((student) => student.acceleratedReader);
+
+    const allInStudents = students.filter((student) => student.allInAward);
 
     const outstandingStudents = students.filter(
-      student => student.outstandingAchievement
+      (student) => student.outstandingAchievement
     );
 
     const communityServiceStudents = students.filter(
-      student => student.cougarCommunityService
+      (student) => student.cougarCommunityService
     );
 
-    const wowStudents = students.filter(student => student.wowAward);
+    const wowStudents = students
+      .filter((student) => student.wowAward)
+      .sort(compare("teacher"));
 
     // Create Cougar Awards Table
-    const teacherRows = teachers.map(teacher => {
+    const teacherRows = teachers.map((teacher) => {
       let relationshipStudent = threeRstudents.find(
-        student =>
+        (student) =>
           student.teacher === teacher &&
           student.threeR === `Relationship - ${currentQuarter}`
       );
@@ -95,7 +109,7 @@ const DisplayAwards: NextPage<{
       }
 
       let respectStudent = threeRstudents.find(
-        student =>
+        (student) =>
           student.teacher === teacher &&
           student.threeR === `Respect - ${currentQuarter}`
       );
@@ -105,7 +119,7 @@ const DisplayAwards: NextPage<{
       }
 
       let responsibilityStudent = threeRstudents.find(
-        student =>
+        (student) =>
           student.teacher === teacher &&
           student.threeR === `Responsibility - ${currentQuarter}`
       );
@@ -115,7 +129,7 @@ const DisplayAwards: NextPage<{
       }
 
       let allInStudent = allInStudents.find(
-        student => student.teacher === teacher && student.allInAward
+        (student) => student.teacher === teacher && student.allInAward
       );
       let allIn;
       if (allInStudent) {
@@ -123,7 +137,8 @@ const DisplayAwards: NextPage<{
       }
 
       let oustandingStudent = outstandingStudents.find(
-        student => student.teacher === teacher && student.outstandingAchievement
+        (student) =>
+          student.teacher === teacher && student.outstandingAchievement
       );
       let outstanding;
       if (oustandingStudent) {
@@ -143,13 +158,13 @@ const DisplayAwards: NextPage<{
     });
 
     // Create Terrific Kid Table
-    const specialistRows = specialists.map(specialist => {
+    const specialistRows = specialists.map((specialist) => {
       let terrificKids = terrificStudents.filter(
-        student => student.terrificKidChosenBy === specialist
+        (student) => student.terrificKidChosenBy === specialist
       );
       let primary;
       if (terrificKids) {
-        primary = terrificKids.filter(student =>
+        primary = terrificKids.filter((student) =>
           primaryTeachers.includes(student.teacher)
         );
       }
@@ -178,7 +193,7 @@ const DisplayAwards: NextPage<{
 
       let intermediate;
       if (terrificKids) {
-        intermediate = terrificKids.filter(student =>
+        intermediate = terrificKids.filter((student) =>
           intermediateTeachers.includes(student.teacher)
         );
       }
@@ -220,10 +235,10 @@ const DisplayAwards: NextPage<{
       let primary;
       let intermediate;
       if (communityServiceStudents) {
-        primary = communityServiceStudents.filter(student =>
+        primary = communityServiceStudents.filter((student) =>
           primaryTeachers.includes(student.teacher)
         );
-        intermediate = communityServiceStudents.filter(student =>
+        intermediate = communityServiceStudents.filter((student) =>
           intermediateTeachers.includes(student.teacher)
         );
       }
@@ -273,25 +288,29 @@ const DisplayAwards: NextPage<{
     };
 
     // Create AR Awards Table
-    const ARhonorsRows = teachers.map(teacher => {
+    const ARhonorsRows = teachers.map((teacher) => {
       let ARbyTeacher = ARstudents.filter(
-        student => student.teacher === teacher
+        (student) => student.teacher === teacher
       );
       if (ARbyTeacher.length > 0) {
         let grade;
-        if (teacher === "Mrs. Martin" || teacher === "Mrs. Johnson") {
+        if (
+          teacher === "Mrs. Martin" ||
+          teacher === "Mrs. Johnson" ||
+          "Mrs. Nathanson"
+        ) {
           grade = "Kindergarten";
-        } else if (teacher === "Mrs. Alfaro" || teacher === "Mrs. Estep") {
+        } else if (teacher === "Mrs. Dilley" || teacher === "Ms. Lang") {
           grade = "First Grade";
-        } else if (teacher === "Mrs. Broberg" || teacher === "Mrs. Brar") {
+        } else if (teacher === "Mrs. Terpstra" || teacher === "Mrs. Brar") {
           grade = "Second Grade";
-        } else if (teacher === "Mrs. Chavez" || teacher === "Mrs. Carroll") {
+        } else if (teacher === "Mrs. Haberman" || teacher === "Mrs. Carroll") {
           grade = "Third Grade";
         } else if (teacher === "Mr. Kranik") {
           grade = "Fourth Grade";
-        } else if (teacher === "Mrs. Helle" || teacher === "Mrs. Kasemeier") {
+        } else if (teacher === "Mrs. Kasemeier") {
           grade = "Fifth Grade";
-        } else if (teacher === "Mrs. Kidd") {
+        } else if (teacher === "Mrs. Kidd" || teacher === "Mrs. Helle") {
           grade = "Sixth Grade";
         }
         return (
@@ -304,9 +323,9 @@ const DisplayAwards: NextPage<{
     });
 
     // Create Wow Awards Table
-    const wowAwardsRows = intermediateTeachers.map(teacher => {
+    const wowAwardsRows = intermediateTeachers.map((teacher) => {
       let wowAwardsByTeacher = wowStudents.filter(
-        student => student.teacher === teacher
+        (student) => student.teacher === teacher
       );
       let rows = [];
       if (wowAwardsByTeacher.length > 0) {
@@ -390,7 +409,7 @@ const DisplayAwards: NextPage<{
                   style={{
                     margin: "1rem auto",
                     textAlign: "left",
-                    fontFamily: "Noto Sans"
+                    fontFamily: "Noto Sans",
                   }}
                   className="d-print-none"
                 >
@@ -459,7 +478,7 @@ const DisplayAwards: NextPage<{
                   style={{
                     margin: "0 auto",
                     width: "16rem",
-                    fontFamily: "Calligraffitti"
+                    fontFamily: "Calligraffitti",
                   }}
                   variant="info"
                   className="d-print-none"
@@ -556,15 +575,15 @@ DisplayAwards.getInitialProps = async ({ req, res }) => {
   if (req && req.headers.cookie !== undefined) {
     obj = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
-        cookie: req.headers.cookie
+        cookie: req.headers.cookie,
       },
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: obj.data.students };
     return students;
   } else {
     obj = await axios.get(`${process.env.HTTP}/students`, {
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: obj.data.students };
     return students;

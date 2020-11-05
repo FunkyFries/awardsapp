@@ -9,14 +9,14 @@ import {
   ThreeRWriteupSignature,
   ThreeRWriteupTeacherDiv,
   ThreeRh5,
-  TerrificH1
+  TerrificH1,
 } from "../styles/certstyles";
 
 const TerrificKidCertificate: React.FC<{
   students: any;
   currentQuarter: string;
 }> = ({ students, currentQuarter }) => {
-  const certs = students.map(student => {
+  const certs = students.map((student) => {
     return (
       <div key={`${student._id}terrifickid`}>
         <CertDiv style={{ display: "flex" }}>
@@ -33,10 +33,10 @@ const TerrificKidCertificate: React.FC<{
               style={{
                 width: "100%",
                 fontSize: "2rem",
-                fontFamily: "Noto Sans"
+                fontFamily: "Noto Sans",
               }}
             >
-              {currentQuarter} 2019 - 2020
+              {currentQuarter} 2020 - 2021
             </ThreeRWriteupTitle>
             <div style={{ width: "100%" }}>
               <ThreeRh3>{student.name}</ThreeRh3>

@@ -14,14 +14,14 @@ import {
   OutstandingH6,
   OutstandingSignatures,
   ThreeRHR,
-  OutstandingStar
+  OutstandingStar,
 } from "../styles/certstyles";
 
 const WowCertificate: React.FC<{
   students: any;
   currentQuarter: string;
 }> = ({ students, currentQuarter }) => {
-  const certs = students.map(student => (
+  const certs = students.map((student) => (
     <CertDiv key={`${student._id}wow`}>
       <ThreeRContainer>
         <OutstandingCCS src="/static/Logo.png" alt="CCS Logo"></OutstandingCCS>
@@ -35,7 +35,7 @@ const WowCertificate: React.FC<{
               for the completion of their semester goal during the
             </OutstandingH5>
             <OutstandingH3>
-              {currentQuarter} of the 2019-2020 School Year
+              {currentQuarter} of the 2020-2021 School Year
             </OutstandingH3>
             <OutstandingSignatures>
               <ThreeRHR />
