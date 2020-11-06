@@ -21,9 +21,9 @@ type Student = {
   teacher: string;
 };
 
-const WriteUpForm: React.FC<Student> = student => {
+const WriteUpForm: React.FC<Student> = (student) => {
   const [textValue, setTextValue] = useState(student.writeUp);
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTextValue(e.target.value);
   };
   const [editingWriteup, setEditingWriteup] = useState(false);
@@ -34,7 +34,7 @@ const WriteUpForm: React.FC<Student> = student => {
   } else if (student.cougarCommunityService) {
     awardName = "Cougar Community Service chosen by Mrs. Plummer";
   } else if (student.allInAward) {
-    awardName = `All In chosen by ${student.teacher}`;
+    awardName = `Living Free chosen by ${student.teacher}`;
   } else if (student.outstandingAchievement) {
     awardName = `Outstanding Achievement chosen by ${student.teacher}`;
   } else {
@@ -44,29 +44,29 @@ const WriteUpForm: React.FC<Student> = student => {
     )} chosen by ${student.teacher}`;
   }
 
-  const updateWriteup = e => {
+  const updateWriteup = (e) => {
     e.preventDefault();
     if (student.terrificKid) {
       axios
         .put(`/students/${student._id}`, {
-          terrificKidWriteUp: textValue
+          terrificKidWriteUp: textValue,
         })
-        .then(res => setEditingWriteup(false))
-        .catch(err => console.log(err));
+        .then((res) => setEditingWriteup(false))
+        .catch((err) => console.log(err));
     } else if (student.cougarCommunityService) {
       axios
         .put(`/students/${student._id}`, {
-          ccsWriteup: textValue
+          ccsWriteup: textValue,
         })
-        .then(res => setEditingWriteup(false))
-        .catch(err => console.log(err));
+        .then((res) => setEditingWriteup(false))
+        .catch((err) => console.log(err));
     } else {
       axios
         .put(`/students/${student._id}`, {
-          threeRwriteUp: textValue
+          threeRwriteUp: textValue,
         })
-        .then(res => setEditingWriteup(false))
-        .catch(err => console.log(err));
+        .then((res) => setEditingWriteup(false))
+        .catch((err) => console.log(err));
     }
   };
 
