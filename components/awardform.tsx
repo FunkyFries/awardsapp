@@ -247,7 +247,7 @@ const AwardForm: NextPage<{
       ) : null}
       <Form.Check
         type="checkbox"
-        label="All In Award"
+        label="Living Free Award"
         id={`AllInAward-${id}`}
         onChange={updateAllInAward}
         checked={allIn}
