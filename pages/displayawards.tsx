@@ -498,7 +498,7 @@ const DisplayAwards: NextPage<{
                   <th>Relationship</th>
                   <th>Respect</th>
                   <th>Responsibility</th>
-                  <th>All In</th>
+                  <th>Living Free</th>
                   <th>Oustanding Achievement</th>
                 </tr>
               </thead>
