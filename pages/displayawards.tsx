@@ -297,7 +297,7 @@ const DisplayAwards: NextPage<{
         if (
           teacher === "Mrs. Martin" ||
           teacher === "Mrs. Johnson" ||
-          "Mrs. Nathanson"
+          teacher === "Mrs. Nathanson"
         ) {
           grade = "Kindergarten";
         } else if (teacher === "Mrs. Dilley" || teacher === "Ms. Lang") {
