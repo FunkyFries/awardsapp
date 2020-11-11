@@ -33,7 +33,14 @@ export const intermediateTeachers = [
   "Mrs. Kidd",
 ];
 
-export const specialists = ["Mr. Leach", "Mr. Bloomstine", "Mrs. Sievers"];
+export const bandTeachers = ["Mrs. Kidd", "Mrs. Helle"];
+
+export const specialists = [
+  "Mr. Leach",
+  "Mr. Bloomstine",
+  "Mrs. Sievers",
+  "Mr. Neptun",
+];
 
 export function determineGrade(teacher) {
   if (
