@@ -15,6 +15,7 @@ type Student = {
   terrificKid: boolean;
   terrificKidChosenBy: string;
   cougarCommunityService: boolean;
+  communityServiceChosenBy: string;
   allInAward: boolean;
   outstandingAchievement: boolean;
   role: string;
@@ -32,7 +33,7 @@ const WriteUpForm: React.FC<Student> = (student) => {
   if (student.terrificKid) {
     awardName = `Terrific Kid chosen by ${student.terrificKidChosenBy}`;
   } else if (student.cougarCommunityService) {
-    awardName = "Cougar Community Service chosen by Mrs. Plummer";
+    awardName = `Cougar Community Service chosen by ${student.communityServiceChosenBy}`;
   } else if (student.allInAward) {
     awardName = `Living Free chosen by ${student.teacher}`;
   } else if (student.outstandingAchievement) {

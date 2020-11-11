@@ -12,6 +12,7 @@ import {
   teachers,
   bandTeachers,
   specialists,
+  recessSpecialists,
 } from "../components/teachers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretRight } from "@fortawesome/free-solid-svg-icons";
@@ -45,8 +46,8 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   let relationshipStudent = [];
   let allInStudent = [];
   let outstandingStudent = [];
-  let primaryCommunityServiceStudents = [];
-  let intermediateCommunityServiceStudents = [];
+  let primaryCommunityServiceStudents = {};
+  let intermediateCommunityServiceStudents = {};
   let primaryTerrificStudents = {};
   let intermediateTerrificStudents = [];
 
@@ -81,20 +82,24 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
       return groups;
     }, {});
     filteredStudents = sortedStudents;
-    primaryCommunityServiceStudents = students
-      .filter(
-        (student) =>
-          student.cougarCommunityService &&
-          primaryTeachers.includes(student.teacher)
-      )
-      .map((student) => student._id);
-    intermediateCommunityServiceStudents = students
-      .filter(
-        (student) =>
-          student.cougarCommunityService &&
-          intermediateTeachers.includes(student.teacher)
-      )
-      .map((student) => student._id);
+    recessSpecialists.map((specialist) => {
+      primaryCommunityServiceStudents[specialist] = students
+        .filter(
+          (student) =>
+            student.cougarCommunityService &&
+            primaryTeachers.includes(student.teacher) &&
+            student.communityServiceChosenBy === specialist
+        )
+        .map((student) => student._id);
+      intermediateCommunityServiceStudents[specialist] = students
+        .filter(
+          (student) =>
+            student.cougarCommunityService &&
+            intermediateTeachers.includes(student.teacher) &&
+            student.communityServiceChosenBy === specialist
+        )
+        .map((student) => student._id);
+    });
     specialists.map((specialist) => {
       primaryTerrificStudents[specialist] = students
         .filter(
@@ -149,7 +154,9 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
     primaryCommunityServiceStudents
   );
   const [disablePrimaryCommunity, setDisablePrimaryCommunity] = useState(
-    primaryCommunityStudents.length > 0
+    primaryCommunityStudents[user]
+      ? primaryCommunityStudents[user].length > 0
+      : null
   );
 
   const [
@@ -159,7 +166,11 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   const [
     disableIntermediateCommunity,
     setDisableIntermediateCommunity,
-  ] = useState(intermediateCommunityStudents.length > 1);
+  ] = useState(
+    intermediateCommunityStudents[user]
+      ? intermediateCommunityStudents[user].length > 0
+      : null
+  );
 
   const [primaryTerrificKids, setPrimaryTerrificKids] = useState(
     primaryTerrificStudents
@@ -286,30 +297,30 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   }
 
   function handlePrimaryCommunityServiceUpdate(id) {
-    let array = primaryCommunityStudents;
-    let matchingIndex = array.indexOf(id);
+    let obj = primaryCommunityStudents;
+    let matchingIndex = obj[user].indexOf(id);
     if (matchingIndex !== -1) {
-      array.splice(matchingIndex, 1);
+      obj[user].splice(matchingIndex, 1);
       setDisablePrimaryCommunity(false);
-      setPrimaryCommunityStudents(array);
+      setPrimaryCommunityStudents(obj);
     } else {
-      array.push(id);
+      obj[user].push(id);
       setDisablePrimaryCommunity(true);
-      setPrimaryCommunityStudents(array);
+      setPrimaryCommunityStudents(obj);
     }
   }
 
   function handleIntermediateCommunityServiceUpdate(id) {
-    let array = intermediateCommunityStudents;
-    let matchingIndex = array.indexOf(id);
+    let obj = intermediateCommunityStudents;
+    let matchingIndex = obj[user].indexOf(id);
     if (matchingIndex !== -1) {
-      array.splice(matchingIndex, 1);
+      obj[user].splice(matchingIndex, 1);
       setDisableIntermediateCommunity(false);
-      setIntermediateCommunityStudents(array);
+      setIntermediateCommunityStudents(obj);
     } else {
-      array.push(id);
-      array.length > 1 ? setDisableIntermediateCommunity(true) : null;
-      setIntermediateCommunityStudents(array);
+      obj[user].push(id);
+      setDisableIntermediateCommunity(true);
+      setIntermediateCommunityStudents(obj);
     }
   }
 
@@ -367,6 +378,7 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
               outstandingAchievement={student.outstandingAchievement}
               wowAward={student.wowAward}
               cougarCommunityService={student.cougarCommunityService}
+              communityServiceChosenBy={student.communityServiceChosenBy}
               handlePrimaryCommunityServiceUpdate={
                 handlePrimaryCommunityServiceUpdate
               }
