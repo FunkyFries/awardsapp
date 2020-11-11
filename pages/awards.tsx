@@ -10,6 +10,7 @@ import {
   primaryTeachers,
   intermediateTeachers,
   teachers,
+  bandTeachers,
   specialists,
 } from "../components/teachers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -395,6 +396,32 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
     });
   }
 
+  const BandClasses = bandTeachers.map((teacher) => {
+    const [collapsed, setCollapsed] = useState(false);
+    return (
+      <div key={teacher}>
+        <Accordion defaultActiveKey="0">
+          <Accordion.Toggle
+            as={TeacherHeadingDiv}
+            eventKey="0"
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            <TeacherHeading>{teacher}</TeacherHeading>
+            {collapsed ? (
+              <FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>
+            ) : (
+              <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>
+            )}
+          </Accordion.Toggle>
+          <StyledHr />
+          <Accordion.Collapse eventKey="0">
+            <>{StudentCards[teacher]}</>
+          </Accordion.Collapse>
+        </Accordion>
+      </div>
+    );
+  });
+
   const AllClasses = teachers.map((teacher) => {
     const [collapsed, setCollapsed] = useState(false);
     return (
@@ -429,6 +456,14 @@ const Awards: NextPage<{ students: any; role: any; user: any }> = ({
   );
 
   let Classes = role === "teacher" ? SingleClass : AllClasses;
+
+  if (role === "teacher") {
+    Classes = SingleClass;
+  } else if (user === "Mr. Neptun") {
+    Classes = BandClasses;
+  } else {
+    Classes = AllClasses;
+  }
 
   // if (moment().isBefore("2020-01-27", "day") && role === "teacher") {
   //   Classes = <DueDate>Awards Will Open January 28th</DueDate>;
