@@ -16,6 +16,7 @@ import {
   specialists,
   primaryTeachers,
   intermediateTeachers,
+  recessSpecialists,
 } from "../components/teachers";
 import moment from "moment";
 import {
@@ -231,14 +232,17 @@ const DisplayAwards: NextPage<{
     });
 
     // Create Community Service Table
-    const communityServiceRows = () => {
+    const communityServiceRows = recessSpecialists.map((specialist) => {
+      let ccsKids = communityServiceStudents.filter(
+        (student) => student.communityServiceChosenBy === specialist
+      );
       let primary;
       let intermediate;
-      if (communityServiceStudents) {
-        primary = communityServiceStudents.filter((student) =>
+      if (ccsKids) {
+        primary = ccsKids.filter((student) =>
           primaryTeachers.includes(student.teacher)
         );
-        intermediate = communityServiceStudents.filter((student) =>
+        intermediate = ccsKids.filter((student) =>
           intermediateTeachers.includes(student.teacher)
         );
       }
@@ -255,37 +259,27 @@ const DisplayAwards: NextPage<{
         );
       }
 
-      let intermediateColumns = (
+      let intermediateColumn = (
         <>
-          <td></td>
           <td></td>
         </>
       );
-      if (intermediate.length === 2) {
-        intermediateColumns = (
-          <>
-            <td>{intermediate[0].name}</td>
-            <td>{intermediate[1].name}</td>
-          </>
-        );
-      }
       if (intermediate.length === 1) {
-        intermediateColumns = (
+        intermediateColumn = (
           <>
             <td>{intermediate[0].name}</td>
-            <td></td>
           </>
         );
       }
 
       return (
-        <tr>
-          <td>Mrs. Plummer</td>
+        <tr key={specialist}>
+          <td>{specialist}</td>
           {primaryColumn}
-          {intermediateColumns}
+          {intermediateColumn}
         </tr>
       );
-    };
+    });
 
     // Create AR Awards Table
     const ARhonorsRows = teachers.map((teacher) => {
@@ -529,7 +523,7 @@ const DisplayAwards: NextPage<{
                   <th colSpan={2}>Intermediate Recipient</th>
                 </tr>
               </thead>
-              <tbody>{communityServiceRows()}</tbody>
+              <tbody>{communityServiceRows}</tbody>
             </StyledTable>
             <StyledTable striped>
               <thead>

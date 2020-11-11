@@ -12,13 +12,14 @@ import {
   WriteUpContainer,
   WriteUpHeading,
   SuccessToast,
-  ErrorToast
+  ErrorToast,
 } from "../styles/writeupstyles";
+import { recessSpecialists } from "../components/teachers";
 
 const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   students,
   user,
-  role
+  role,
 }) => {
   useEffect(() => {
     if (!user || !students) {
@@ -61,31 +62,31 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
     message = null;
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     for (let i = 0; i < e.target.length - 1; i++) {
       if (e.target[i].value.length > 0) {
         if (role === "teacher") {
           axios
             .put(`/students/${e.target[i].id}`, {
-              threeRwriteUp: e.target[i].value
+              threeRwriteUp: e.target[i].value,
             })
-            .then(res => setShowSuccess(true))
-            .catch(err => setShowErr(true));
-        } else if (user === "Mrs. Plummer") {
+            .then((res) => setShowSuccess(true))
+            .catch((err) => setShowErr(true));
+        } else if (recessSpecialists.includes(user)) {
           axios
             .put(`/students/${e.target[i].id}`, {
-              ccsWriteup: e.target[i].value
+              ccsWriteup: e.target[i].value,
             })
-            .then(res => setShowSuccess(true))
-            .catch(err => setShowErr(true));
+            .then((res) => setShowSuccess(true))
+            .catch((err) => setShowErr(true));
         } else {
           axios
             .put(`/students/${e.target[i].id}`, {
-              terrificKidWriteUp: e.target[i].value
+              terrificKidWriteUp: e.target[i].value,
             })
-            .then(res => setShowSuccess(true))
-            .catch(err => setShowErr(true));
+            .then((res) => setShowSuccess(true))
+            .catch((err) => setShowErr(true));
         }
       }
     }
@@ -97,23 +98,23 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   // Filter students assigned to teacher
   if (role === "teacher" && students) {
     filteredStudents = students.filter(
-      student =>
+      (student) =>
         (student.teacher === user && student.threeR !== "none") ||
         (student.teacher === user && student.allInAward) ||
         (student.teacher === user && student.outstandingAchievement)
     );
-  } else if (user === "Mrs. Plummer") {
+  } else if (recessSpecialists.includes(user)) {
     filteredStudents = students.filter(
-      student => student.cougarCommunityService
+      (student) => student.communityServiceChosenBy === user
     );
   } else if (role === "specialist") {
     filteredStudents = students.filter(
-      student => student.terrificKidChosenBy === user
+      (student) => student.terrificKidChosenBy === user
     );
   } else if (role === "admin") {
     filteredStudents = students
       .filter(
-        student =>
+        (student) =>
           student.terrificKid ||
           student.threeR !== "none" ||
           student.cougarCommunityService ||
@@ -126,7 +127,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
   //Fix this!!! Create additional filters for Outstanding and All In and generate separate Write Up forms
 
   if (filteredStudents.length > 0) {
-    writeUpForm = filteredStudents.map(student => {
+    writeUpForm = filteredStudents.map((student) => {
       let writeUp;
       let allInWriteup;
       let outstandingWriteup;
@@ -138,7 +139,7 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         // } else {
         writeUp = student.threeRwriteUp;
         // }
-      } else if (user === "Mrs. Plummer") {
+      } else if (recessSpecialists.includes(user)) {
         writeUp = student.ccsWriteup;
       } else if (role === "admin") {
         if (student.terrificKid) {
@@ -164,21 +165,22 @@ const WriteUps: NextPage<{ students: any; user: string; role: string }> = ({
         />
       );
     });
-  } else if (role === "admin" && filteredStudents.length > 0) {
-    writeUpForm = filteredStudents.map(student => {
-      let writeUp = student.terrificKid
-        ? student.terrificKidWriteUp
-        : student.threeRwriteUp;
-      return (
-        <WriteUpForm
-          {...student}
-          writeUp={writeUp}
-          key={student._id}
-          role={role}
-        ></WriteUpForm>
-      );
-    });
   }
+  // } else if (role === "admin" && filteredStudents.length > 0) {
+  //   writeUpForm = filteredStudents.map((student) => {
+  //     let writeUp = student.terrificKid
+  //       ? student.terrificKidWriteUp
+  //       : student.threeRwriteUp;
+  //   return (
+  //     <WriteUpForm
+  //       {...student}
+  //       writeUp={writeUp}
+  //       key={student._id}
+  //       role={role}
+  //     ></WriteUpForm>
+  //   );
+  // });
+  // }
 
   return (
     <>
@@ -207,15 +209,15 @@ WriteUps.getInitialProps = async ({ req }) => {
   if (req && req.headers.cookie !== undefined) {
     res = await axios.get(`${process.env.HTTP}/students`, {
       headers: {
-        cookie: req.headers.cookie
+        cookie: req.headers.cookie,
       },
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: res.data.students };
     return students;
   } else {
     res = await axios.get(`${process.env.HTTP}/students`, {
-      withCredentials: true
+      withCredentials: true,
     });
     students = { students: res.data.students };
     return students;

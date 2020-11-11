@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
-import { primaryTeachers } from "./teachers";
+import { primaryTeachers, recessSpecialists } from "./teachers";
 import { ThreeRDiv, ThreeRLabel } from "../styles/awardstyles";
 import axios from "axios";
 import moment from "moment";
@@ -16,6 +16,7 @@ const AwardForm: NextPage<{
   wowAward: boolean;
   cougarCommunityService: boolean;
   handlePrimaryCommunityServiceUpdate: any;
+  communityServiceChosenBy: string;
   disablePrimaryCommunity: boolean;
   handleIntermediateCommunityServiceUpdate: any;
   disableIntermediateCommunity: boolean;
@@ -49,6 +50,7 @@ const AwardForm: NextPage<{
   outstandingAchievement,
   wowAward,
   cougarCommunityService,
+  communityServiceChosenBy,
   handlePrimaryCommunityServiceUpdate,
   disablePrimaryCommunity,
   handleIntermediateCommunityServiceUpdate,
@@ -83,6 +85,9 @@ const AwardForm: NextPage<{
   const [communityService, toggleCommunityService] = useState(
     cougarCommunityService
   );
+  const [communityServiceChooser, setCommunityServiceChooser] = useState(
+    communityServiceChosenBy
+  );
   const [terrific, setTerrific] = useState(terrificKid);
   const [terrificChooser, setTerrificChooser] = useState(terrificKidChosenBy);
   const [threeRAward, setThreeR] = useState(threeR);
@@ -105,12 +110,12 @@ const AwardForm: NextPage<{
   useEffect(() => {
     if (
       (role !== "teacher" &&
-        userName !== "Mrs. Plummer" &&
+        !recessSpecialists.includes(userName) &&
         terrificKidChosenBy !== "null" &&
         userName === terrificKidChosenBy &&
         threeRAward === "none") ||
       (role !== "teacher" &&
-        userName !== "Mrs. Plummer" &&
+        !recessSpecialists.includes(userName) &&
         terrificKidChosenBy === "null" &&
         threeRAward === "none" &&
         !allIn &&
@@ -147,19 +152,6 @@ const AwardForm: NextPage<{
         outstandingAchievement: !outstanding,
       })
       .then(() => toggleOutstanding(!outstanding));
-  }
-
-  function updateCougarCommunityService() {
-    if (primaryTeachers.includes(teacher)) {
-      handlePrimaryCommunityServiceUpdate(id);
-    } else {
-      handleIntermediateCommunityServiceUpdate(id);
-    }
-    axios
-      .put(`students/${id}`, {
-        cougarCommunityService: !communityService,
-      })
-      .then(() => toggleCommunityService(!communityService));
   }
 
   function updateThreeR(e) {
@@ -226,6 +218,31 @@ const AwardForm: NextPage<{
     }
   }
 
+  function handleCommunityChange() {
+    if (primaryTeachers.includes(teacher) && role !== "admin") {
+      handlePrimaryCommunityServiceUpdate(id);
+    }
+    if (primaryTeachers.indexOf(teacher) === -1 && role !== "admin") {
+      handleIntermediateCommunityServiceUpdate(id);
+    }
+
+    if (communityServiceChooser === "null") {
+      axios.put(`students/${id}`, {
+        cougarCommunityService: true,
+        communityServiceChosenBy: userName,
+      });
+      toggleCommunityService(true);
+      setCommunityServiceChooser(userName);
+    } else if (communityServiceChooser === userName || role === "admin") {
+      axios.put(`students/${id}`, {
+        cougarCommunityService: false,
+        communityServiceChosenBy: "null",
+      });
+      toggleCommunityService(false);
+      setCommunityServiceChooser("null");
+    }
+  }
+
   const pastAwardsList = pastAwards.map((award) => (
     <li key={award}>{award}</li>
   ));
@@ -279,10 +296,10 @@ const AwardForm: NextPage<{
         type="checkbox"
         label="Cougar Community Service"
         id={`cougarCommunityService-${id}`}
-        onChange={updateCougarCommunityService}
+        onChange={handleCommunityChange}
         checked={communityService}
         disabled={
-          (role !== "admin" && userName !== "Mrs. Plummer") ||
+          (role !== "admin" && !recessSpecialists.includes(userName)) ||
           allIn ||
           outstanding ||
           terrific ||

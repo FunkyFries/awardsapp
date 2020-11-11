@@ -5,58 +5,61 @@ const Student = mongoose.model(
   "Students",
   new mongoose.Schema({
     _id: {
-      type: String
+      type: String,
     },
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     teacher: {
-      type: String
+      type: String,
     },
     allInAward: {
-      type: Boolean
+      type: Boolean,
     },
     outstandingAchievement: {
-      type: Boolean
+      type: Boolean,
     },
     wowAward: {
-      type: Boolean
+      type: Boolean,
     },
     cougarCommunityService: {
-      type: Boolean
+      type: Boolean,
+    },
+    communityServiceChosenBy: {
+      type: String,
     },
     ccsWriteup: {
-      type: String
+      type: String,
     },
     terrificKid: {
-      type: Boolean
+      type: Boolean,
     },
     terrificKidChosenBy: {
-      type: String
+      type: String,
     },
     terrificKidWriteUp: {
-      type: String
+      type: String,
     },
     threeR: {
-      type: String
+      type: String,
     },
     threeRwriteUp: {
-      type: String
+      type: String,
     },
     image: {
-      type: String
+      type: String,
     },
     acceleratedReader: {
-      type: Boolean
+      type: Boolean,
     },
     words: {
-      type: Number
+      type: Number,
     },
     pastAwards: {
-      type: Array
-    }
+      type: Array,
+    },
   })
 );
 
@@ -65,7 +68,7 @@ function validateStudent(student) {
     id: Joi.string().required(),
     name: Joi.string().required(),
     teacher: Joi.string().required(),
-    image: Joi.string().allow("")
+    image: Joi.string().allow(""),
   };
   return Joi.validate(student, schema);
 }
@@ -79,6 +82,7 @@ function validateUpdate(student) {
     outstandingAchievement: Joi.boolean(),
     wowAward: Joi.boolean(),
     cougarCommunityService: Joi.boolean(),
+    communityServiceChosenBy: Joi.string(),
     ccsWriteup: Joi.string(),
     terrificKid: Joi.boolean(),
     terrificKidChosenBy: Joi.string(),
@@ -87,7 +91,7 @@ function validateUpdate(student) {
     threeRwriteUp: Joi.string(),
     acceleratedReader: Joi.boolean(),
     words: Joi.number(),
-    pastAwards: Joi.array()
+    pastAwards: Joi.array(),
   };
   return Joi.validate(student, schema);
 }

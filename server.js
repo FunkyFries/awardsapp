@@ -254,19 +254,19 @@ app.prepare().then(() => {
   // schedule.scheduleJob("0 0 12 2 *", newQuarterJob);
   // schedule.scheduleJob("0 0 22 4 *", newQuarterJob);
 
-  // function addNewField() {
-  //   Student.bulkWrite([
-  //     {
-  //       updateMany: {
-  //         filter: { acceleratedReader: false },
-  //         update: { words: 0 }
-  //       }
-  //     }
-  //   ]);
-  //   console.log("updated!");
-  // }
+  function addNewField() {
+    Student.bulkWrite([
+      {
+        updateMany: {
+          filter: { cougarCommunityService: false },
+          update: { communityServiceChosenBy: "null" },
+        },
+      },
+    ]);
+    console.log("updated!");
+  }
 
-  // schedule.scheduleJob("5 * * * * *", addNewField);
+  schedule.scheduleJob("5 * * * * *", addNewField);
 
   // handling everything else with Next.js
   server.get("*", (req, res) => {
