@@ -79,7 +79,7 @@ const CommunityServiceCertificate: React.FC<{
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>
                 <ThreeRh5 style={{ marginTop: "1rem" }}>
-                  {student.communityServiceChosenBy}, Recess Specialist
+                  {student.communityServiceChosenBy}, Recess Specialists
                 </ThreeRh5>
               </ThreeRWriteupTeacherDiv>
             </ThreeRWriteupSignature>

@@ -416,7 +416,7 @@ const DisplayAwards: NextPage<{
                   />
                   <Form.Check
                     type="checkbox"
-                    label="All In Certificates"
+                    label="Living Free Certificates"
                     id="printAllInCertificates"
                     onChange={() => setPrintAllIn(!printAllIn)}
                     checked={printAllIn}
