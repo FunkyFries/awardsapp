@@ -39,12 +39,17 @@ const AllInCertificate: React.FC<{
           <ThreeRContainer style={{ flexWrap: "wrap" }}>
             <OutstandingOuterBorder>
               <OutstandingInnerBorder>
-                <AllInLogo src="/static/allinlogo.png" alt="All In Logo" />
+                <AllInLogo
+                  src="/static/livingfreeLogo.png"
+                  alt="Living Free Logo"
+                />
                 <AllInContainer>
                   <AllInH5 style={{ color: "#000" }}>
                     Frederickson Elementary
                   </AllInH5>
-                  <AllInH1 style={{ padding: "1rem 0" }}>All In Award</AllInH1>
+                  <AllInH1 style={{ padding: "1rem 0" }}>
+                    Living Free Award
+                  </AllInH1>
                   <AllInH5>is hereby granted to</AllInH5>
                   <ThreeRh2>{student.name}</ThreeRh2>
                   <AllInH5>
@@ -74,7 +79,7 @@ const AllInCertificate: React.FC<{
             </ThreeRLogoContainer>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <ThreeRWriteupTitle style={{ width: "100%" }}>
-                All In Award
+                Living Free Award
               </ThreeRWriteupTitle>
               <ThreeRh3 style={{ width: "100%" }}>{student.name}</ThreeRh3>
               <ThreeRWriteup>{student.threeRwriteUp}</ThreeRWriteup>

@@ -35,7 +35,7 @@ export const intermediateTeachers = [
 
 export const bandTeachers = ["Mrs. Kidd", "Mrs. Helle"];
 
-export const recessSpecialists = ["Mrs. Raab", "Mrs. Zaharevich"];
+export const recessSpecialists = ["Mrs. Raab & Mrs. Zaharevich"];
 
 export const specialists = [
   "Mr. Leach",

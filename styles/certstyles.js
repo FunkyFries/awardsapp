@@ -321,7 +321,7 @@ export const CommunityServiceStar = styled.img`
 export const AllInH1 = styled.h1`
   font-family: "Cormorant Garamond", serif;
   width: 100%;
-  font-size: 4.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #062f5f;
   text-align: center;
@@ -329,11 +329,10 @@ export const AllInH1 = styled.h1`
 `;
 
 export const AllInLogo = styled.img`
-  width: 40%;
+  width: 50%;
   display: flex;
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 2rem;
-  padding-left: 2rem;
 `;
 
 export const AllInContainer = styled.div`
@@ -342,7 +341,7 @@ export const AllInContainer = styled.div`
   text-align: center;
   padding-top: 4rem;
   padding-right: 2rem;
-  width: 60%;s
+  width: 50%;
 `;
 
 export const AllInCCS = styled.img`
