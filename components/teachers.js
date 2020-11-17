@@ -4,7 +4,7 @@ export const teachers = [
   "Ms. Nathanson",
   "Ms. Lang",
   "Mrs. Dilley",
-  "Mrs. Terpstra",
+  "Ms. Terpstra",
   "Mrs. Brar",
   "Mrs. Carroll",
   "Mrs. Haberman",
@@ -20,7 +20,7 @@ export const primaryTeachers = [
   "Ms. Nathanson",
   "Ms. Lang",
   "Mrs. Dilley",
-  "Mrs. Terpstra",
+  "Ms. Terpstra",
   "Mrs. Brar",
 ];
 
@@ -53,7 +53,7 @@ export function determineGrade(teacher) {
     return "Kindergarten";
   } else if (teacher === "Mrs. Dilley" || teacher === "Ms. Lang") {
     return "First Grade";
-  } else if (teacher === "Mrs. Terpstra" || teacher === "Mrs. Brar") {
+  } else if (teacher === "Ms. Terpstra" || teacher === "Mrs. Brar") {
     return "Second Grade";
   } else if (teacher === "Mrs. Haberman" || teacher === "Mrs. Carroll") {
     return "Third Grade";
