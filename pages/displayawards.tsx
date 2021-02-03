@@ -294,7 +294,7 @@ const DisplayAwards: NextPage<{
           teacher === "Ms. Nathanson"
         ) {
           grade = "Kindergarten";
-        } else if (teacher === "Mrs. Dilley" || teacher === "Ms. Lang") {
+        } else if (teacher === "Mrs. Dilley" || teacher === "Mrs. Estep") {
           grade = "First Grade";
         } else if (teacher === "Ms. Terpstra" || teacher === "Mrs. Brar") {
           grade = "Second Grade";
