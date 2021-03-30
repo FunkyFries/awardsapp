@@ -23,6 +23,7 @@ export const DisplayAwardsContainer = styled(Container)`
   background-color: #ffffff;
   overflow: visible;
   height: fit-content;
+  max-width: 95%;
   @media print {
     margin-left: 1cm;
     margin-right: 1cm;
