@@ -80,7 +80,7 @@ const WriteUpForm: React.FC<Student> = (student) => {
         <Form.Control
           id={student._id}
           as="textarea"
-          rows="3"
+          rows={3}
           placeholder="Write those super words here!"
           value={textValue}
           onChange={handleChange}
@@ -107,7 +107,7 @@ const WriteUpForm: React.FC<Student> = (student) => {
                 <Form.Control
                   required
                   as="textarea"
-                  rows="6"
+                  rows={6}
                   value={textValue}
                   onChange={handleChange}
                 ></Form.Control>

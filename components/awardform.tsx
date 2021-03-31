@@ -348,7 +348,7 @@ const AwardForm: NextPage<{
         centered
         onHide={() => setShowARModal(false)}
       >
-        <Modal.Header closeButton>
+        <Modal.Header translate="no" closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Accelerated Reader Words
           </Modal.Title>
