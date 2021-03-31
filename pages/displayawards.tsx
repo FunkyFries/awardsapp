@@ -34,7 +34,7 @@ import Form from "react-bootstrap/Form";
 let currentQuarter;
 if (moment().isBefore("2020-11-20")) {
   currentQuarter = "First Quarter";
-} else if (moment().isBefore("2021-02-12")) {
+} else if (moment().isBefore("2021-03-31")) {
   currentQuarter = "Second Quarter";
 } else if (moment().isBefore("2021-04-22")) {
   currentQuarter = "Third Quarter";
