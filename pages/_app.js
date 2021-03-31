@@ -1,5 +1,5 @@
 import React from "react";
-import App, { Container as NextContainer } from "next/app";
+import App from "next/app";
 import Head from "next/head";
 
 class MyApp extends App {
@@ -19,7 +19,7 @@ class MyApp extends App {
     super(props);
     this.state = {
       user: props.pageProps.user,
-      role: props.pageProps.role
+      role: props.pageProps.role,
     };
   }
 
@@ -29,14 +29,14 @@ class MyApp extends App {
     const props = {
       ...pageProps,
       user: this.state.user,
-      role: this.state.role
+      role: this.state.role,
     };
 
     return (
-      <NextContainer>
+      <>
         <Head />
         <Component {...props} />
-      </NextContainer>
+      </>
     );
   }
 }

@@ -102,9 +102,15 @@ const ThreeRCertificate: React.FC<{
             <ThreeRWriteup>{student.threeRwriteUp}</ThreeRWriteup>
             <ThreeRWriteupSignature>
               <ThreeRWriteupTeacherDiv>
-                <ThreeRh5 style={{ marginTop: "1rem" }}>
-                  {student.teacher}, {grade} Teacher
-                </ThreeRh5>
+                {student.teacher === "Mrs. Kasemeier" ? (
+                  <ThreeRh5 style={{ marginTop: "1rem" }}>
+                    Mrs. Kasemeier &#38; Ms. Lang, {grade} Teachers
+                  </ThreeRh5>
+                ) : (
+                  <ThreeRh5 style={{ marginTop: "1rem" }}>
+                    {student.teacher}, {grade} Teacher
+                  </ThreeRh5>
+                )}
               </ThreeRWriteupTeacherDiv>
             </ThreeRWriteupSignature>
           </ThreeRWriteupContainer>

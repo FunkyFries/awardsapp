@@ -34,7 +34,7 @@ import Form from "react-bootstrap/Form";
 let currentQuarter;
 if (moment().isBefore("2020-11-20")) {
   currentQuarter = "First Quarter";
-} else if (moment().isBefore("2021-02-12")) {
+} else if (moment().isBefore("2021-03-31")) {
   currentQuarter = "Second Quarter";
 } else if (moment().isBefore("2021-04-22")) {
   currentQuarter = "Third Quarter";
@@ -146,6 +146,47 @@ const DisplayAwards: NextPage<{
         outstanding = oustandingStudent.name;
       }
 
+      // Add Terrific Kid, Community Service, and AR awards to teacher table for printing
+
+      let terrificKids = terrificStudents.filter(
+        (student) => student.teacher === teacher
+      );
+      let terrific = (
+        <>
+          <td></td>
+          <td></td>
+        </>
+      );
+      if (terrificKids.length === 2) {
+        terrific = (
+          <>
+            <td>{terrificKids[0].name}</td>
+            <td>{terrificKids[1].name}</td>
+          </>
+        );
+      } else if (terrificKids.length === 1) {
+        terrific = (
+          <>
+            <td>{terrificKids[0].name}</td>
+            <td></td>
+          </>
+        );
+      }
+
+      let communityKid = communityServiceStudents.find(
+        (student) => student.teacher === teacher
+      );
+      let community;
+      if (communityKid) {
+        community = communityKid.name;
+      }
+
+      let arKid = ARstudents.find((student) => student.teacher === teacher);
+      let ar;
+      if (arKid) {
+        ar = arKid.name;
+      }
+
       return (
         <tr key={teacher}>
           <td>{teacher}</td>
@@ -154,6 +195,9 @@ const DisplayAwards: NextPage<{
           <td>{responsibility}</td>
           <td>{allIn}</td>
           <td>{outstanding}</td>
+          {terrific}
+          <td>{community}</td>
+          <td>{ar}</td>
         </tr>
       );
     });
@@ -485,7 +529,9 @@ const DisplayAwards: NextPage<{
             <StyledTable striped>
               <thead>
                 <tr>
-                  <TopTableHeader colSpan={6}>Cougar Awards</TopTableHeader>
+                  <TopTableHeader colSpan={10} className="d-print-none">
+                    Cougar Awards
+                  </TopTableHeader>
                 </tr>
                 <tr>
                   <th>Teacher</th>
@@ -494,12 +540,15 @@ const DisplayAwards: NextPage<{
                   <th>Responsibility</th>
                   <th>Living Free</th>
                   <th>Oustanding Achievement</th>
+                  <th colSpan={2}>Terrific Kid</th>
+                  <th>Community Service</th>
+                  <th>AR</th>
                 </tr>
               </thead>
               <tbody>{teacherRows}</tbody>
             </StyledTable>
             <PageBreak></PageBreak>
-            <StyledTable striped>
+            <StyledTable striped className="d-print-none">
               <thead>
                 <tr>
                   <TableHeader colSpan={5}>Terrific Kid Award</TableHeader>
@@ -512,7 +561,7 @@ const DisplayAwards: NextPage<{
               </thead>
               <tbody>{specialistRows}</tbody>
             </StyledTable>
-            <StyledTable striped>
+            <StyledTable striped className="d-print-none">
               <thead>
                 <tr>
                   <TableHeader colSpan={4}>Community Service Award</TableHeader>
@@ -525,7 +574,7 @@ const DisplayAwards: NextPage<{
               </thead>
               <tbody>{communityServiceRows}</tbody>
             </StyledTable>
-            <StyledTable striped>
+            <StyledTable striped className="d-print-none">
               <thead>
                 <tr>
                   <TableHeader colSpan={2}>AR Awards</TableHeader>
