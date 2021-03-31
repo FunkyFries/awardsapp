@@ -355,7 +355,7 @@ const AwardForm: NextPage<{
         </Modal.Header>
         <Modal.Body>
           <Form.Control
-            onChange={(e) => setWords(e.target.value)}
+            onChange={(e) => setWords(parseInt(e.target.value))}
             type="number"
             placeholder="Words"
             required
@@ -368,7 +368,6 @@ const AwardForm: NextPage<{
       <ThreeRDiv>
         <ThreeRLabel>Three R : </ThreeRLabel>
         <Form.Control
-          inline="true"
           as="select"
           id={`ThreeR-${id}`}
           value={threeRAward}
