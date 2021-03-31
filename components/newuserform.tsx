@@ -29,13 +29,13 @@ const NewUserForm: NextPage<{ addUser: any }> = ({ addUser }) => {
         name: newUserName,
         email: newUserEmail,
         role: newUserRole,
-        _id: newId
+        _id: newId,
       });
       axios.post("/users/", {
         name: newUserName,
         email: newUserEmail,
         role: newUserRole,
-        id: newId
+        id: newId,
       });
       setValidated(false);
       setNewUserName("");
@@ -76,7 +76,7 @@ const NewUserForm: NextPage<{ addUser: any }> = ({ addUser }) => {
               <Form.Control
                 required
                 value={newUserName}
-                onChange={e => setNewUserName(e.target.value)}
+                onChange={(e) => setNewUserName(e.target.value)}
               ></Form.Control>
               <Form.Control.Feedback type="invalid">
                 Name is required.
@@ -100,7 +100,6 @@ const NewUserForm: NextPage<{ addUser: any }> = ({ addUser }) => {
                 required
                 value={newUserRole}
                 as="select"
-                min="2"
                 onChange={(e: any) => setNewUserRole(e.target.value)}
               >
                 <option value="" defaultChecked></option>

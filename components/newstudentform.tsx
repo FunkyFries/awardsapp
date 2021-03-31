@@ -38,13 +38,13 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
         name: newStudentName,
         teacher: newStudentTeacher,
         image: newStudentImage,
-        _id: newId
+        _id: newId,
       });
       axios.post("/students/", {
         name: newStudentName,
         teacher: newStudentTeacher,
         image: newStudentImage,
-        id: newId
+        id: newId,
       });
       setValidated(false);
       setNewStudentName("");
@@ -87,7 +87,7 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
               <Form.Control
                 required
                 value={newStudentName}
-                onChange={e => setNewStudentName(e.target.value)}
+                onChange={(e) => setNewStudentName(e.target.value)}
               ></Form.Control>
               <Form.Control.Feedback type="invalid">
                 Student name required.
@@ -99,7 +99,6 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
                 required
                 as="select"
                 value={newStudentTeacher}
-                min="2"
                 onChange={(e: any) => setNewStudentTeacher(e.target.value)}
               >
                 <option value="" defaultChecked></option>
@@ -114,7 +113,7 @@ const NewStudentForm: NextPage<{ addStudent: any }> = ({ addStudent }) => {
               <Form.Control
                 id="newStudentImage"
                 value={newStudentImage}
-                onChange={e => setNewStudentImage(e.target.value)}
+                onChange={(e) => setNewStudentImage(e.target.value)}
               ></Form.Control>
             </Form.Group>
             <Button type="submit" variant="info">
