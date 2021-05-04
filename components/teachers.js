@@ -41,7 +41,7 @@ export const specialists = [
   "Mr. Leach",
   "Mr. Bloomstine",
   "Mrs. Sievers",
-  "Mr. Neptun",
+  "Ms. Perry",
 ];
 
 export function determineGrade(teacher) {

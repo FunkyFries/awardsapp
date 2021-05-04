@@ -36,7 +36,7 @@ if (moment().isBefore("2020-11-20")) {
   currentQuarter = "First Quarter";
 } else if (moment().isBefore("2021-03-10")) {
   currentQuarter = "Second Quarter";
-} else if (moment().isBefore("2021-04-22")) {
+} else if (moment().isBefore("2021-05-05")) {
   currentQuarter = "Third Quarter";
 } else {
   currentQuarter = "Fourth Quarter";
